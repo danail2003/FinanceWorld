@@ -8,7 +8,6 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Data.Repositories;
     using FinanceWorld.Data.Seeding;
-    using FinanceWorld.Services.Data;
     using FinanceWorld.Services.Mapping;
     using FinanceWorld.Services.Messaging;
     using FinanceWorld.Web.ViewModels;
@@ -64,7 +63,6 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
