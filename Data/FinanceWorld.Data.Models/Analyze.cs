@@ -1,6 +1,7 @@
 ﻿namespace FinanceWorld.Data.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using FinanceWorld.Data.Common.Models;
@@ -10,8 +11,11 @@
         public Analyze()
             => this.Id = Guid.NewGuid().ToString();
 
+        [Required]
+        [MaxLength(50)]
         public string Title { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
         public string AddedByUserId { get; set; }
