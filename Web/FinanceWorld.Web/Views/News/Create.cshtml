@@ -1,0 +1,26 @@
+﻿@model FinanceWorld.Web.ViewModels.News.CreateNewsInputModel
+@{ 
+    this.ViewData["Title"] = "Create News";
+    var items = Model.Categories.Select(x => new SelectListItem(x.Value, x.Key));
+}
+
+<form method="post">
+    <h1>@this.ViewData["Title"]</h1>
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Content">Content</label>
+        <input asp-for="Content" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl">Image</label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId" asp-items="items" class="form-control"></select>
+    </div>
+    <input type="submit" value="Submit" />
+</form>

@@ -18,10 +18,7 @@
         [Required]
         public string Content { get; set; }
 
-        [ForeignKey(nameof(Image))]
-        public string ImageId { get; set; }
-
-        public virtual Image Image { get; set; }
+        public string ImageUrl { get; set; }
 
         [ForeignKey(nameof(AddedByUser))]
         public string AddedByUserId { get; set; }

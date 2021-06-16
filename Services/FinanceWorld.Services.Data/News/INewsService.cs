@@ -7,7 +7,7 @@
 
     public interface INewsService
     {
-        Task CreateAsync(CreateNewsDto dto, string userId, string path);
+        Task CreateAsync(CreateNewsDto dto, string userId);
 
         IEnumerable<T> GetAll<T>();
 

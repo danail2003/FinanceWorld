@@ -18,7 +18,7 @@
             this.newsRepository = newsRepository;
         }
 
-        public async Task CreateAsync(CreateNewsDto dto, string userId, string path)
+        public async Task CreateAsync(CreateNewsDto dto, string userId)
         {
             await this.newsRepository.AddAsync(new News
             {
@@ -26,6 +26,7 @@
                 Title = dto.Title,
                 CategoryId = dto.CategoryId,
                 Content = dto.Content,
+                ImageUrl = dto.ImageUrl,
             });
 
             await this.newsRepository.SaveChangesAsync();
