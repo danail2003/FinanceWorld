@@ -13,7 +13,7 @@
 
         public int CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
 
         [Required]
         public string Content { get; set; }
@@ -23,6 +23,6 @@
         [ForeignKey(nameof(AddedByUser))]
         public string AddedByUserId { get; set; }
 
-        public virtual ApplicationUser AddedByUser { get; set; }
+        public ApplicationUser AddedByUser { get; set; }
     }
 }

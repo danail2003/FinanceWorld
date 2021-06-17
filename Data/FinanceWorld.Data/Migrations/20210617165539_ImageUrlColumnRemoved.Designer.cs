@@ -4,14 +4,16 @@ using FinanceWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinanceWorld.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210617165539_ImageUrlColumnRemoved")]
+    partial class ImageUrlColumnRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -278,6 +280,9 @@ namespace FinanceWorld.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("NewsId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddedByUserId");
@@ -285,6 +290,8 @@ namespace FinanceWorld.Data.Migrations
                     b.HasIndex("AnalyzeId");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("NewsId");
 
                     b.ToTable("Images");
                 });
@@ -475,9 +482,17 @@ namespace FinanceWorld.Data.Migrations
                         .WithMany()
                         .HasForeignKey("AnalyzeId");
 
+                    b.HasOne("FinanceWorld.Data.Models.News", "News")
+                        .WithMany()
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("AddedByUser");
 
                     b.Navigation("Analyze");
+
+                    b.Navigation("News");
                 });
 
             modelBuilder.Entity("FinanceWorld.Data.Models.News", b =>

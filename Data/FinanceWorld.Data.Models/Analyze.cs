@@ -20,11 +20,11 @@
 
         public string AddedByUserId { get; set; }
 
-        public virtual ApplicationUser AddedByUser { get; set; }
+        public ApplicationUser AddedByUser { get; set; }
 
         [ForeignKey(nameof(Image))]
         public string ImageId { get; set; }
 
-        public virtual Image Image { get; set; }
+        public Image Image { get; set; }
     }
 }

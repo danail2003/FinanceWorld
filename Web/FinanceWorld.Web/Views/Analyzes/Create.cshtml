@@ -1,0 +1,21 @@
+﻿@model FinanceWorld.Web.ViewModels.Analyzes.CreateAnalyzeInputModel
+@{
+    this.ViewData["Title"] = "Create Analyze";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <h1>@this.ViewData["Title"]</h1>
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image">Image</label>
+        <input asp-for="Image" class="form-control" />
+    </div>
+    <input type="submit" value="Submit" />
+</form>

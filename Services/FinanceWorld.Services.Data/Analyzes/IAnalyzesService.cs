@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Web.ViewModels.Analyzes;
+
     public interface IAnalyzesService
     {
-        Task CreateAsync<T>(T model, string userId, string path);
+        Task CreateAsync(CreateAnalyzeInputModel model, string userId, string path);
 
         IEnumerable<T> GetAll<T>();
 

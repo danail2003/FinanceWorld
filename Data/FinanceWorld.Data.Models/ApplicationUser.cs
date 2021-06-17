@@ -23,18 +23,18 @@ namespace FinanceWorld.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public virtual ICollection<IdentityUserRole<string>> Roles { get; set; } = new HashSet<IdentityUserRole<string>>();
+        public ICollection<IdentityUserRole<string>> Roles { get; set; } = new HashSet<IdentityUserRole<string>>();
 
-        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; } = new HashSet<IdentityUserClaim<string>>();
+        public ICollection<IdentityUserClaim<string>> Claims { get; set; } = new HashSet<IdentityUserClaim<string>>();
 
-        public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; } = new HashSet<IdentityUserLogin<string>>();
+        public ICollection<IdentityUserLogin<string>> Logins { get; set; } = new HashSet<IdentityUserLogin<string>>();
 
-        public virtual ICollection<News> News { get; set; } = new HashSet<News>();
+        public ICollection<News> News { get; set; } = new HashSet<News>();
 
-        public virtual ICollection<Analyze> Analyzes { get; set; } = new HashSet<Analyze>();
+        public ICollection<Analyze> Analyzes { get; set; } = new HashSet<Analyze>();
 
-        public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
+        public ICollection<Image> Images { get; set; } = new HashSet<Image>();
 
-        public virtual ICollection<Dictionary> Dictionaries { get; set; } = new HashSet<Dictionary>();
+        public ICollection<Dictionary> Dictionaries { get; set; } = new HashSet<Dictionary>();
     }
 }

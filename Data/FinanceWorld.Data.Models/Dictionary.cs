@@ -22,6 +22,6 @@
         [ForeignKey(nameof(AddedByUser))]
         public string AddedByUserId { get; set; }
 
-        public virtual ApplicationUser AddedByUser { get; set; }
+        public ApplicationUser AddedByUser { get; set; }
     }
 }

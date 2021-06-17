@@ -8,6 +8,7 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Data.Repositories;
     using FinanceWorld.Data.Seeding;
+    using FinanceWorld.Services.Data.Analyzes;
     using FinanceWorld.Services.Data.Categories;
     using FinanceWorld.Services.Data.Dictionaries;
     using FinanceWorld.Services.Data.News;
@@ -69,6 +70,7 @@
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDictionariesService, DictionariesService>();
+            services.AddTransient<IAnalyzesService, AnalyzesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

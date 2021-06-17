@@ -11,6 +11,6 @@
         [MaxLength(20)]
         public string Name { get; set; }
 
-        public virtual ICollection<News> News { get; set; } = new HashSet<News>();
+        public ICollection<News> News { get; set; } = new HashSet<News>();
     }
 }
