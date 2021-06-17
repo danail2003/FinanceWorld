@@ -1,4 +1,4 @@
-﻿namespace FinanceWorld.Services.Data.News
+﻿namespace FinanceWorld.Services.Data.Dictionaries
 {
     using System;
     using System.Collections.Generic;
@@ -8,25 +8,23 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
 
-    public class NewsService : INewsService
+    public class DictionariesService : IDictionariesService
     {
-        private readonly IDeletableEntityRepository<News> newsRepository;
+        private readonly IDeletableEntityRepository<Dictionary> dictionaryRepository;
 
-        public NewsService(IDeletableEntityRepository<News> newsRepository)
-            => this.newsRepository = newsRepository;
+        public DictionariesService(IDeletableEntityRepository<Dictionary> dictionaryRepository)
+            => this.dictionaryRepository = dictionaryRepository;
 
-        public async Task CreateAsync(CreateNewsDto dto, string userId)
+        public async Task CreateAsync(CreateDictionaryDto dto, string userId)
         {
-            await this.newsRepository.AddAsync(new News
+            await this.dictionaryRepository.AddAsync(new Dictionary
             {
+                Name = dto.Name,
+                Description = dto.Description,
                 AddedByUserId = userId,
-                Title = dto.Title,
-                CategoryId = dto.CategoryId,
-                Content = dto.Content,
-                ImageUrl = dto.ImageUrl,
             });
 
-            await this.newsRepository.SaveChangesAsync();
+            await this.dictionaryRepository.SaveChangesAsync();
         }
 
         public Task DeleteAsync(int id)

@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Services.Data.Models;
+
     public interface IDictionariesService
     {
-        Task CreateAsync<T>(T model, string userId, string path);
+        Task CreateAsync(CreateDictionaryDto dto, string userId);
 
         IEnumerable<T> GetAll<T>();
 
