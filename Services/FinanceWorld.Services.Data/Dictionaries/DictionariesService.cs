@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using FinanceWorld.Data.Common.Repositories;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
+    using FinanceWorld.Services.Mapping;
 
     public class DictionariesService : IDictionariesService
     {
@@ -34,7 +36,7 @@
 
         public IEnumerable<T> GetAll<T>()
         {
-            throw new NotImplementedException();
+            return this.dictionaryRepository.AllAsNoTracking().OrderBy(x => x.Name).To<T>().ToList();
         }
 
         public T GetById<T>(int id)

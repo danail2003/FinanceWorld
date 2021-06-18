@@ -1,0 +1,15 @@
+﻿@model FinanceWorld.Web.ViewModels.Dictionaries.DictionaryListViewModel
+@{ 
+    this.ViewData["Title"] = "Financial terms";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+<div>
+    @foreach (var term in Model.Terms)
+    {
+        <div>
+            <p>@term.Name</p>
+            <a asp-route-id="@term.Id">Learn</a>
+        </div>
+    }
+</div>

@@ -36,5 +36,12 @@
 
             return this.Redirect("/");
         }
+
+        public IActionResult List()
+        {
+            var dictionary = this.dictionariesService.GetAll<DictionaryListDto>();
+
+            return this.View(dictionary);
+        }
     }
 }
