@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using FinanceWorld.Services.Data.Models;
+    using FinanceWorld.Web.ViewModels.Dictionaries;
 
     public interface IDictionariesService
     {

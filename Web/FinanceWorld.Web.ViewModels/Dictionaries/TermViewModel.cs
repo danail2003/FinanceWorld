@@ -1,6 +1,9 @@
 ﻿namespace FinanceWorld.Web.ViewModels.Dictionaries
 {
-    public class TermViewModel
+    using FinanceWorld.Data.Models;
+    using FinanceWorld.Services.Mapping;
+
+    public class TermViewModel : IMapFrom<Dictionary>
     {
         public string Id { get; set; }
 

@@ -9,6 +9,7 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Services.Mapping;
+    using FinanceWorld.Web.ViewModels.Dictionaries;
 
     public class DictionariesService : IDictionariesService
     {

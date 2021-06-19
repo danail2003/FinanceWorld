@@ -8,6 +8,7 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Dictionaries;
     using FinanceWorld.Services.Data.Models;
+    using FinanceWorld.Web.ViewModels.Dictionaries;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -39,9 +40,12 @@
 
         public IActionResult List()
         {
-            var dictionary = this.dictionariesService.GetAll<DictionaryListDto>();
+            var viewModel = new DictionaryListViewModel
+            {
+                Terms = this.dictionariesService.GetAll<TermViewModel>(),
+            };
 
-            return this.View(dictionary);
+            return this.View(viewModel);
         }
     }
 }

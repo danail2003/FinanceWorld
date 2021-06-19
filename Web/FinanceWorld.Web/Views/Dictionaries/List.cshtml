@@ -7,9 +7,6 @@
 <div>
     @foreach (var term in Model.Terms)
     {
-        <div>
-            <p>@term.Name</p>
-            <a asp-route-id="@term.Id">Learn</a>
-        </div>
+        <a asp-route-id="@term.Id">@term.Name</a>
     }
 </div>
