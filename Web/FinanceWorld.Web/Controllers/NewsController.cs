@@ -48,5 +48,15 @@
 
             return this.Redirect("/");
         }
+
+        public IActionResult All()
+        {
+            var viewModel = new AllNewsViewModel
+            {
+                News = this.newsService.GetAll<NewsViewModel>(),
+            };
+
+            return this.View(viewModel);
+        }
     }
 }
