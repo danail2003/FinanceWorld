@@ -40,7 +40,7 @@
 
             try
             {
-                await this.analyzesService.CreateAsync(model, user.Id, $"{this.environment.WebRootPath}/analyzes");
+                await this.analyzesService.CreateAsync(model, user.Id, $"{this.environment.WebRootPath}/images");
             }
             catch (Exception ex)
             {
@@ -48,6 +48,16 @@
             }
 
             return this.Redirect("/");
+        }
+
+        public IActionResult All()
+        {
+            var viewModel = new AllAnalyzesViewModel
+            {
+                Analyzes = this.analyzesService.GetAll<AnalyzesViewModel>(),
+            };
+
+            return this.View(viewModel);
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿@model FinanceWorld.Web.ViewModels.Analyzes.AllAnalyzesViewModel
+@{ 
+    this.ViewData["Title"] = "Analyzes";
+}
+
+<h1>@this.ViewData["Tilte"]</h1>
+<hr />
+<div class="row">
+    @foreach (var analyze in Model.Analyzes)
+    {
+        <div class="card col-md-3 mb-3" style="width: 18rem;">
+            <img src="@analyze.Image" class="card-img-top pt-3" alt="@analyze.Title">
+            <div class="card-body">
+                <h5 class="card-title">@analyze.Title</h5>
+                <p class="card-text">@analyze.Description</p>
+                <p class="card-text">@analyze.AddedByUserUserName</p>
+                <a asp-action="ById" asp-route-id="@analyze.Id" class="btn btn-primary">Go To News</a>
+            </div>
+        </div>
+    }
+</div>

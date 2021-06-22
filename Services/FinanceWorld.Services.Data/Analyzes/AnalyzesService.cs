@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
     using FinanceWorld.Data.Common.Repositories;
     using FinanceWorld.Data.Models;
+    using FinanceWorld.Services.Mapping;
     using FinanceWorld.Web.ViewModels.Analyzes;
 
     public class AnalyzesService : IAnalyzesService
@@ -25,6 +25,7 @@
             {
                 Title = model.Title,
                 Description = model.Description,
+                AddedByUserId = userId,
             };
 
             Directory.CreateDirectory($"{path}/analyzes/");
@@ -59,7 +60,7 @@
 
         public IEnumerable<T> GetAll<T>()
         {
-            throw new NotImplementedException();
+            return this.analyzesRepository.AllAsNoTracking().To<T>().ToList();
         }
 
         public T GetById<T>(int id)
