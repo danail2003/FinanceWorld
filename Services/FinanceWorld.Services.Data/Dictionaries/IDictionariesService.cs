@@ -12,7 +12,7 @@
 
         IEnumerable<T> GetAll<T>();
 
-        T GetById<T>(int id);
+        T GetById<T>(string id);
 
         Task UpdateAsync(int id);
 

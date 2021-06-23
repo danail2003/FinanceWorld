@@ -47,5 +47,12 @@
 
             return this.View(viewModel);
         }
+
+        public IActionResult ById(string id)
+        {
+            var viewModel = this.dictionariesService.GetById<TermByIdViewModel>(id);
+
+            return this.View(viewModel);
+        }
     }
 }

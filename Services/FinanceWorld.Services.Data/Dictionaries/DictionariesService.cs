@@ -9,7 +9,6 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Services.Mapping;
-    using FinanceWorld.Web.ViewModels.Dictionaries;
 
     public class DictionariesService : IDictionariesService
     {
@@ -40,9 +39,9 @@
             return this.dictionaryRepository.AllAsNoTracking().OrderBy(x => x.Name).To<T>().ToList();
         }
 
-        public T GetById<T>(int id)
+        public T GetById<T>(string id)
         {
-            throw new NotImplementedException();
+            return this.dictionaryRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
 
         public Task UpdateAsync(int id)

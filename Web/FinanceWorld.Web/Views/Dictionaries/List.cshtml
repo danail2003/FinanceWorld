@@ -7,6 +7,6 @@
 <div>
     @foreach (var term in Model.Terms)
     {
-        <a asp-route-id="@term.Id">@term.Name</a>
+        <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
     }
 </div>
