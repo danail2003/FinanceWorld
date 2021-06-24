@@ -3,18 +3,28 @@
     this.ViewData["Title"] = "News";
 }
 
-<h1>@this.ViewData["Title"]</h1>
+<h1 class="mt-3 text-center">@this.ViewData["Title"]</h1>
 <hr />
 <div class="row">
     @foreach (var news in Model.News)
     {
-        <div class="card col-md-3 mb-3" style="width: 18rem;">
-            <img src="@news.ImageUrl" class="card-img-top pt-3" alt="@news.Title">
-            <div class="card-body">
-                <h5 class="card-title">@news.Title</h5>
-                <p class="card-text">@news.CategoryName</p>
-                <a asp-action="ById" asp-route-id="@news.Id" class="btn btn-primary">Go To News</a>
+        <div class="col-sm-2 grid-margin">
+            <div class="position-relative">
+                <div class="rotate-img">
+                    <img src="@news.ImageUrl" alt="@news.Title" class="img-fluid">
+                </div>
             </div>
+        </div>
+        <div class="col-sm-4  grid-margin">
+            <h2 class="mb-1 font-weight-600">
+                <a asp-action="ById" asp-route-id="@news.Id">@news.Title</a>
+            </h2>
+            <div class="fs-13 mb-2">
+                <span class="mr-2">@news.CategoryName </span>@news.CreatedOnFormatted
+            </div>
+            <p class="mb-0" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+                @news.Content
+            </p>
         </div>
     }
 </div>

@@ -43,7 +43,7 @@
 
         public T GetById<T>(int id)
         {
-            throw new NotImplementedException();
+            return this.newsRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
 
         public Task UpdateAsync(int id)

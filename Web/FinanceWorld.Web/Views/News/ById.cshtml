@@ -1,0 +1,10 @@
+﻿@model FinanceWorld.Web.ViewModels.News.NewsByIdViewModel
+@{ 
+    this.ViewData["Title"] = Model.Title;
+}
+
+<h1>@Model.Title</h1>
+<p>@Model.CategoryName</p>
+<hr />
+<img src="@Model.ImageUrl" />
+<p>@Model.Content</p>

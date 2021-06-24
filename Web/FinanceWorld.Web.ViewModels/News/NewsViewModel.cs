@@ -1,5 +1,7 @@
 ﻿namespace FinanceWorld.Web.ViewModels.News
 {
+    using System;
+
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Mapping;
 
@@ -17,6 +19,8 @@
 
         public string ImageUrl { get; set; }
 
-        public string AddedByUserId { get; set; }
+        public string CreatedOnFormatted => this.CreatedOn.ToString("d");
+
+        public DateTime CreatedOn { get; set; }
     }
 }

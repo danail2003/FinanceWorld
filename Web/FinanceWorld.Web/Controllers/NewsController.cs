@@ -58,5 +58,12 @@
 
             return this.View(viewModel);
         }
+
+        public IActionResult ById(int id)
+        {
+            var viewModel = this.newsService.GetById<NewsByIdViewModel>(id);
+
+            return this.View(viewModel);
+        }
     }
 }
