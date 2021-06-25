@@ -31,9 +31,13 @@
             await this.newsRepository.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
+
+            this.newsRepository.Delete(news);
+
+            await this.newsRepository.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAll<T>()

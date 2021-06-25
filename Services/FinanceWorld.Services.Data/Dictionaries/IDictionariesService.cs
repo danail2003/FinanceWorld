@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using FinanceWorld.Services.Data.Models;
-    using FinanceWorld.Web.ViewModels.Dictionaries;
 
     public interface IDictionariesService
     {
@@ -13,9 +12,5 @@
         IEnumerable<T> GetAll<T>();
 
         T GetById<T>(string id);
-
-        Task UpdateAsync(int id);
-
-        Task DeleteAsync(int id);
     }
 }

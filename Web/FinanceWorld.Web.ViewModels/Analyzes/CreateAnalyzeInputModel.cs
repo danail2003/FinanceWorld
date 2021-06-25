@@ -1,9 +1,6 @@
 ﻿namespace FinanceWorld.Web.ViewModels.Analyzes
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     using Microsoft.AspNetCore.Http;
 

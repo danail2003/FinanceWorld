@@ -6,6 +6,8 @@
 
     public class AnalyzesViewModel : IMapFrom<Analyze>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

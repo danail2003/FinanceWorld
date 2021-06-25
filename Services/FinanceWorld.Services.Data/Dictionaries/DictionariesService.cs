@@ -1,6 +1,5 @@
 ﻿namespace FinanceWorld.Services.Data.Dictionaries
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -29,11 +28,6 @@
             await this.dictionaryRepository.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<T> GetAll<T>()
         {
             return this.dictionaryRepository.AllAsNoTracking().OrderBy(x => x.Name).To<T>().ToList();
@@ -42,11 +36,6 @@
         public T GetById<T>(string id)
         {
             return this.dictionaryRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
-        }
-
-        public Task UpdateAsync(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

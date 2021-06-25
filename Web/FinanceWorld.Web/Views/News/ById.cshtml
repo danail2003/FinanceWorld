@@ -3,8 +3,9 @@
     this.ViewData["Title"] = Model.Title;
 }
 
-<h1>@Model.Title</h1>
+<h1 class="text-center mt-3">@Model.Title</h1>
 <p>@Model.CategoryName</p>
 <hr />
 <img src="@Model.ImageUrl" />
 <p>@Model.Content</p>
+<button class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</button>

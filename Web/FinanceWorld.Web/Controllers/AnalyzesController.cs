@@ -1,13 +1,12 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Analyzes;
     using FinanceWorld.Web.ViewModels.Analyzes;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -55,6 +54,27 @@
             var viewModel = new AllAnalyzesViewModel
             {
                 Analyzes = this.analyzesService.GetAll<AnalyzesViewModel>(),
+            };
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.analyzesService.DeleteAsync(id);
+
+            return this.Redirect("/Analyzes/All");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> AnalyzesById()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var viewModel = new AllAnalyzesViewModel
+            {
+                Analyzes = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>(user.Id),
             };
 
             return this.View(viewModel);

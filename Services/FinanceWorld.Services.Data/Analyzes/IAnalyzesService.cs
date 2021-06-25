@@ -15,6 +15,8 @@
 
         Task UpdateAsync(int id);
 
-        Task DeleteAsync(int id);
+        Task DeleteAsync(string id);
+
+        IEnumerable<T> GetMyAnalyzes<T>(string userId);
     }
 }

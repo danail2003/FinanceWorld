@@ -53,9 +53,13 @@
             await this.analyzesRepository.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            var analyze = this.analyzesRepository.All().FirstOrDefault(x => x.Id == id);
+
+            this.analyzesRepository.Delete(analyze);
+
+            await this.analyzesRepository.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAll<T>()
@@ -66,6 +70,11 @@
         public T GetById<T>(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<T> GetMyAnalyzes<T>(string userId)
+        {
+            return this.analyzesRepository.All().Where(x => x.AddedByUserId == userId).To<T>().ToList();
         }
 
         public Task UpdateAsync(int id)

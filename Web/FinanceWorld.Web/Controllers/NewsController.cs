@@ -65,5 +65,12 @@
 
             return this.View(viewModel);
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.newsService.DeleteAsync(id);
+
+            return this.Redirect("/News/All");
+        }
     }
 }

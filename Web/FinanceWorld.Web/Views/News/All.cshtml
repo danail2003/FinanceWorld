@@ -20,9 +20,9 @@
                 <a asp-action="ById" asp-route-id="@news.Id">@news.Title</a>
             </h2>
             <div class="fs-13 mb-2">
-                <span class="mr-2">@news.CategoryName </span>@news.CreatedOnFormatted
+                <span class="mr-2">@news.CategoryName </span>Added: @news.CreatedOnFormatted
             </div>
-            <p class="mb-0" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+            <p class="pb-1" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
                 @news.Content
             </p>
         </div>
