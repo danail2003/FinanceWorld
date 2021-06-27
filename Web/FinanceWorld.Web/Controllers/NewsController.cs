@@ -10,6 +10,7 @@
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Services.Data.News;
     using FinanceWorld.Web.ViewModels.News;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -69,6 +70,26 @@
         public async Task<IActionResult> Delete(int id)
         {
             await this.newsService.DeleteAsync(id);
+
+            return this.Redirect("/News/All");
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var viewModel = this.newsService.GetById<EditNewsViewModel>(id);
+            var categories = this.categoriesService.GetCategories();
+
+            viewModel.Categories = categories;
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, EditNewsViewModel model)
+        {
+            await this.newsService.UpdateAsync(id, model);
 
             return this.Redirect("/News/All");
         }

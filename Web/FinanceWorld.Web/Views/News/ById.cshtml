@@ -8,4 +8,5 @@
 <hr />
 <img src="@Model.ImageUrl" />
 <p>@Model.Content</p>
+<a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
 <button class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</button>

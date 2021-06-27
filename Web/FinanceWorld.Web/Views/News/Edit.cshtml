@@ -1,0 +1,26 @@
+﻿@model FinanceWorld.Web.ViewModels.News.EditNewsViewModel
+@{ 
+    this.ViewData["Title"] = "Edit news";
+    var items = Model.Categories.Select(x => new SelectListItem(x.Value, x.Key));
+}
+
+<h1 class="text-center">@this.ViewData["Tilte"]</h1>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Content">Content</label>
+        <textarea asp-for="Content" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl">Image</label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId" asp-items="items" class="form-control"></select>
+    </div>
+    <input type="submit" value="Submit" />
+</form>

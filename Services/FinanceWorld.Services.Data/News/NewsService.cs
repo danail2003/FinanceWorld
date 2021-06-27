@@ -1,6 +1,5 @@
 ﻿namespace FinanceWorld.Services.Data.News
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -9,6 +8,7 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Services.Mapping;
+    using FinanceWorld.Web.ViewModels.News;
 
     public class NewsService : INewsService
     {
@@ -50,9 +50,16 @@
             return this.newsRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
 
-        public Task UpdateAsync(int id)
+        public async Task UpdateAsync(int id, EditNewsViewModel model)
         {
-            throw new NotImplementedException();
+            var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
+
+            news.ImageUrl = model.ImageUrl;
+            news.Title = model.Title;
+            news.Content = model.Content;
+            news.CategoryId = model.CategoryId;
+
+            await this.newsRepository.SaveChangesAsync();
         }
     }
 }

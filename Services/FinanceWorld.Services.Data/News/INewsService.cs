@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using FinanceWorld.Services.Data.Models;
+    using FinanceWorld.Web.ViewModels.News;
 
     public interface INewsService
     {
@@ -13,7 +14,7 @@
 
         T GetById<T>(int id);
 
-        Task UpdateAsync(int id);
+        Task UpdateAsync(int id, EditNewsViewModel model);
 
         Task DeleteAsync(int id);
     }
