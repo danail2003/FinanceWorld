@@ -79,5 +79,36 @@
 
             return this.View(viewModel);
         }
+
+        [Authorize]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (!this.analyzesService.IsAnalyzeAndUserMatch(id, user.Id))
+            {
+                return this.Redirect("/Error");
+            }
+
+            var viewModel = this.analyzesService.GetById<AnalyzesByIdViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, EditAnalyzesViewModel model)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (!this.analyzesService.IsAnalyzeAndUserMatch(id, user.Id))
+            {
+                return this.Redirect("/Error");
+            }
+
+            await this.analyzesService.UpdateAsync(id, model);
+
+            return this.Redirect("/Analyzes/All");
+        }
     }
 }

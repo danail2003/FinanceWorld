@@ -11,12 +11,14 @@
 
         IEnumerable<T> GetAll<T>();
 
-        T GetById<T>(int id);
+        T GetById<T>(string id);
 
-        Task UpdateAsync(int id);
+        Task UpdateAsync(string id, EditAnalyzesViewModel model);
 
         Task DeleteAsync(string id);
 
         IEnumerable<T> GetMyAnalyzes<T>(string userId);
+
+        bool IsAnalyzeAndUserMatch(string id, string userId);
     }
 }

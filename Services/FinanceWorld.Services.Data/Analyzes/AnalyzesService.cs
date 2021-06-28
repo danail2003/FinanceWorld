@@ -67,9 +67,9 @@
             return this.analyzesRepository.AllAsNoTracking().To<T>().ToList();
         }
 
-        public T GetById<T>(int id)
+        public T GetById<T>(string id)
         {
-            throw new NotImplementedException();
+            return this.analyzesRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
 
         public IEnumerable<T> GetMyAnalyzes<T>(string userId)
@@ -77,9 +77,19 @@
             return this.analyzesRepository.All().Where(x => x.AddedByUserId == userId).To<T>().ToList();
         }
 
-        public Task UpdateAsync(int id)
+        public bool IsAnalyzeAndUserMatch(string id, string userId)
         {
-            throw new NotImplementedException();
+            return this.analyzesRepository.AllAsNoTracking().Any(x => x.AddedByUserId == userId && x.Id == id);
+        }
+
+        public async Task UpdateAsync(string id, EditAnalyzesViewModel model)
+        {
+            var analyze = this.analyzesRepository.All().FirstOrDefault(x => x.Id == id);
+
+            analyze.Title = model.Title;
+            analyze.Description = model.Description;
+
+            await this.analyzesRepository.SaveChangesAsync();
         }
     }
 }
