@@ -35,6 +35,11 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateAnalyzeInputModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("/Error");
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             try
@@ -95,10 +100,15 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(string id, EditAnalyzesViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("/Error");
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             if (!this.analyzesService.IsAnalyzeAndUserMatch(id, user.Id))

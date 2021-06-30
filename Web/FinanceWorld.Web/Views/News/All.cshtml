@@ -8,24 +8,13 @@
 <div class="row">
     @foreach (var news in Model.News)
     {
-        <div class="col-sm-2 grid-margin">
-            <div class="position-relative">
-                <div class="rotate-img">
-                    <img src="@news.ImageUrl" alt="@news.Title" class="img-fluid">
-                </div>
+        <div class="card col-md-3 mb-3" style="width: 18rem;">
+            <img src="@news.ImageUrl" class="card-img-top pt-3" alt="@news.Title">
+            <div class="card-body">
+                <h5 class="card-title">@news.Title</h5>
+                <p class="card-text">@news.CategoryName</p>
+                <a asp-action="ById" asp-route-id="@news.Id" class="btn btn-primary">Go To News</a>
             </div>
-        </div>
-        <div class="col-sm-4  grid-margin">
-            <h2 class="mb-1 font-weight-600">
-                @news.Title
-                <a class="stretched-link" asp-action="ById" asp-route-id="@news.Id"></a>
-            </h2>
-            <div class="fs-13 mb-2">
-                <span class="mr-2">@news.CategoryName </span>Added: @news.CreatedOnFormatted
-            </div>
-            <p class="pb-1 text-truncate">
-                @news.Content
-            </p>
         </div>
     }
 </div>

@@ -31,6 +31,11 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateDictionaryDto dto)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("/Error");
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             await this.dictionariesService.CreateAsync(dto, user.Id);

@@ -9,14 +9,17 @@
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" />
+        <span class="text-danger" asp-validation-for="Title"></span>
     </div>
     <div class="form-group">
         <label asp-for="Content">Content</label>
         <textarea asp-for="Content" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Content"></span>
     </div>
     <div class="form-group">
         <label asp-for="ImageUrl">Image</label>
         <input asp-for="ImageUrl" class="form-control" />
+        <span class="text-danger" asp-validation-for="ImageUrl"></span>
     </div>
     <div class="form-group">
         <label asp-for="CategoryId">Category</label>

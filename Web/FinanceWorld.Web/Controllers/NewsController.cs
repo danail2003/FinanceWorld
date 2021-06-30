@@ -43,6 +43,11 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateNewsDto dto)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("/Error");
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             await this.newsService.CreateAsync(dto, user.Id);
@@ -67,6 +72,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await this.newsService.DeleteAsync(id);
@@ -89,6 +95,11 @@
         [Authorize]
         public async Task<IActionResult> Edit(int id, EditNewsViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("/Error");
+            }
+
             await this.newsService.UpdateAsync(id, model);
 
             return this.Redirect("/News/All");
