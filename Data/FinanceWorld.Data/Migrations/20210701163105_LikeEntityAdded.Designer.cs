@@ -4,14 +4,16 @@ using FinanceWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinanceWorld.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210701163105_LikeEntityAdded")]
+    partial class LikeEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,9 +298,6 @@ namespace FinanceWorld.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AddedByUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("AnalyzeId")
                         .HasColumnType("nvarchar(450)");
 
@@ -317,13 +316,16 @@ namespace FinanceWorld.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("AddedByUserId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AnalyzeId");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Likes");
                 });
@@ -521,17 +523,17 @@ namespace FinanceWorld.Data.Migrations
 
             modelBuilder.Entity("FinanceWorld.Data.Models.Like", b =>
                 {
-                    b.HasOne("FinanceWorld.Data.Models.ApplicationUser", "AddedByUser")
-                        .WithMany()
-                        .HasForeignKey("AddedByUserId");
-
                     b.HasOne("FinanceWorld.Data.Models.Analyze", "Analyze")
                         .WithMany()
                         .HasForeignKey("AnalyzeId");
 
-                    b.Navigation("AddedByUser");
+                    b.HasOne("FinanceWorld.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Analyze");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FinanceWorld.Data.Models.News", b =>
