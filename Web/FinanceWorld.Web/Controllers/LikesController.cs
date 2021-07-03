@@ -14,7 +14,7 @@
     {
         public async Task<IActionResult> Like(LikeInputModel model)
         {
-
+            return this.View();
         }
     }
 }

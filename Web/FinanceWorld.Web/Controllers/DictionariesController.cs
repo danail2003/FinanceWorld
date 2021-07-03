@@ -1,14 +1,13 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Common;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Dictionaries;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Web.ViewModels.Dictionaries;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -23,12 +22,14 @@
             this.dictionariesService = dictionariesService;
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Create(CreateDictionaryDto dto)
         {
             if (!this.ModelState.IsValid)

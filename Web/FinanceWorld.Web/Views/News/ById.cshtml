@@ -1,5 +1,6 @@
-﻿@model FinanceWorld.Web.ViewModels.News.NewsByIdViewModel
-@{ 
+﻿@using FinanceWorld.Common;
+@model FinanceWorld.Web.ViewModels.News.NewsByIdViewModel
+@{
     this.ViewData["Title"] = Model.Title;
 }
 
@@ -8,5 +9,8 @@
 <hr />
 <img src="@Model.ImageUrl" />
 <p>@Model.Content</p>
-<a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-<a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+@if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+}

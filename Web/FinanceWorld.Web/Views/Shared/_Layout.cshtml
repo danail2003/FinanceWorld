@@ -20,14 +20,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" id="navbarColor01">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="News" asp-action="Create">Create News</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="" asp-controller="Dictionaries" asp-action="Create">Create Term</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="News" asp-action="Create">Create News</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Dictionaries" asp-action="Create">Create Term</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Analyzes" asp-action="Create">Create Analyze</a>

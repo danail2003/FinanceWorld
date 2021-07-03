@@ -1,10 +1,8 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Common;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Categories;
     using FinanceWorld.Services.Data.Models;
@@ -30,6 +28,7 @@
             this.categoriesService = categoriesService;
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             var createNewsDto = new CreateNewsInputModel
@@ -41,6 +40,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Create(CreateNewsDto dto)
         {
             if (!this.ModelState.IsValid)
@@ -80,7 +80,7 @@
             return this.Redirect("/News/All");
         }
 
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Edit(int id)
         {
             var viewModel = this.newsService.GetById<EditNewsViewModel>(id);
@@ -92,7 +92,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Edit(int id, EditNewsViewModel model)
         {
             if (!this.ModelState.IsValid)
