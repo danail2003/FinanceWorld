@@ -22,28 +22,6 @@
             this.dictionariesService = dictionariesService;
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public IActionResult Create()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Create(CreateDictionaryDto dto)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.Redirect("/Error");
-            }
-
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            await this.dictionariesService.CreateAsync(dto, user.Id);
-
-            return this.Redirect("/");
-        }
-
         public IActionResult List()
         {
             var viewModel = new DictionaryListViewModel
