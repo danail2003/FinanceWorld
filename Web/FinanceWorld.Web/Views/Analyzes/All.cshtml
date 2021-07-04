@@ -3,7 +3,7 @@
     this.ViewData["Title"] = "Analyzes";
 }
 
-<h1>@this.ViewData["Tilte"]</h1>
+<h1 class="text-center">@this.ViewData["Title"]</h1>
 <hr />
 <div class="row">
     @foreach (var analyze in Model.Analyzes)
@@ -15,6 +15,11 @@
                 <p class="card-text">@analyze.Description</p>
                 <p class="card-text">@analyze.AddedByUserUserName</p>
             </div>
+            <ul class="list-unstyled d-flex justify-content-around">
+                <li class="d-inline" style="font-size: 35px">
+                    <i class="far fa-thumbs-up"></i>
+                </li>
+            </ul>
         </div>
     }
 </div>

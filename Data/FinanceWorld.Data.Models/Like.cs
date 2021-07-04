@@ -11,7 +11,5 @@
         public string AddedByUserId { get; set; }
 
         public ApplicationUser AddedByUser { get; set; }
-
-        public int Count { get; set; }
     }
 }

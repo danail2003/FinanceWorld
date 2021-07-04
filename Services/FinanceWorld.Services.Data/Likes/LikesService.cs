@@ -17,7 +17,7 @@
 
         public int GetLikes(string analyzeId)
         {
-            return this.likesRepository.AllAsNoTracking().FirstOrDefault(x => x.AnalyzeId == analyzeId).Count;
+            return this.likesRepository.AllAsNoTracking().Count(x => x.AnalyzeId == analyzeId);
         }
 
         public bool IsUserAlreadyLiked(string analyzeId, string userId)
@@ -27,12 +27,11 @@
 
         public async Task SetLike(string analyzeId, string userId, int like)
         {
-            /*await this.likesRepository.AddAsync(new Like
+            await this.likesRepository.AddAsync(new Like
             {
                 AnalyzeId = analyzeId,
                 AddedByUserId = userId,
-                Count += 1,
-            });*/
+            });
 
             await this.likesRepository.SaveChangesAsync();
         }

@@ -14,8 +14,14 @@
                 <h5 class="card-title">@analyze.Title</h5>
                 <p class="card-text">@analyze.Description</p>
             </div>
-            <a class="btn btn-secondary mb-2" asp-action="Edit" asp-route-id="@analyze.Id">Edit</a>
-            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@analyze.Id">Delete</a>
+            <ul class="list-unstyled d-flex justify-content-around">
+                <li class="d-inline">
+                    <a class="btn btn-secondary mb-2" asp-action="Edit" asp-route-id="@analyze.Id">Edit</a>
+                </li>
+                <li class="d-inline">
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@analyze.Id">Delete</a>
+                </li>
+            </ul>
         </div>
     }
 </div>
