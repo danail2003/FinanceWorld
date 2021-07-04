@@ -1,13 +1,375 @@
 ﻿@model FinanceWorld.Web.ViewModels.Dictionaries.DictionaryListViewModel
-@{ 
+@{
     this.ViewData["Title"] = "Financial terms";
 }
 
 <h1 class="text-center">@this.ViewData["Title"]</h1>
 <hr />
 <div>
-    @foreach (var term in Model.Terms)
-    {
-        <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
-    }
+    <div class="row ml-5">
+        <div class="col-md-3">
+            <h3>A</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("A"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>B</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("B"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>C</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("C"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>D</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("D"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>E</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("E"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>F</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("F"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>G</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("G"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>H</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("H"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>I</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("I"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>J</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("J"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>K</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("K"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>L</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("L"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>M</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("M"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>N</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("N"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>O</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("O"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>P</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("P"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>Q</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("Q"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>R</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("R"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>S</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("S"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>T</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("T"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>U</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("U"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>V</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("V"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>W</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("W"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>X</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("X"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>Y</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("Y"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3>Z</h3>
+            <ul>
+                @foreach (var term in Model.Terms)
+                {
+                    @if (term.Name.StartsWith("Z"))
+                    {
+                        <li>
+                            <a asp-action="ById" asp-route-id="@term.Id">@term.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
 </div>
