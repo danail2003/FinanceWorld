@@ -34,7 +34,7 @@
 
         public DbSet<Dictionary> Dictionaries { get; set; }
 
-        public DbSet<Like> Likes { get; set; }
+        public DbSet<Vote> Votes { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

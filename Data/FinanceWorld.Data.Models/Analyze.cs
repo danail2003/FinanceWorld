@@ -1,6 +1,7 @@
 ﻿namespace FinanceWorld.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,5 +27,7 @@
         public string ImageId { get; set; }
 
         public Image Image { get; set; }
+
+        public ICollection<Vote> Votes { get; set; } = new HashSet<Vote>();
     }
 }
