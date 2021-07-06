@@ -2,6 +2,6 @@
 {
     public class PostVoteViewModel
     {
-        public int Likes { get; set; }
+        public int VotesCount { get; set; }
     }
 }

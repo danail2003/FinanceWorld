@@ -1,14 +1,12 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Votes;
     using FinanceWorld.Web.ViewModels.Votes;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
@@ -16,22 +14,26 @@
     public class VotesController : ControllerBase
     {
         private readonly IVotesService votesService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public VotesController(IVotesService votesService)
+        public VotesController(
+            IVotesService votesService,
+            UserManager<ApplicationUser> userManager)
         {
             this.votesService = votesService;
+            this.userManager = userManager;
         }
 
-        [HttpPost]
         [Authorize]
+        [HttpPost]
         public async Task<ActionResult<PostVoteViewModel>> Vote(VoteInputModel model)
         {
-            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = await this.userManager.GetUserAsync(this.User);
 
-            await this.votesService.SetVote(model.AnalyzeId, userId, model.IsUpVote);
+            await this.votesService.SetVote(model.AnalyzeId, userId.Id, model.IsUpVote);
             var votes = this.votesService.GetVotes(model.AnalyzeId);
 
-            return new PostVoteViewModel { Likes = votes };
+            return new PostVoteViewModel { VotesCount = votes };
         }
     }
 }

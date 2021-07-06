@@ -120,5 +120,12 @@
 
             return this.Redirect("/Analyzes/All");
         }
+
+        public IActionResult ById(string id)
+        {
+            var viewModel = this.analyzesService.GetById<AnalyzesViewModel>(id);
+
+            return this.View(viewModel);
+        }
     }
 }

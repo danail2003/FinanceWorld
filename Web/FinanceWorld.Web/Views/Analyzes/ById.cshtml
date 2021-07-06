@@ -1,0 +1,48 @@
+﻿@model FinanceWorld.Web.ViewModels.Analyzes.AnalyzesViewModel
+@{
+    this.ViewData["Title"] = Model.Title;
+}
+<h1>@this.ViewData["Title"]</h1>
+<hr />
+<div class="card col-md-3 mb-3" style="width: 18rem;">
+    <img src="@Model.Image" class="card-img-top pt-3" alt="@Model.Title">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p>@Model.Description</p>
+        <p class="card-text">@Model.AddedByUserUserName</p>
+    </div>
+    <div>
+        <form method="post" id="antiForgery"></form>
+        <div>
+            <a href="#" onclick="sendVote(`@Model.Id`, true)">
+                <i class="fa fa-thumbs-up"></i>
+            </a>
+        </div>
+        <span>@Model.VotesCount</span>
+        <div>
+            <a href="#" onclick="sendVote(`@Model.Id`, false)">
+                <i class="fa fa-thumbs-down"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function sendVote(analyzeId, isUpVote) {
+            var antiForegeryToken = $('#antiForgery input[name=__RequestVerificationToken]').val();
+            var json = { analyzeId, isUpVote };
+            $.ajax({
+                url: "/api/Votes",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': antiForegeryToken },
+                success: function (data) {
+                    $("#votesCount").html(data.votesCount);
+                }
+            });
+        }
+    </script>
+}

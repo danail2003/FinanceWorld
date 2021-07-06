@@ -12,6 +12,7 @@
     using FinanceWorld.Services.Data.Categories;
     using FinanceWorld.Services.Data.Dictionaries;
     using FinanceWorld.Services.Data.News;
+    using FinanceWorld.Services.Data.Votes;
     using FinanceWorld.Services.Mapping;
     using FinanceWorld.Services.Messaging;
     using FinanceWorld.Web.ViewModels;
@@ -56,6 +57,10 @@
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton(this.configuration);
@@ -71,6 +76,7 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDictionariesService, DictionariesService>();
             services.AddTransient<IAnalyzesService, AnalyzesService>();
+            services.AddTransient<IVotesService, VotesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
