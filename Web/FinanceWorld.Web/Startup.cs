@@ -11,6 +11,7 @@
     using FinanceWorld.Services.Data.Analyzes;
     using FinanceWorld.Services.Data.Categories;
     using FinanceWorld.Services.Data.Dictionaries;
+    using FinanceWorld.Services.Data.Home;
     using FinanceWorld.Services.Data.News;
     using FinanceWorld.Services.Data.Votes;
     using FinanceWorld.Services.Mapping;
@@ -71,6 +72,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
+            services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();

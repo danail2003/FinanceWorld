@@ -4,7 +4,7 @@
 }
 
 <form method="post" enctype="multipart/form-data">
-    <h1>@this.ViewData["Title"]</h1>
+    <h1 class="text-center">@this.ViewData["Title"]</h1>
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" />
@@ -20,5 +20,5 @@
         <input asp-for="Image" class="form-control" />
         <span class="text-danger" asp-validation-for="Image"></span>
     </div>
-    <input type="submit" value="Submit" />
+    <input class="btn btn-success" type="submit" value="Submit" />
 </form>
