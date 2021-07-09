@@ -9,7 +9,7 @@
     {
         Task CreateAsync(CreateAnalyzeInputModel model, string userId, string path);
 
-        IEnumerable<T> GetAll<T>();
+        IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
         T GetById<T>(string id);
 
@@ -20,5 +20,7 @@
         IEnumerable<T> GetMyAnalyzes<T>(string userId);
 
         bool IsAnalyzeAndUserMatch(string id, string userId);
+
+        int GetCount();
     }
 }

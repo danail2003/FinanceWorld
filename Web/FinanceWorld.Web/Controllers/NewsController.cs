@@ -13,11 +13,21 @@
             this.newsService = newsService;
         }
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            if (id < 1)
+            {
+                return this.NotFound();
+            }
+
+            const int itemsPerPage = 8;
+
             var viewModel = new AllNewsViewModel
             {
-                News = this.newsService.GetAll<NewsViewModel>(),
+                ItemsPerPage = itemsPerPage,
+                PageNumber = id,
+                Count = this.newsService.GetCount(),
+                News = this.newsService.GetAll<NewsViewModel>(id, itemsPerPage),
             };
 
             return this.View(viewModel);

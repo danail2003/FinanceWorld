@@ -10,12 +10,14 @@
     {
         Task CreateAsync(CreateNewsDto dto, string userId);
 
-        IEnumerable<T> GetAll<T>();
+        IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
         T GetById<T>(int id);
 
         Task UpdateAsync(int id, EditNewsViewModel model);
 
         Task DeleteAsync(int id);
+
+        int GetCount();
     }
 }

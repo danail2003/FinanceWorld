@@ -54,11 +54,21 @@
             return this.Redirect("/");
         }
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
+            if (id < 1)
+            {
+                return this.NotFound();
+            }
+
+            const int itemsPerPage = 10;
+
             var viewModel = new AllAnalyzesViewModel
             {
-                Analyzes = this.analyzesService.GetAll<AnalyzesViewModel>(),
+                ItemsPerPage = itemsPerPage,
+                PageNumber = id,
+                Count = this.analyzesService.GetCount(),
+                Analyzes = this.analyzesService.GetAll<AnalyzesViewModel>(id, itemsPerPage),
             };
 
             return this.View(viewModel);

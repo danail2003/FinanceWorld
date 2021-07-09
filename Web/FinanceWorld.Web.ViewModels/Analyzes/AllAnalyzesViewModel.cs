@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class AllAnalyzesViewModel
+    public class AllAnalyzesViewModel : PaginationViewModel
     {
         public IEnumerable<AnalyzesViewModel> Analyzes { get; set; }
     }

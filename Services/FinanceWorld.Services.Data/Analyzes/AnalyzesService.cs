@@ -62,14 +62,19 @@
             await this.analyzesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
         {
-            return this.analyzesRepository.AllAsNoTracking().To<T>().ToList();
+            return this.analyzesRepository.AllAsNoTracking().Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
         }
 
         public T GetById<T>(string id)
         {
             return this.analyzesRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
+        }
+
+        public int GetCount()
+        {
+            return this.analyzesRepository.AllAsNoTracking().Count();
         }
 
         public IEnumerable<T> GetMyAnalyzes<T>(string userId)
