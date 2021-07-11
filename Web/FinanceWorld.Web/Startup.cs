@@ -63,6 +63,11 @@
                 options.ClientId = "2766144020-f5vus8f977vogvf5pn02s9ts5tondfuq.apps.googleusercontent.com";
                 options.ClientSecret = "JEOyeNxrN6F8yzgVwlkW_cai";
             });
+            services.AddAuthentication().AddMicrosoftAccount(options =>
+            {
+                options.ClientId = "5407b2c5-8272-4957-8fe4-ba7c782e1304";
+                options.ClientSecret = "6bTu-uUPphJC_S_-Srhg9ri612VIv2msvh";
+            });
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-CSRF-TOKEN";
