@@ -58,6 +58,11 @@
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "2766144020-f5vus8f977vogvf5pn02s9ts5tondfuq.apps.googleusercontent.com";
+                options.ClientSecret = "JEOyeNxrN6F8yzgVwlkW_cai";
+            });
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-CSRF-TOKEN";
