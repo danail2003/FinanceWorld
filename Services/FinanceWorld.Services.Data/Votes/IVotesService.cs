@@ -6,6 +6,8 @@
     {
         Task SetVote(string analyzeId, string userId, bool isUpVote);
 
-        int GetVotes(string analyzeId);
+        int GetLikes(string analyzeId);
+
+        int GetDislikes(string analyzeId);
     }
 }

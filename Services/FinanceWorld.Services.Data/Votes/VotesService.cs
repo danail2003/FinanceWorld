@@ -15,9 +15,14 @@
             this.votesRepository = votesRepository;
         }
 
-        public int GetVotes(string analyzeId)
+        public int GetDislikes(string analyzeId)
         {
-            return this.votesRepository.AllAsNoTracking().Where(x => x.AnalyzeId == analyzeId).Sum(x => (int)x.Type);
+            return this.votesRepository.AllAsNoTracking().Where(x => x.AnalyzeId == analyzeId).Count(x => x.Type == VoteType.Dislike);
+        }
+
+        public int GetLikes(string analyzeId)
+        {
+            return this.votesRepository.AllAsNoTracking().Where(x => x.AnalyzeId == analyzeId).Count(x => x.Type == VoteType.Like);
         }
 
         public async Task SetVote(string analyzeId, string userId, bool isUpVote)

@@ -31,9 +31,10 @@
             var userId = await this.userManager.GetUserAsync(this.User);
 
             await this.votesService.SetVote(model.AnalyzeId, userId.Id, model.IsUpVote);
-            var votes = this.votesService.GetVotes(model.AnalyzeId);
+            var likes = this.votesService.GetLikes(model.AnalyzeId);
+            var dislikes = this.votesService.GetDislikes(model.AnalyzeId);
 
-            return new PostVoteViewModel { VotesCount = votes };
+            return new PostVoteViewModel { LikesCount = likes, DislikesCount = dislikes };
         }
     }
 }

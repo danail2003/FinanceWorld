@@ -2,27 +2,36 @@
 @{
     this.ViewData["Title"] = Model.Title;
 }
-<h1 class="text-center">@this.ViewData["Title"]</h1>
+<h1 class="text-center mt-3">@this.ViewData["Title"]</h1>
 <hr />
-<div class="card col-md-3 mb-3 container-fluid" style="width: 18rem;">
-    <img src="@Model.Image" class="card-img-top pt-3" alt="@Model.Title">
-    <div class="card-body">
-        <h5 class="card-title">@Model.Title</h5>
-        <p>@Model.Description</p>
-        <p class="card-text">@Model.AddedByUserUserName</p>
-    </div>
-    <div>
-        <form method="post" id="antiForgery"></form>
-        <div>
-            <a href="#" onclick="sendVote(`@Model.Id`, true)">
-                <i class="fa fa-thumbs-up"></i>
-            </a>
-        </div>
-        <div>@Model.VotesCount</div>
-        <div>
-            <a href="#" onclick="sendVote(`@Model.Id`, false)">
-                <i class="fa fa-thumbs-down"></i>
-            </a>
+<div class="container-fluid mt-100" style="width: 90%">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100" style="display: flex; justify-content: center;">
+                        <img src="@Model.Image" class="ui-w-40" alt="@Model.Title">
+                        @Model.Description
+                        <div class="col-md-12">
+                            <div class="row text-muted small ml-3" style="display: flex; justify-content: center;">
+                                <form id="antiForgery" method="post"></form>
+                                <div class="mr-5">
+                                    <a href="#" onclick="sendVote(`@Model.Id`, true)">
+                                        <i class="fa fa-thumbs-up"></i>
+                                    </a>
+                                    <div id="likesCount">@Model.LikesCount</div>
+                                </div>
+                                <div>
+                                    <a href="#" onclick="sendVote(`@Model.Id`, false)">
+                                        <i class="fa fa-thumbs-down"></i>
+                                    </a>
+                                    <div id="dislikesCount">@Model.DislikesCount</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -40,7 +49,8 @@
                 dataType: "json",
                 headers: { 'X-CSRF-TOKEN': antiForegeryToken },
                 success: function (data) {
-                    $("#votesCount").html(data.votesCount);
+                    $("#likesCount").html(data.likesCount);
+                    $("#dislikesCount").html(data.dislikesCount);
                 }
             });
         }

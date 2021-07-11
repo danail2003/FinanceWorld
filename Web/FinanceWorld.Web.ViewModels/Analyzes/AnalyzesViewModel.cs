@@ -18,15 +18,19 @@
 
         public string Image { get; set; }
 
-        public int VotesCount { get; set; }
+        public int LikesCount { get; set; }
+
+        public int DislikesCount { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Analyze, AnalyzesViewModel>()
                 .ForMember(x => x.Image, opt =>
                 opt.MapFrom(x => "/images/analyzes/" + x.Image.Id + "." + x.Image.Extension))
-                .ForMember(x => x.VotesCount, opt =>
-                opt.MapFrom(x => x.Votes.Count(v => (int)v.Type == 1)));
+                .ForMember(x => x.LikesCount, opt =>
+                opt.MapFrom(x => x.Votes.Count(v => (int)v.Type == 1)))
+                .ForMember(x => x.DislikesCount, opt =>
+                opt.MapFrom(x => x.Votes.Count(v => (int)v.Type == -1)));
         }
     }
 }

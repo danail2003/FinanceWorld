@@ -8,12 +8,18 @@
 <div class="row">
     @foreach (var news in Model.News)
     {
-        <div class="card col-md-3 mb-3" style="width: 18rem;">
-            <img src="@news.ImageUrl" class="card-img-top pt-3" alt="@news.Title">
-            <div class="card-body">
-                <h5 class="card-title">@news.Title</h5>
-                <p class="card-text">@news.CategoryName</p>
-                <a asp-action="ById" asp-route-id="@news.Id" class="btn btn-primary">Go To News</a>
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="@news.ImageUrl" class="img-fluid rounded-start" alt="@news.Title">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@news.Title</h5>
+                        <p class="card-text text-truncate">@news.Content</p>
+                        <p class="card-text"><small class="text-muted">@news.CreatedOn</small><a class="btn btn-primary" style="margin-left: 20px" asp-action="ById" asp-route-id="@news.Id">Read</a></p>
+                    </div>
+                </div>
             </div>
         </div>
     }
