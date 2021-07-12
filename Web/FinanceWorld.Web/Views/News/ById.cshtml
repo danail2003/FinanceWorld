@@ -4,17 +4,21 @@
     this.ViewData["Title"] = Model.Title;
 }
 
-<h1 class="text-center mt-3">@Model.Title</h1>
-<p>@Model.CategoryName</p>
-<hr />
-<img src="@Model.ImageUrl" />
-<p>@Model.Content</p>
+<div class="d-flex justify-content-center flex-column">
+    <h1 class="text-center mt-3">@Model.Title</h1>
+    <p class="text-center">@Model.CategoryName</p>
+    <hr />
+    <img src="@Model.ImageUrl" class="img-fluid" />
+    <p class="mt-5">@Model.Content</p>
+</div>
 @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
 {
-    <a class="btn btn-secondary" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    <form method="post" id="deleteForm" asp-area="Administration" asp-action="Delete" asp-route-id="@Model.Id">
-    </form>
-    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    <div class="row d-flex justify-content-center">
+        <a class="btn btn-warning mr-5 ml-5" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <form method="post" id="deleteForm" asp-area="Administration" asp-action="Delete" asp-route-id="@Model.Id">
+        </form>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    </div>
 }
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

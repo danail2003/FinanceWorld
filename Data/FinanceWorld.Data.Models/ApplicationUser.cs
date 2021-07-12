@@ -11,7 +11,7 @@ namespace FinanceWorld.Data.Models
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
         public ApplicationUser()
-         => this.Id = Guid.NewGuid().ToString();
+           => this.Id = Guid.NewGuid().ToString();
 
         // Audit info
         public DateTime CreatedOn { get; set; }

@@ -16,7 +16,7 @@
 
         public int NextPage => this.PageNumber + 1;
 
-        public int PreviousPage => this.PageNumber + 1;
+        public int PreviousPage => this.PageNumber - 1;
 
         public int PagesCount => (int)Math.Ceiling((double)this.Count / this.ItemsPerPage);
     }

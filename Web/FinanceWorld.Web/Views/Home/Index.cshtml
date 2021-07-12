@@ -11,29 +11,14 @@
 
 @foreach (var news in Model.News)
 {
-    <article class="ciz-post">
-        <div class="post-thumb">
-            <a asp-controller="News" asp-action="ById" asp-route-id="@news.Id">
-                <span class="post-format">
-                    <i class="fa fa-video-camera"></i>
-                </span>
-                <img alt="@news.Title" src="@news.ImageUrl" style="width: 50%">
-            </a>
+    <a asp-controller="News" asp-action="ById" asp-route-id="@news.Id">
+        <div class="card bg-dark text-white mb-5">
+            <img src="@news.ImageUrl" class="card-img" alt="@news.Title">
+            <div class="card-img-overlay">
+                <h5 class="card-title">@news.Title</h5>
+                <p class="card-text">@news.Content</p>
+                <p class="card-text">Updated on: @news.CreatedOn</p>
+            </div>
         </div>
-        <h3 class="post-title">
-            <a asp-controller="News" asp-action="ById" asp-route-id="@news.Id">@news.Title</a>
-        </h3>
-        <div class="post-meta">
-            <span class="post-date">
-                @news.CreatedOnFormatted
-            </span>
-            <em>/</em>
-            <span class="post-category">
-                <span>@news.CategoryName</span>
-            </span>
-        </div>
-        <div class="post-des">
-            <p class="text-truncate">@news.Content</p>
-        </div>
-    </article>
+    </a>
 }
