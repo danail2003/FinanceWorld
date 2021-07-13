@@ -11,19 +11,19 @@
                 <div class="card-header">
                     <div class="media flex-wrap w-100" style="display: flex; justify-content: center;">
                         <img src="@Model.Image" class="ui-w-40" alt="@Model.Title" style="height: 500px;">
-                        @Model.Description
-                        <div class="col-md-12">
+                        <p class="mt-4">@Model.Description</p>
+                        <div class="col-md-12 mt-2">
                             <div class="row text-muted small ml-3" style="display: flex; justify-content: center;">
                                 <form id="antiForgery" method="post"></form>
                                 <div class="mr-5">
                                     <a href="#" onclick="sendVote(`@Model.Id`, true)">
-                                        <i class="fa fa-thumbs-up"></i>
+                                        <i class="fa fa-thumbs-up" style="font-size: 20px;"></i>
                                     </a>
                                     <div id="likesCount">@Model.LikesCount</div>
                                 </div>
                                 <div>
                                     <a href="#" onclick="sendVote(`@Model.Id`, false)">
-                                        <i class="fa fa-thumbs-down"></i>
+                                        <i class="fa fa-thumbs-down" style="font-size: 20px;"></i>
                                     </a>
                                     <div id="dislikesCount">@Model.DislikesCount</div>
                                 </div>

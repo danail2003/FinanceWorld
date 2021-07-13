@@ -13,11 +13,11 @@
 {
     <a asp-controller="News" asp-action="ById" asp-route-id="@news.Id">
         <div class="card bg-dark text-white mb-5">
-            <img src="@news.ImageUrl" class="card-img" alt="@news.Title">
+            <img src="@news.ImageUrl" class="card-img" alt="@news.Title" style="opacity: 0.4;">
             <div class="card-img-overlay">
-                <h5 class="card-title">@news.Title</h5>
-                <p class="card-text">@news.Content</p>
-                <p class="card-text">Updated on: @news.CreatedOn</p>
+                <h5 class="card-title text-black-50">@news.Title</h5>
+                <p class="card-text text-white-50">@news.Content</p>
+                <p class="card-text text-primary">Updated on: @news.CreatedOn</p>
             </div>
         </div>
     </a>
