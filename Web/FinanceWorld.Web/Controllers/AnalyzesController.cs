@@ -133,7 +133,11 @@
 
         public IActionResult ById(string id)
         {
-            var viewModel = this.analyzesService.GetById<AnalyzesViewModel>(id);
+            var viewModel = new AnalyzeWithInfoViewModel
+            {
+                Analyze = this.analyzesService.GetById<AnalyzesViewModel>(id),
+                AnalyzeWithInfo = this.analyzesService.DisplayAnalyzeInfo(id),
+            };
 
             return this.View(viewModel);
         }

@@ -21,6 +21,8 @@
 
         bool IsAnalyzeAndUserMatch(string id, string userId);
 
+        AnalyzeInfoViewModel DisplayAnalyzeInfo(string id);
+
         int GetCount();
     }
 }

@@ -62,6 +62,16 @@
             await this.analyzesRepository.SaveChangesAsync();
         }
 
+        public AnalyzeInfoViewModel DisplayAnalyzeInfo(string id)
+        {
+            return this.analyzesRepository.AllAsNoTracking().Where(x => x.Id == id).Select(x => new AnalyzeInfoViewModel
+            {
+                AddedByUser = x.AddedByUser.UserName,
+                CreatedOn = x.CreatedOn,
+                IsModified = x.ModifiedOn == null ? "No" : "Yes",
+            }).FirstOrDefault();
+        }
+
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
         {
             return this.analyzesRepository.AllAsNoTracking().Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
