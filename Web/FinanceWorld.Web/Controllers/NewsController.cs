@@ -1,10 +1,12 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
+    using System;
+
     using FinanceWorld.Services.Data.News;
     using FinanceWorld.Web.ViewModels.News;
     using Microsoft.AspNetCore.Mvc;
 
-    public class NewsController : BaseController
+    public class NewsController : Controller
     {
         private readonly INewsService newsService;
 
@@ -17,7 +19,7 @@
         {
             if (id < 1)
             {
-                return this.NotFound();
+                throw new InvalidOperationException("The pages starts from one!");
             }
 
             const int itemsPerPage = 8;
@@ -35,7 +37,16 @@
 
         public IActionResult ById(int id)
         {
-            var viewModel = this.newsService.GetById<NewsByIdViewModel>(id);
+            NewsByIdViewModel viewModel;
+
+            try
+            {
+                viewModel = this.newsService.GetById<NewsByIdViewModel>(id);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
 
             return this.View(viewModel);
         }

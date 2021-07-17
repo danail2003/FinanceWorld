@@ -11,7 +11,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class AnalyzesController : BaseController
+    public class AnalyzesController : Controller
     {
         private readonly IAnalyzesService analyzesService;
         private readonly UserManager<ApplicationUser> userManager;
@@ -48,7 +48,7 @@
             }
             catch (Exception ex)
             {
-                this.ModelState.AddModelError(string.Empty, ex.Message);
+                throw new InvalidOperationException(ex.Message);
             }
 
             return this.Redirect("/");
@@ -58,7 +58,7 @@
         {
             if (id < 1)
             {
-                return this.NotFound();
+                throw new InvalidOperationException("The pages starts from one!");
             }
 
             const int itemsPerPage = 10;
@@ -102,7 +102,7 @@
 
             if (!this.analyzesService.IsAnalyzeAndUserMatch(id, user.Id))
             {
-                return this.Redirect("/Error");
+                throw new InvalidOperationException("This analyze doesn't belong to that user!");
             }
 
             var viewModel = this.analyzesService.GetById<AnalyzesByIdViewModel>(id);
@@ -116,14 +116,14 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Redirect("/Error");
+                throw new InvalidOperationException("Data is not correct!");
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
 
             if (!this.analyzesService.IsAnalyzeAndUserMatch(id, user.Id))
             {
-                return this.Redirect("/Error");
+                throw new InvalidOperationException("This analyze doesn't belong to that user!");
             }
 
             await this.analyzesService.UpdateAsync(id, model);

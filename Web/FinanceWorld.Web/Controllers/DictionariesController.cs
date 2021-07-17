@@ -1,10 +1,12 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
+    using System;
+
     using FinanceWorld.Services.Data.Dictionaries;
     using FinanceWorld.Web.ViewModels.Dictionaries;
     using Microsoft.AspNetCore.Mvc;
 
-    public class DictionariesController : BaseController
+    public class DictionariesController : Controller
     {
         private readonly IDictionariesService dictionariesService;
 
@@ -25,7 +27,16 @@
 
         public IActionResult ById(string id)
         {
-            var viewModel = this.dictionariesService.GetById<TermByIdViewModel>(id);
+            TermByIdViewModel viewModel;
+
+            try
+            {
+                viewModel = this.dictionariesService.GetById<TermByIdViewModel>(id);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(ex.Message);
+            }
 
             return this.View(viewModel);
         }

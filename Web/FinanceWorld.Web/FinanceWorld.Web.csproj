@@ -40,4 +40,8 @@
     <ProjectReference Include="..\FinanceWorld.Web.Infrastructure\FinanceWorld.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\FinanceWorld.Web.ViewModels\FinanceWorld.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\EditorTemplates\" />
+  </ItemGroup>
 </Project>

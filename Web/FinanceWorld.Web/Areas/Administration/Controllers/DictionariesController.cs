@@ -1,5 +1,6 @@
 ﻿namespace FinanceWorld.Web.Areas.Administration.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using FinanceWorld.Common;
@@ -36,7 +37,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Redirect("/Error");
+                throw new InvalidOperationException("Data is not correct!");
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
