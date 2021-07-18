@@ -43,7 +43,7 @@
             <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
                 <img class="d-block w-100" src="@analyzes.Image" alt="@analyzes.Title">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5><a class="btn btn-info" asp-controller="News" asp-action="ById" asp-route-id="@analyzes.Id">@analyzes.Title</a></h5>
+                    <h5><a class="btn btn-info" asp-controller="Analyzes" asp-action="ById" asp-route-id="@analyzes.Id">@analyzes.Title</a></h5>
                 </div>
             </div>
         }

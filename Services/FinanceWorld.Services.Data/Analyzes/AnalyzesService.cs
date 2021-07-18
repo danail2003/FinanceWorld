@@ -97,6 +97,11 @@
             return this.analyzesRepository.AllAsNoTracking().Any(x => x.AddedByUserId == userId && x.Id == id);
         }
 
+        public IEnumerable<T> SearchedAnalyzes<T>(string title)
+        {
+            return this.analyzesRepository.All().Where(x => x.Title.ToLower().Contains(title)).To<T>().ToList();
+        }
+
         public async Task UpdateAsync(string id, EditAnalyzesViewModel model)
         {
             var analyze = this.analyzesRepository.All().FirstOrDefault(x => x.Id == id);

@@ -141,5 +141,15 @@
 
             return this.View(viewModel);
         }
+
+        public IActionResult SearchAnalyze([FromQuery] AllAnalyzesViewModel model)
+        {
+            var viewModel = new AllAnalyzesViewModel
+            {
+                Analyzes = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>(model.SearchTitle),
+            };
+
+            return this.View(viewModel);
+        }
     }
 }

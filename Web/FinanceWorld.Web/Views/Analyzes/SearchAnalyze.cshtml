@@ -1,0 +1,29 @@
+﻿@model FinanceWorld.Web.ViewModels.Analyzes.AllAnalyzesViewModel;
+
+@{ 
+    this.ViewData["Title"] = "Results";
+}
+
+<hr />
+
+<form method="get">
+    <div class="form-group">
+        <label asp-for="@Model.SearchTitle"></label>
+        <input class="form-control" asp-for="@Model.SearchTitle" placeholder="Search" />
+    </div>
+</form>
+
+<div class="row">
+    @foreach (var analyze in Model.Analyzes)
+    {
+        <div class="card col-md-3 mb-3" style="width: 18rem;">
+            <img src="@analyze.Image" class="card-img-top pt-3" alt="@analyze.Title">
+            <div class="card-body">
+                <h5 class="card-title text-center">@analyze.Title</h5>
+            </div>
+            <div>
+                <a class="btn btn-primary mb-3 d-flex justify-content-center" asp-action="ById" asp-route-id="@analyze.Id">See analyze</a>
+            </div>
+        </div>
+    }
+</div>

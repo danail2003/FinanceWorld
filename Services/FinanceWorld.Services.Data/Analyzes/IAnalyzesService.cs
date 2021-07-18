@@ -24,5 +24,7 @@
         AnalyzeInfoViewModel DisplayAnalyzeInfo(string id);
 
         int GetCount();
+
+        IEnumerable<T> SearchedAnalyzes<T>(string title);
     }
 }
