@@ -22,7 +22,7 @@
         {
             var viewModel = new HomeViewModel
             {
-                Analyzes = this.homeService.GetLastThreeAnalyzes<AnalyzesByIdViewModel>(),
+                Analyzes = this.homeService.GetLastThreeAnalyzes<AnalyzesViewModel>(),
                 News = this.homeService.GetLastThreeNews<NewsViewModel>(),
             };
 

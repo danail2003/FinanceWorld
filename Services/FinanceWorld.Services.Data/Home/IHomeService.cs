@@ -4,8 +4,8 @@
 
     public interface IHomeService
     {
-        IEnumerable<T> GetLastThreeNews<T>();
+        List<T> GetLastThreeNews<T>();
 
-        IEnumerable<T> GetLastThreeAnalyzes<T>();
+        List<T> GetLastThreeAnalyzes<T>();
     }
 }

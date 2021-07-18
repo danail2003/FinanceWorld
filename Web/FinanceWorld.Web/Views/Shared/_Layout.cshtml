@@ -53,14 +53,14 @@
             </div>
         </nav>
     </header>
-    
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container text-center">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -73,6 +73,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
-    @await this.RenderSectionAsync("Chart", required: false) 
+    @await this.RenderSectionAsync("Chart", required: false)
 </body>
 </html>

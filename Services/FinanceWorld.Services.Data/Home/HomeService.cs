@@ -20,12 +20,12 @@
             this.analyzesRepository = analyzesRepository;
         }
 
-        public IEnumerable<T> GetLastThreeAnalyzes<T>()
+        public List<T> GetLastThreeAnalyzes<T>()
         {
             return this.analyzesRepository.AllAsNoTracking().OrderByDescending(x => x.CreatedOn).Take(3).To<T>().ToList();
         }
 
-        public IEnumerable<T> GetLastThreeNews<T>()
+        public List<T> GetLastThreeNews<T>()
         {
             return this.newsRepository.AllAsNoTracking().OrderByDescending(x => x.CreatedOn).Take(3).To<T>().ToList();
         }

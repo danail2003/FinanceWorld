@@ -7,8 +7,8 @@
 
     public class HomeViewModel
     {
-        public IEnumerable<NewsViewModel> News { get; set; }
+        public List<NewsViewModel> News { get; set; }
 
-        public IEnumerable<AnalyzesByIdViewModel> Analyzes { get; set; }
+        public List<AnalyzesViewModel> Analyzes { get; set; }
     }
 }
