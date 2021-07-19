@@ -60,13 +60,13 @@
             services.AddRazorPages();
             services.AddAuthentication().AddGoogle(options =>
             {
-                options.ClientId = "11";
-                options.ClientSecret = "1";
+                options.ClientId = this.configuration["Google:ClientId"];
+                options.ClientSecret = this.configuration["Google:ClientSecret"];
             });
             services.AddAuthentication().AddMicrosoftAccount(options =>
             {
-                options.ClientId = "1";
-                options.ClientSecret = "11";
+                options.ClientId = this.configuration["Microsoft:ClientId"];
+                options.ClientSecret = this.configuration["Microsoft:ClientSecret"];
             });
             services.AddAntiforgery(options =>
             {
@@ -83,7 +83,7 @@
 
             // Application services
             services.AddTransient<IHomeService, HomeService>();
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDictionariesService, DictionariesService>();

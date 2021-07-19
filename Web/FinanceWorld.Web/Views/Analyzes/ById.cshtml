@@ -25,11 +25,16 @@
                                     </a>
                                     <div id="likesCount">@Model.Analyze.LikesCount</div>
                                 </div>
-                                <div>
+                                <div class="mr-5">
                                     <a href="#" onclick="sendVote(`@Model.Analyze.Id`, false)">
                                         <i class="fa fa-thumbs-down" style="font-size: 20px;"></i>
                                     </a>
                                     <div id="dislikesCount">@Model.Analyze.DislikesCount</div>
+                                </div>
+                                <div>
+                                    <form method="post" asp-action="SendEmail" asp-route-id="@Model.Analyze.Id">
+                                        <button class="btn btn-warning">Send Email</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
