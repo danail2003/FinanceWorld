@@ -12,7 +12,7 @@
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
-        IEnumerable<T> GetByCategory<T>(string name, int page, int itemsPerPage);
+        IEnumerable<T> GetByCategory<T>(string name);
 
         T GetById<T>(int id);
 

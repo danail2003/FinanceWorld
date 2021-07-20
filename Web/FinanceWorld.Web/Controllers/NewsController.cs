@@ -52,14 +52,12 @@
             return this.View(viewModel);
         }
 
-        public IActionResult NewsByCategory([FromQuery] SearchByCategoriesViewModel model, int id = 1)
+        public IActionResult NewsByCategory([FromQuery] SearchByCategoriesViewModel model)
         {
-            const int itemsPerPage = 8;
-
             var viewModel = new SearchByCategoriesViewModel
             {
                 Name = model.Name,
-                News = this.newsService.GetByCategory<NewsViewModel>(model.Name, id, itemsPerPage),
+                News = this.newsService.GetByCategory<NewsViewModel>(model.Name),
             };
 
             return this.View(viewModel);
