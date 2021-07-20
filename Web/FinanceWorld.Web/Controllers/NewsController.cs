@@ -3,6 +3,7 @@
     using System;
 
     using FinanceWorld.Services.Data.News;
+    using FinanceWorld.Web.ViewModels.Categories;
     using FinanceWorld.Web.ViewModels.News;
     using Microsoft.AspNetCore.Mvc;
 
@@ -47,6 +48,19 @@
             {
                 throw new InvalidOperationException(ex.Message);
             }
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult NewsByCategory([FromQuery] SearchByCategoriesViewModel model, int id = 1)
+        {
+            const int itemsPerPage = 8;
+
+            var viewModel = new SearchByCategoriesViewModel
+            {
+                Name = model.Name,
+                News = this.newsService.GetByCategory<NewsViewModel>(model.Name, id, itemsPerPage),
+            };
 
             return this.View(viewModel);
         }

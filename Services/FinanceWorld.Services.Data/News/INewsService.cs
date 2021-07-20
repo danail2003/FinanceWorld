@@ -12,6 +12,8 @@
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
+        IEnumerable<T> GetByCategory<T>(string name, int page, int itemsPerPage);
+
         T GetById<T>(int id);
 
         Task UpdateAsync(int id, EditNewsViewModel model);

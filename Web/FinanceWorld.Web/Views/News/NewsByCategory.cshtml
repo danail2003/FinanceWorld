@@ -1,0 +1,26 @@
+﻿@model FinanceWorld.Web.ViewModels.Categories.SearchByCategoriesViewModel;
+@{
+    this.ViewData["Title"] = Model.Name + " " + "news";
+}
+
+<h1 class="mt-3 text-center">@this.ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    @foreach (var news in Model.News)
+    {
+        <div class="card mb-3" style="max-width: 540px; margin-right: 30px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="@news.ImageUrl" class="img-fluid rounded-start" alt="@news.Title">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@news.Title</h5>
+                        <p class="card-text text-truncate">@news.Content</p>
+                        <p class="card-text"><small class="text-muted">@news.CreatedOn</small><a class="btn btn-primary" style="margin-left: 20px" asp-action="ById" asp-route-id="@news.Id">Read</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,11 +1,12 @@
 ﻿@using FinanceWorld.Common
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 </head>
@@ -24,6 +25,19 @@
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <li class="dropdown">
+                            <a class="btn btn-primary dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                News by category
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="News/NewsByCategory?Name=Trends">Trends</a></li>
+                                <li><a class="dropdown-item" href="News/NewsByCategory?Name=Political">Political</a></li>
+                                <li><a class="dropdown-item" href="News/NewsByCategory?Name=Markets">Markets</a></li>
+                                <li><a class="dropdown-item" href="News/NewsByCategory?Name=Company">Company</a></li>
+                                <li><a class="dropdown-item" href="News/NewsByCategory?Name=Trading">Trading</a></li>
+                            </ul>
+                        </li>
                         @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
                             <li class="nav-item">
@@ -40,7 +54,7 @@
                             <a class="nav-link active" asp-area="" asp-controller="Dictionaries" asp-action="List">Dictionary</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="News" asp-action="All">News</a>
+                            <a class="nav-link active" asp-area="" asp-controller="News" asp-action="All">All News</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Analyzes" asp-action="All">Analyzes</a>
@@ -73,7 +87,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
     @await this.RenderSectionAsync("Charts", required: false)
