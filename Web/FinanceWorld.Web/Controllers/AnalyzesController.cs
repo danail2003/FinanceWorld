@@ -15,6 +15,7 @@
 
     public class AnalyzesController : Controller
     {
+        private const int ItemsPerPage = 10;
         private readonly IAnalyzesService analyzesService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
@@ -32,11 +33,13 @@
             this.emailSender = emailSender;
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CreateAnalyzeInputModel model)
         {
@@ -66,14 +69,12 @@
                 throw new InvalidOperationException("The pages starts from one!");
             }
 
-            const int itemsPerPage = 10;
-
             var viewModel = new AllAnalyzesViewModel
             {
-                ItemsPerPage = itemsPerPage,
+                ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
                 Count = this.analyzesService.GetCount(),
-                Analyzes = this.analyzesService.GetAll<AnalyzesViewModel>(id, itemsPerPage),
+                Analyzes = this.analyzesService.GetAll<AnalyzesViewModel>(id, ItemsPerPage),
             };
 
             return this.View(viewModel);
@@ -88,13 +89,21 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> AnalyzesById()
+        public async Task<IActionResult> AnalyzesById(int id = 1)
         {
+            if (id < 1)
+            {
+                throw new InvalidOperationException("The pages starts from one!");
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             var viewModel = new AllAnalyzesViewModel
             {
-                Analyzes = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>(user.Id),
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                Count = this.analyzesService.GetCount(),
+                Analyzes = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>(user.Id, id, ItemsPerPage),
             };
 
             return this.View(viewModel);
@@ -147,11 +156,19 @@
             return this.View(viewModel);
         }
 
-        public IActionResult SearchAnalyze([FromQuery] AllAnalyzesViewModel model)
+        public IActionResult SearchAnalyze([FromQuery] AllAnalyzesViewModel model, int id = 1)
         {
+            if (id < 1)
+            {
+                throw new InvalidOperationException("The pages starts from one!");
+            }
+
             var viewModel = new AllAnalyzesViewModel
             {
-                Analyzes = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>(model.SearchTitle),
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                Count = this.analyzesService.GetCount(),
+                Analyzes = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>(model.SearchTitle, id, ItemsPerPage),
             };
 
             return this.View(viewModel);

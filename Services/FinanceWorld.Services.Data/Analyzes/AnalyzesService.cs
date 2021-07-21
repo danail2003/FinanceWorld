@@ -87,9 +87,9 @@
             return this.analyzesRepository.AllAsNoTracking().Count();
         }
 
-        public IEnumerable<T> GetMyAnalyzes<T>(string userId)
+        public IEnumerable<T> GetMyAnalyzes<T>(string userId, int page, int itemsPerPage)
         {
-            return this.analyzesRepository.All().Where(x => x.AddedByUserId == userId).To<T>().ToList();
+            return this.analyzesRepository.All().Where(x => x.AddedByUserId == userId).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
         }
 
         public bool IsAnalyzeAndUserMatch(string id, string userId)
@@ -97,9 +97,9 @@
             return this.analyzesRepository.AllAsNoTracking().Any(x => x.AddedByUserId == userId && x.Id == id);
         }
 
-        public IEnumerable<T> SearchedAnalyzes<T>(string title)
+        public IEnumerable<T> SearchedAnalyzes<T>(string title, int page, int itemsPerPage)
         {
-            return this.analyzesRepository.All().Where(x => x.Title.ToLower().Contains(title)).To<T>().ToList();
+            return this.analyzesRepository.All().Where(x => x.Title.ToLower().Contains(title)).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
         }
 
         public async Task UpdateAsync(string id, EditAnalyzesViewModel model)

@@ -12,7 +12,7 @@
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
-        IEnumerable<T> GetByCategory<T>(string name);
+        IEnumerable<T> GetByCategory<T>(string name, int page, int itemsPerPage);
 
         T GetById<T>(int id);
 
@@ -21,5 +21,7 @@
         Task DeleteAsync(int id);
 
         int GetCount();
+
+        int GetCountByCategory(string name);
     }
 }

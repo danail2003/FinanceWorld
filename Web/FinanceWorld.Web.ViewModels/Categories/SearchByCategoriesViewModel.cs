@@ -7,7 +7,7 @@
     using FinanceWorld.Services.Mapping;
     using FinanceWorld.Web.ViewModels.News;
 
-    public class SearchByCategoriesViewModel : IMapFrom<News>, IHaveCustomMappings
+    public class SearchByCategoriesViewModel : PaginationViewModel, IMapFrom<News>, IHaveCustomMappings
     {
         public string Name { get; set; }
 

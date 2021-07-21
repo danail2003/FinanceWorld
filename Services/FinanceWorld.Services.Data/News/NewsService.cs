@@ -45,9 +45,10 @@
             return this.newsRepository.AllAsNoTracking().OrderByDescending(x => x.CreatedOn).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
         }
 
-        public IEnumerable<T> GetByCategory<T>(string name)
+        public IEnumerable<T> GetByCategory<T>(string name, int page, int itemsPerPage)
         {
-            return this.newsRepository.All().OrderByDescending(x => x.CreatedOn).Where(x => x.Category.Name.ToLower().Contains(name)).To<T>().ToList();
+            return this.newsRepository.All()
+                .OrderByDescending(x => x.CreatedOn).Where(x => x.Category.Name.ToLower().Contains(name)).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
         }
 
         public T GetById<T>(int id)
@@ -58,6 +59,11 @@
         public int GetCount()
         {
             return this.newsRepository.AllAsNoTracking().Count();
+        }
+
+        public int GetCountByCategory(string name)
+        {
+            return this.newsRepository.AllAsNoTracking().Where(x => x.Category.Name == name).Count();
         }
 
         public async Task UpdateAsync(int id, EditNewsViewModel model)

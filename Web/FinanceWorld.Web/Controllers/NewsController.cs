@@ -9,6 +9,7 @@
 
     public class NewsController : Controller
     {
+        private const int ItemsPerPage = 8;
         private readonly INewsService newsService;
 
         public NewsController(INewsService newsService)
@@ -23,14 +24,12 @@
                 throw new InvalidOperationException("The pages starts from one!");
             }
 
-            const int itemsPerPage = 8;
-
             var viewModel = new AllNewsViewModel
             {
-                ItemsPerPage = itemsPerPage,
+                ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
                 Count = this.newsService.GetCount(),
-                News = this.newsService.GetAll<NewsViewModel>(id, itemsPerPage),
+                News = this.newsService.GetAll<NewsViewModel>(id, ItemsPerPage),
             };
 
             return this.View(viewModel);
@@ -38,11 +37,11 @@
 
         public IActionResult ById(int id)
         {
-            NewsByIdViewModel viewModel;
+            NewsViewModel viewModel;
 
             try
             {
-                viewModel = this.newsService.GetById<NewsByIdViewModel>(id);
+                viewModel = this.newsService.GetById<NewsViewModel>(id);
             }
             catch (Exception ex)
             {
@@ -52,12 +51,15 @@
             return this.View(viewModel);
         }
 
-        public IActionResult NewsByCategory([FromQuery] SearchByCategoriesViewModel model)
+        public IActionResult NewsByCategory([FromQuery] SearchByCategoriesViewModel model, int id = 1)
         {
             var viewModel = new SearchByCategoriesViewModel
             {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                Count = this.newsService.GetCountByCategory(model.Name),
                 Name = model.Name,
-                News = this.newsService.GetByCategory<NewsViewModel>(model.Name),
+                News = this.newsService.GetByCategory<NewsViewModel>(model.Name, id, ItemsPerPage),
             };
 
             return this.View(viewModel);

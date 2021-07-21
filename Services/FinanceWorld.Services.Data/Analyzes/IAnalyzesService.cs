@@ -17,7 +17,7 @@
 
         Task DeleteAsync(string id);
 
-        IEnumerable<T> GetMyAnalyzes<T>(string userId);
+        IEnumerable<T> GetMyAnalyzes<T>(string userId, int page, int itemsPerPage);
 
         bool IsAnalyzeAndUserMatch(string id, string userId);
 
@@ -25,6 +25,6 @@
 
         int GetCount();
 
-        IEnumerable<T> SearchedAnalyzes<T>(string title);
+        IEnumerable<T> SearchedAnalyzes<T>(string title, int page, int itemsPerPage);
     }
 }
