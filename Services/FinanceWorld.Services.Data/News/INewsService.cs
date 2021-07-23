@@ -16,7 +16,7 @@
 
         T GetById<T>(int id);
 
-        Task UpdateAsync(int id, EditNewsViewModel model);
+        Task UpdateAsync(int id, CreateEditNewsInputModel model);
 
         Task DeleteAsync(int id);
 

@@ -32,7 +32,7 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
-            var createNewsDto = new CreateNewsInputModel
+            var createNewsDto = new CreateEditNewsInputModel
             {
                 Categories = this.categoriesService.GetCategories(),
             };
@@ -67,7 +67,7 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Edit(int id)
         {
-            var viewModel = this.newsService.GetById<EditNewsViewModel>(id);
+            var viewModel = this.newsService.GetById<CreateEditNewsInputModel>(id);
             var categories = this.categoriesService.GetCategories();
 
             viewModel.Categories = categories;
@@ -77,7 +77,7 @@
 
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Edit(int id, EditNewsViewModel model)
+        public async Task<IActionResult> Edit(int id, CreateEditNewsInputModel model)
         {
             if (!this.ModelState.IsValid)
             {

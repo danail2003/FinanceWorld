@@ -4,7 +4,6 @@
 
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Mapping;
-    using Microsoft.AspNetCore.Http;
 
     public class EditAnalyzesViewModel : IMapFrom<Analyze>
     {
@@ -14,7 +13,5 @@
 
         [Required]
         public string Description { get; set; }
-
-        public IFormFile Image { get; set; }
     }
 }

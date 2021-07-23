@@ -3,10 +3,13 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class CreateNewsInputModel
+    using FinanceWorld.Data.Models;
+    using FinanceWorld.Services.Mapping;
+
+    public class CreateEditNewsInputModel : IMapFrom<News>
     {
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Title { get; set; }
 
         [Required]

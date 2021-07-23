@@ -8,7 +8,7 @@
     public class News : BaseDeletableModel<int>
     {
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Title { get; set; }
 
         public int CategoryId { get; set; }
