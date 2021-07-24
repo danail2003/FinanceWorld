@@ -52,6 +52,14 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.AddMemoryCache();
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "CachedNews";
+            });
+
             services.AddControllersWithViews(
                 options =>
                     {
