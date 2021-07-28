@@ -19,7 +19,7 @@
         public AnalyzesService(IDeletableEntityRepository<Analyze> analyzesRepository)
             => this.analyzesRepository = analyzesRepository;
 
-        public async Task CreateAsync(CreateAnalyzeInputModel model, string userId, string path)
+        public async Task<string> CreateAsync(CreateAnalyzeInputModel model, string userId, string path)
         {
             var analyze = new Analyze
             {
@@ -51,6 +51,8 @@
 
             await this.analyzesRepository.AddAsync(analyze);
             await this.analyzesRepository.SaveChangesAsync();
+
+            return analyze.Id;
         }
 
         public async Task DeleteAsync(string id)

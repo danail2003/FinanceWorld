@@ -7,7 +7,7 @@
 
     public interface IAnalyzesService
     {
-        Task CreateAsync(CreateAnalyzeInputModel model, string userId, string path);
+        Task<string> CreateAsync(CreateAnalyzeInputModel model, string userId, string path);
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
