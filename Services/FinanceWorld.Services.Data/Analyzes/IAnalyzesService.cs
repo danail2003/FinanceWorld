@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Data.Models;
     using FinanceWorld.Web.ViewModels.Analyzes;
 
     public interface IAnalyzesService
@@ -13,7 +14,7 @@
 
         T GetById<T>(string id);
 
-        Task UpdateAsync(string id, EditAnalyzesViewModel model);
+        Task<Analyze> UpdateAsync(string id, EditAnalyzesViewModel model);
 
         Task DeleteAsync(string id);
 

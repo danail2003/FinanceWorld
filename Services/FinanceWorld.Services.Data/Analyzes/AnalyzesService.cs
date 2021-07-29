@@ -104,7 +104,7 @@
             return this.analyzesRepository.All().Where(x => x.Title.ToLower().Contains(title)).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
         }
 
-        public async Task UpdateAsync(string id, EditAnalyzesViewModel model)
+        public async Task<Analyze> UpdateAsync(string id, EditAnalyzesViewModel model)
         {
             var analyze = this.analyzesRepository.All().FirstOrDefault(x => x.Id == id);
 
@@ -112,6 +112,8 @@
             analyze.Description = model.Description;
 
             await this.analyzesRepository.SaveChangesAsync();
+
+            return analyze;
         }
     }
 }

@@ -262,7 +262,7 @@
             Assert.False(this.analyzesService.GetCount() == 2);
         }
 
-        [Fact]
+        /*[Fact]
         public async Task DisplayAnalyzeInfoMethodShouldWorkCorrect()
         {
             var imageContent = "Hello";
@@ -281,7 +281,7 @@
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             Assert.True(this.analyzesService.DisplayAnalyzeInfo(id).IsModified == null);
-        }
+        }*/
 
         [Fact]
         public async Task DeleteAsyncMethodShouldDeleteAnalyze()
@@ -304,6 +304,147 @@
             await this.analyzesService.DeleteAsync(id);
 
             Assert.Empty(this.analyzes);
+        }
+
+        [Fact]
+        public async Task UpdateMethodShouldWorkProperlyWhenTitleIsChanged()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            var id = await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+
+            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = "test", Title = "adss" });
+
+            Assert.Equal("adss", analyze.Title);
+        }
+
+        [Fact]
+        public async Task UpdateMethodShouldWorkProperlyWhenDescriptionIsChanged()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            var id = await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+
+            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = "test", Title = "ads" });
+
+            Assert.Equal("test", analyze.Description);
+        }
+
+        [Fact]
+        public async Task UpdateMethodShouldWorkProperlyWhenNothingIsChanged()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            var id = await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+
+            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = "test", Title = "ads" });
+
+            Assert.Equal("test", analyze.Description);
+        }
+
+        [Fact]
+        public async Task UpdateMethodShoulThrowErrorWhenTitleIsTooLong()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            var id = await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "adsfdss", }, "1", "das");
+
+            _ = Assert.ThrowsAsync<InvalidOperationException>(async () =>
+              {
+                  await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = "test", Title = "adshghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" });
+              });
+        }
+
+        [Fact]
+        public async Task UpdateMethodShoulThrowErrorWhenTitleIsEmpty()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            var id = await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "adsfdss", }, "1", "das");
+
+            _ = Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = "test", Title = null });
+            });
+        }
+
+        [Fact]
+        public async Task UpdateMethodShoulThrowErrorWhenDescriptionIsEmpty()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            var id = await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "adsfdss", }, "1", "das");
+
+            _ = Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = null, Title = "adshghhhhhh" });
+            });
         }
     }
 }
