@@ -29,11 +29,11 @@
             this.analyzes = new List<Analyze>();
             this.mockNews = new Mock<IDeletableEntityRepository<News>>();
             this.mockAnalyzes = new Mock<IDeletableEntityRepository<Analyze>>();
+            this.homeService = new HomeService(this.mockNews.Object, this.mockAnalyzes.Object);
             this.mockNews.Setup(x => x.AddAsync(It.IsAny<News>())).Callback((News news) => this.news.Add(news));
             this.mockNews.Setup(x => x.AllAsNoTracking()).Returns(this.news.AsQueryable());
             this.mockAnalyzes.Setup(x => x.AddAsync(It.IsAny<Analyze>())).Callback((Analyze analyze) => this.analyzes.Add(analyze));
             this.mockAnalyzes.Setup(x => x.AllAsNoTracking()).Returns(this.analyzes.AsQueryable());
-            this.homeService = new HomeService(this.mockNews.Object, this.mockAnalyzes.Object);
         }
 
         [Fact]
@@ -67,7 +67,25 @@
                 Title = "dsa",
             });
 
-            
+            this.analyzes.Add(new Analyze
+            {
+                Id = "3",
+                ImageId = "6",
+                AddedByUserId = "2",
+                Description = "das",
+                CreatedOn = DateTime.Now,
+                Title = "dsa",
+            });
+
+            this.analyzes.Add(new Analyze
+            {
+                Id = "2",
+                ImageId = "5",
+                AddedByUserId = "5",
+                Description = "das",
+                CreatedOn = DateTime.Now,
+                Title = "dsa",
+            });
         }
 
         [Fact]

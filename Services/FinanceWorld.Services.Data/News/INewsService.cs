@@ -3,12 +3,13 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Web.ViewModels.News;
 
     public interface INewsService
     {
-        Task CreateAsync(CreateNewsDto dto, string userId);
+        Task<News> CreateAsync(CreateNewsDto dto, string userId);
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
@@ -16,9 +17,9 @@
 
         T GetById<T>(int id);
 
-        Task UpdateAsync(int id, CreateEditNewsInputModel model);
+        Task<News> UpdateAsync(int id, CreateEditNewsInputModel model);
 
-        Task DeleteAsync(int id);
+        Task<int> DeleteAsync(int id);
 
         int GetCount();
 

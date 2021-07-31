@@ -17,27 +17,33 @@
         public NewsService(IDeletableEntityRepository<News> newsRepository)
             => this.newsRepository = newsRepository;
 
-        public async Task CreateAsync(CreateNewsDto dto, string userId)
+        public async Task<News> CreateAsync(CreateNewsDto dto, string userId)
         {
-            await this.newsRepository.AddAsync(new News
+            var news = new News
             {
                 AddedByUserId = userId,
                 Title = dto.Title,
                 CategoryId = dto.CategoryId,
                 Content = dto.Content,
                 ImageUrl = dto.ImageUrl,
-            });
+            };
+
+            await this.newsRepository.AddAsync(news);
 
             await this.newsRepository.SaveChangesAsync();
+
+            return news;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id)
         {
             var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
 
             this.newsRepository.Delete(news);
 
             await this.newsRepository.SaveChangesAsync();
+
+            return news.Id;
         }
 
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
@@ -66,7 +72,7 @@
             return this.newsRepository.AllAsNoTracking().Where(x => x.Category.Name == name).Count();
         }
 
-        public async Task UpdateAsync(int id, CreateEditNewsInputModel model)
+        public async Task<News> UpdateAsync(int id, CreateEditNewsInputModel model)
         {
             var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
 
@@ -76,6 +82,8 @@
             news.CategoryId = model.CategoryId;
 
             await this.newsRepository.SaveChangesAsync();
+
+            return news;
         }
     }
 }
