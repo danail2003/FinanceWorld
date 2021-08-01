@@ -86,6 +86,10 @@
                 CreatedOn = DateTime.Now,
                 Title = "dsa",
             });
+
+            var analyzes = this.homeService.GetLastThreeAnalyzes<AnalyzesViewModel>();
+
+            Assert.NotNull(analyzes);
         }
 
         [Fact]

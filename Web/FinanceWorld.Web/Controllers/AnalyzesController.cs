@@ -180,7 +180,7 @@
             var sb = new StringBuilder();
             sb.AppendLine($"<h1>{analyze.Title}</h1>");
             sb.AppendLine($"<p>{analyze.Description}</p>");
-            sb.AppendLine($"<img src=\"https://localhost:44319/\"{analyze.Image} />");
+            sb.AppendLine($"<img src=\"https://financeworld.azurewebsites.net{analyze.Image}\" />");
             await this.emailSender.SendEmailAsync("ddobrev20@outlook.com", "FinanceWorld", "ddobrev21@gmail.com", analyze.Title, sb.ToString());
 
             return this.RedirectToAction(nameof(this.ById), new { id });
