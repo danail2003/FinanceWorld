@@ -34,7 +34,7 @@
                     News = this.homeService.GetLastThreeNews<NewsViewModel>(),
                 };
 
-                this.memoryCache.Set("Home", viewModel, new MemoryCacheEntryOptions { SlidingExpiration = new TimeSpan(0, 1, 0) });
+                this.memoryCache.Set("Home", viewModel, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(3)));
             }
 
             return this.View(viewModel);
