@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Reflection;
     using AutoMapper;
     using FinanceWorld.Data.Common.Repositories;
     using FinanceWorld.Data.Models;
@@ -25,6 +25,8 @@
 
         public HomeServiceTests()
         {
+            InitializeMapper();
+            
             this.news = new List<News>();
             this.analyzes = new List<Analyze>();
             this.mockNews = new Mock<IDeletableEntityRepository<News>>();
@@ -92,43 +94,9 @@
             Assert.NotNull(analyzes);
         }
 
-        [Fact]
-        public void WhenWeHaveThreeNewsInCollectionThereShouldBeReturnThreeNews()
+        private static void InitializeMapper()
         {
-            this.news.Add(new News
-            {
-                Id = 1,
-                ImageUrl = "dsaasd",
-                AddedByUserId = "1",
-                Title = "dsaas",
-                Content = "sadsa",
-                CategoryId = 1,
-                CreatedOn = DateTime.Now,
-            });
-
-            this.news.Add(new News
-            {
-                Id = 2,
-                ImageUrl = "dsaasd",
-                AddedByUserId = "2",
-                Title = "dsaas",
-                Content = "sadsa",
-                CategoryId = 2,
-                CreatedOn = DateTime.Now,
-            });
-
-            this.news.Add(new News
-            {
-                Id = 3,
-                ImageUrl = "dsaasd",
-                AddedByUserId = "3",
-                Title = "dsaas",
-                Content = "sadsa",
-                CategoryId = 3,
-                CreatedOn = DateTime.Now,
-            });
-
-            Assert.Equal(3, this.news.Count);
+            AutoMapperConfig.RegisterMappings(Assembly.GetCallingAssembly());
         }
     }
 }

@@ -4,11 +4,13 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using FinanceWorld.Data.Common.Repositories;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Analyzes;
+    using FinanceWorld.Services.Mapping;
     using FinanceWorld.Web.ViewModels.Analyzes;
     using Microsoft.AspNetCore.Http;
     using Moq;
@@ -23,6 +25,7 @@
 
         public AnalyzesServiceTests()
         {
+            InitializeMapper();
             this.mockAnalyzes = new Mock<IDeletableEntityRepository<Analyze>>();
             this.analyzes = new List<Analyze>();
             this.analyzesService = new AnalyzesService(this.mockAnalyzes.Object);
@@ -374,6 +377,62 @@
             var result = this.analyzesService.DisplayAnalyzeInfo(id);
 
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async Task GetByIdShouldWorkProperly()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            var id = await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+
+            var result = this.analyzesService.GetById<AnalyzesByIdViewModel>(id);
+
+            Assert.NotNull(result);
+            Assert.Equal("ads", result.Title);
+        }
+
+        [Fact]
+        public async Task GetAllShouldWorkProperly()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+
+            var result = this.analyzesService.GetAll<AnalyzesViewModel>(1, 8);
+
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count());
+        }
+
+        private static void InitializeMapper()
+        {
+            AutoMapperConfig.RegisterMappings(Assembly.Load("FinanceWorld.Web.ViewModels"));
         }
     }
 }
