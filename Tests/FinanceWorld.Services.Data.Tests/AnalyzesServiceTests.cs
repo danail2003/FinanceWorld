@@ -243,27 +243,6 @@
             Assert.False(this.analyzesService.GetCount() == 2);
         }
 
-        /*[Fact]
-        public async Task DisplayAnalyzeInfoMethodShouldWorkCorrect()
-        {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
-
-            var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
-
-            Assert.True(this.analyzesService.DisplayAnalyzeInfo(id).IsModified == null);
-        }*/
-
         [Fact]
         public async Task DeleteAsyncMethodShouldDeleteAnalyze()
         {
@@ -428,6 +407,125 @@
 
             Assert.NotNull(result);
             Assert.Equal(2, result.Count());
+        }
+
+        [Fact]
+        public async Task GetMyAnalyzesShouldReturnCorrectCount()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "2", "das");
+
+            var result = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>("1", 1, 8);
+
+            Assert.Equal(2, result.Count());
+        }
+
+        [Fact]
+        public async Task GetMyAnalyzesShouldReturnOnlyMyAnalyzes()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test2", Title = "ads", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "2", "das");
+
+            var result = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>("1", 1, 8).ToList();
+
+            Assert.Equal("test", result[0].Description);
+            Assert.Equal("test2", result[1].Description);
+        }
+
+        [Fact]
+        public async Task SearchedAnalyzesShouldReturnCorrectCount()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "test", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test2", Title = "someother", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "anything", }, "2", "das");
+
+            var result = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>("test", 1, 8);
+
+            Assert.Single(result);
+        }
+
+        [Fact]
+        public async Task SearchedAnalyzesShouldReturnCorrectAnalyzes()
+        {
+            var imageContent = "Hello";
+            var fileName = "test.gif";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+            var file = this.fileMock.Object;
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "test", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test2", Title = "testsomething", }, "1", "das");
+
+            await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "anything", }, "2", "das");
+
+            var result = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>("test", 1, 8).ToList();
+
+            Assert.Equal(2, result.Count());
+            Assert.Equal("test", result[0].Title);
+            Assert.Equal("testsomething", result[1].Title);
         }
 
         private static void InitializeMapper()

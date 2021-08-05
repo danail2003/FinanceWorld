@@ -1,14 +1,15 @@
 ﻿namespace FinanceWorld.Services.Data.Tests
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     using FinanceWorld.Data.Common.Repositories;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Services.Data.News;
+    using FinanceWorld.Services.Mapping;
     using FinanceWorld.Web.ViewModels.News;
     using Moq;
     using Xunit;
@@ -21,9 +22,10 @@
 
         public NewsServiceTests()
         {
+            InitializeMapper();
             this.mockNews = new Mock<IDeletableEntityRepository<News>>();
-            this.news = new List<News>();
             this.newsService = new NewsService(this.mockNews.Object);
+            this.news = new List<News>();
             this.mockNews.Setup(x => x.AllAsNoTracking()).Returns(this.news.AsQueryable());
             this.mockNews.Setup(x => x.All()).Returns(this.news.AsQueryable());
             this.mockNews.Setup(x => x.AddAsync(It.IsAny<News>())).Callback((News news) => this.news.Add(news));
@@ -97,6 +99,22 @@
             await this.newsService.UpdateAsync(news.Id, new CreateEditNewsInputModel { Content = "testtt", Title = "test2", CategoryId = 2, ImageUrl = "test2" });
 
             Assert.Equal("testtt", news.Content);
+        }
+
+        [Fact]
+        public async Task GetAllMethodShouldWorkCorrect()
+        {
+            await this.newsService.CreateAsync(new CreateNewsDto { Content = "test", Title = "sometest", CategoryId = 1, ImageUrl = "dsa" }, "1");
+            await this.newsService.CreateAsync(new CreateNewsDto { Content = "test", Title = "sometest", CategoryId = 1, ImageUrl = "dsa" }, "1");
+
+            var result = this.newsService.GetAll<NewsViewModel>(1, 8);
+
+            Assert.Equal(2, result.Count());
+        }
+
+        private static void InitializeMapper()
+        {
+            AutoMapperConfig.RegisterMappings(Assembly.Load("FinanceWorld.Web.ViewModels"));
         }
     }
 }
