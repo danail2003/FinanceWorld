@@ -53,7 +53,7 @@
 
         public IEnumerable<T> GetByCategory<T>(string name, int page, int itemsPerPage)
         {
-            return this.newsRepository.All()
+            return this.newsRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.CreatedOn).Where(x => x.Category.Name.ToLower().Contains(name)).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
         }
 

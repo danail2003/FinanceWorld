@@ -16,16 +16,20 @@
         public DictionariesService(IDeletableEntityRepository<Dictionary> dictionaryRepository)
             => this.dictionaryRepository = dictionaryRepository;
 
-        public async Task CreateAsync(CreateDictionaryDto dto, string userId)
+        public async Task<string> CreateAsync(CreateDictionaryDto dto, string userId)
         {
-            await this.dictionaryRepository.AddAsync(new Dictionary
+            var dictionary = new Dictionary
             {
                 Name = dto.Name,
                 Description = dto.Description,
                 AddedByUserId = userId,
-            });
+            };
+
+            await this.dictionaryRepository.AddAsync(dictionary);
 
             await this.dictionaryRepository.SaveChangesAsync();
+
+            return dictionary.Id;
         }
 
         public IEnumerable<T> GetAll<T>()

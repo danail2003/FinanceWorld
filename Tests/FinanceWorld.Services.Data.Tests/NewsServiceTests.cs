@@ -24,10 +24,10 @@
         {
             InitializeMapper();
             this.mockNews = new Mock<IDeletableEntityRepository<News>>();
-            this.newsService = new NewsService(this.mockNews.Object);
             this.news = new List<News>();
-            this.mockNews.Setup(x => x.AllAsNoTracking()).Returns(this.news.AsQueryable());
+            this.newsService = new NewsService(this.mockNews.Object);
             this.mockNews.Setup(x => x.All()).Returns(this.news.AsQueryable());
+            this.mockNews.Setup(x => x.AllAsNoTracking()).Returns(this.news.AsQueryable());
             this.mockNews.Setup(x => x.AddAsync(It.IsAny<News>())).Callback((News news) => this.news.Add(news));
             this.mockNews.Setup(x => x.Delete(It.IsAny<News>())).Callback((News news) => this.news.Remove(news));
         }

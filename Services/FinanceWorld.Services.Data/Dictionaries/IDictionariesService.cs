@@ -7,7 +7,7 @@
 
     public interface IDictionariesService
     {
-        Task CreateAsync(CreateDictionaryDto dto, string userId);
+        Task<string> CreateAsync(CreateDictionaryDto dto, string userId);
 
         IEnumerable<T> GetAll<T>();
 

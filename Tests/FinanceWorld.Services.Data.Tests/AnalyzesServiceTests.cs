@@ -512,7 +512,7 @@
             this.fileMock.Setup(x => x.Length).Returns(ms.Length);
             var file = this.fileMock.Object;
 
-            await this.analyzesService.CreateAsync(
+            var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "test", }, "1", "das");
 
             await this.analyzesService.CreateAsync(
@@ -526,6 +526,10 @@
             Assert.Equal(2, result.Count());
             Assert.Equal("test", result[0].Title);
             Assert.Equal("testsomething", result[1].Title);
+            Assert.Equal("/images/analyzes/", result[0].Image.Substring(0, 17));
+            Assert.Equal(id, result[0].Id);
+            Assert.Equal(0, result[0].LikesCount);
+            Assert.Equal(0, result[0].DislikesCount);
         }
 
         private static void InitializeMapper()
