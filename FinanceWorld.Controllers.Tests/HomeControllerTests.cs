@@ -32,45 +32,6 @@ namespace FinanceWorld.Controllers.Tests
             this.homeService = new HomeService(this.mockNews.Object, this.mockAnalyzes.Object);
         }
 
-        [Fact]
-        public void ControllerShouldHaveReturnResult()
-        {
-            this.analyzes.Add(new Analyze
-            {
-                Id = "1",
-                ImageId = "1",
-                AddedByUserId = "1",
-                Description = "das",
-                CreatedOn = DateTime.Now,
-                Title = "dsa",
-            });
-
-            this.analyzes.Add(new Analyze
-            {
-                Id = "3",
-                ImageId = "6",
-                AddedByUserId = "2",
-                Description = "das",
-                CreatedOn = DateTime.Now,
-                Title = "dsa",
-            });
-
-            this.analyzes.Add(new Analyze
-            {
-                Id = "2",
-                ImageId = "5",
-                AddedByUserId = "5",
-                Description = "das",
-                CreatedOn = DateTime.Now,
-                Title = "dsa",
-            });
-
-            var contoller = new HomeController(this.homeService, GetMemoryCache(true));
-            
-
-            
-        }
-
         public static IMemoryCache GetMemoryCache(object expectedValue)
         {
             var mockMemoryCache = new Mock<IMemoryCache>();

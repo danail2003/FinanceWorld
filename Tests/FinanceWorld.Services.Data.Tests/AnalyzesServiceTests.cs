@@ -1,5 +1,6 @@
 ﻿namespace FinanceWorld.Services.Data.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -205,16 +206,25 @@
         }
 
         [Fact]
-        public async Task DisplayAnalyzeInfoMethodShouldWorkCorrectly()
+        public void DisplayAnalyzeInfoMethodShouldWorkCorrectly()
         {
-            var file = this.InitializeFile("Hello", "test.jpeg");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "1",
+                AddedByUser = new ApplicationUser(),
+                CreatedOn = DateTime.UtcNow,
+                Description = "test",
+                Id = "123",
+                Image = new Image(),
+                ModifiedOn = null,
+                Title = "test",
+                IsDeleted = false,
+            });
 
-            var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
-
-            var result = this.analyzesService.DisplayAnalyzeInfo(id);
+            var result = this.analyzesService.DisplayAnalyzeInfo("123");
 
             Assert.NotNull(result);
+            Assert.Equal("No", result.IsModified);
         }
 
         [Fact]

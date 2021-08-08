@@ -83,6 +83,63 @@
             Assert.Equal("testtest2", result[1].Description);
         }
 
+        [Fact]
+        public void GetThreeLastNewsShouldReturnCorrectCount()
+        {
+            this.news.Add(new News
+            {
+                CategoryId = 1,
+                Content = "test",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test",
+                ImageUrl = "testest.com",
+            });
+
+            this.news.Add(new News
+            {
+                CategoryId = 2,
+                Content = "test2",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test2",
+                ImageUrl = "testest2.com",
+            });
+
+            var result = this.homeService.GetLastThreeNews<NewsViewModel>();
+
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact]
+        public void GetThreeLastNewsShouldReturnCorrectValues()
+        {
+            this.news.Add(new News
+            {
+                CategoryId = 1,
+                Content = "test",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test",
+                ImageUrl = "testest.com",
+            });
+
+            this.news.Add(new News
+            {
+                CategoryId = 2,
+                Content = "test2",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test2",
+                ImageUrl = "testest2.com",
+            });
+
+            var result = this.homeService.GetLastThreeNews<NewsViewModel>().ToArray();
+
+            Assert.Equal("Test", result[0].Title);
+            Assert.Equal("test2", result[1].Content);
+        }
+
         private static void InitializeMapper()
         {
             AutoMapperConfig.RegisterMappings(Assembly.Load("FinanceWorld.Web.ViewModels"));

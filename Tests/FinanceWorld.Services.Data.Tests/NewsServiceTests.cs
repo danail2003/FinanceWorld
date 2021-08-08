@@ -1,5 +1,6 @@
 ﻿namespace FinanceWorld.Services.Data.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -102,14 +103,103 @@
         }
 
         [Fact]
-        public async Task GetAllMethodShouldWorkCorrect()
+        public void GetAllMethodShouldReturnCorrectCount()
         {
-            await this.newsService.CreateAsync(new CreateNewsDto { Content = "test", Title = "sometest", CategoryId = 1, ImageUrl = "dsa" }, "1");
-            await this.newsService.CreateAsync(new CreateNewsDto { Content = "test", Title = "sometest", CategoryId = 1, ImageUrl = "dsa" }, "1");
+            this.news.Add(new News
+            {
+                Category = new Category(),
+                AddedByUser = new ApplicationUser(),
+                AddedByUserId = "1",
+                CategoryId = 1,
+                Content = "test",
+                CreatedOn = DateTime.UtcNow,
+                Id = 123,
+                ImageUrl = "test.com",
+                Title = "test",
+                IsDeleted = false,
+            });
+
+            this.news.Add(new News
+            {
+                Category = new Category(),
+                AddedByUser = new ApplicationUser(),
+                AddedByUserId = "2",
+                CategoryId = 2,
+                Content = "test",
+                CreatedOn = DateTime.UtcNow,
+                Id = 124,
+                ImageUrl = "test2.com",
+                Title = "test2",
+                IsDeleted = false,
+            });
 
             var result = this.newsService.GetAll<NewsViewModel>(1, 8);
 
             Assert.Equal(2, result.Count());
+        }
+
+        [Fact]
+        public void GetAllShouldReturnCorrectValues()
+        {
+            this.news.Add(new News
+            {
+                Category = new Category(),
+                AddedByUser = new ApplicationUser(),
+                AddedByUserId = "1",
+                CategoryId = 1,
+                Content = "test",
+                CreatedOn = DateTime.UtcNow,
+                Id = 123,
+                ImageUrl = "test.com",
+                Title = "test",
+                IsDeleted = false,
+            });
+
+            this.news.Add(new News
+            {
+                Category = new Category { Name = "Trends" },
+                AddedByUser = new ApplicationUser(),
+                AddedByUserId = "2",
+                CategoryId = 2,
+                Content = "test",
+                CreatedOn = DateTime.UtcNow,
+                Id = 124,
+                ImageUrl = "test2.com",
+                Title = "test2",
+                IsDeleted = false,
+            });
+
+            var result = this.newsService.GetAll<NewsViewModel>(1, 8).ToList();
+
+            Assert.Equal("test2", result[0].Title);
+            Assert.Equal("test.com", result[1].ImageUrl);
+            Assert.Equal("test", result[0].Content);
+            Assert.Equal(123, result[1].Id);
+            Assert.Equal("Trends", result[0].CategoryName);
+            Assert.Equal(DateTime.UtcNow.ToString("d"), result[1].CreatedOnFormatted);
+        }
+
+        [Fact]
+        public void GetByIdShouldReturnCorrectNews()
+        {
+            this.news.Add(new News
+            {
+                Category = new Category(),
+                AddedByUser = new ApplicationUser(),
+                AddedByUserId = "2",
+                CategoryId = 2,
+                Content = "test",
+                CreatedOn = DateTime.UtcNow,
+                Id = 124,
+                ImageUrl = "test2.com",
+                Title = "test2",
+                IsDeleted = false,
+            });
+
+            var result = this.newsService.GetById<NewsViewModel>(124);
+
+            Assert.Equal("test2", result.Title);
+            Assert.Equal(124, result.Id);
         }
 
         [Fact]
@@ -138,6 +228,63 @@
             var result = this.newsService.GetCountByCategory("Trends");
 
             Assert.Equal(2, result);
+        }
+
+        [Fact]
+        public void GetByCategoryShouldReturnCorrectCount()
+        {
+            this.news.Add(new News
+            {
+                CategoryId = 1,
+                Content = "test",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test",
+                ImageUrl = "testest.com",
+            });
+
+            this.news.Add(new News
+            {
+                CategoryId = 2,
+                Content = "test2",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test2",
+                ImageUrl = "testest2.com",
+            });
+
+            var result = this.newsService.GetByCategory<NewsViewModel>("trends", 1, 8);
+
+            Assert.Equal(2, result.Count());
+        }
+
+        [Fact]
+        public void GetByCategoryShouldReturnCorrectValues()
+        {
+            this.news.Add(new News
+            {
+                CategoryId = 1,
+                Content = "test",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test",
+                ImageUrl = "testest.com",
+            });
+
+            this.news.Add(new News
+            {
+                CategoryId = 2,
+                Content = "test2",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test2",
+                ImageUrl = "testest2.com",
+            });
+
+            var result = this.newsService.GetByCategory<NewsViewModel>("trends", 1, 8).ToList();
+
+            Assert.Equal("Test", result[0].Title);
+            Assert.Equal("testest2.com", result[1].ImageUrl);
         }
 
         private static void InitializeMapper()
