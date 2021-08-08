@@ -112,6 +112,34 @@
             Assert.Equal(2, result.Count());
         }
 
+        [Fact]
+        public void GetCountByCategoryShouldReturnCorrectCount()
+        {
+            this.news.Add(new News
+            {
+                CategoryId = 1,
+                Content = "test",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test",
+                ImageUrl = "testest.com",
+            });
+
+            this.news.Add(new News
+            {
+                CategoryId = 2,
+                Content = "test2",
+                Category = new Category { Name = "Trends" },
+                AddedByUserId = "1",
+                Title = "Test2",
+                ImageUrl = "testest2.com",
+            });
+
+            var result = this.newsService.GetCountByCategory("Trends");
+
+            Assert.Equal(2, result);
+        }
+
         private static void InitializeMapper()
         {
             AutoMapperConfig.RegisterMappings(Assembly.Load("FinanceWorld.Web.ViewModels"));

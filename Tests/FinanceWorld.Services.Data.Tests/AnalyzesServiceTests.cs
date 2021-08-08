@@ -1,6 +1,5 @@
 ﻿namespace FinanceWorld.Services.Data.Tests
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -39,17 +38,7 @@
         [Fact]
         public async Task CreateMethodShouldAddAnalyze()
         {
-            var imageContent = "Hello";
-            var fileName = "test.png";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.png");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -60,17 +49,7 @@
         [Fact]
         public async Task CreateMethodShouldAddAnalyzeWhenFileFormatIsJPEG()
         {
-            var imageContent = "Hello";
-            var fileName = "test.jpeg";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.jpeg");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -81,17 +60,7 @@
         [Fact]
         public async Task CreateMethodShouldAddAnalyzeWhenFileFormatIsJPG()
         {
-            var imageContent = "Hello";
-            var fileName = "test.jpg";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.jpg");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -102,17 +71,7 @@
         [Fact]
         public async Task CreateMethodShouldAddAnalyzeWhenFileFormatIsGIF()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -123,17 +82,7 @@
         [Fact]
         public async Task CreateMethodShouldAddManyAnalyzes()
         {
-            var imageContent = "Hello";
-            var fileName = "test.png";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.png");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -150,17 +99,7 @@
         [Fact]
         public async Task IsAnalyzeAndUserMatchShouldReturnTrueIfBothExist()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -171,38 +110,18 @@
         [Fact]
         public async Task IsAnalyzeAndUserMatchShouldReturnFalseIfOneOfTheDoesnotExist()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
-            var id = await this.analyzesService.CreateAsync(
+            await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
-            Assert.False(this.analyzesService.IsAnalyzeAndUserMatch(null, "1"));
+            Assert.False(this.analyzesService.IsAnalyzeAndUserMatch("someId", "1"));
         }
 
         [Fact]
         public async Task GetCountMethodShouldReturnExactCount()
         {
-            var imageContent = "Hello";
-            var fileName = "test.png";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.png");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -219,17 +138,7 @@
         [Fact]
         public async Task GetCountMethodShouldReturnFalseIfCountDoesnotMatch()
         {
-            var imageContent = "Hello";
-            var fileName = "test.png";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.png");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -246,17 +155,7 @@
         [Fact]
         public async Task DeleteAsyncMethodShouldDeleteAnalyze()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -269,17 +168,7 @@
         [Fact]
         public async Task UpdateMethodShouldWorkProperlyWhenTitleIsChanged()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -292,17 +181,7 @@
         [Fact]
         public async Task UpdateMethodShouldWorkProperlyWhenDescriptionIsChanged()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -315,17 +194,7 @@
         [Fact]
         public async Task UpdateMethodShouldWorkProperlyWhenNothingIsChanged()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
@@ -338,17 +207,7 @@
         [Fact]
         public async Task DisplayAnalyzeInfoMethodShouldWorkCorrectly()
         {
-            var imageContent = "Hello";
-            var fileName = "test.png";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.jpeg");
 
             var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
@@ -361,17 +220,7 @@
         [Fact]
         public async Task GetByIdShouldWorkProperly()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
@@ -385,17 +234,7 @@
         [Fact]
         public async Task GetAllShouldWorkProperly()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
@@ -412,17 +251,7 @@
         [Fact]
         public async Task GetMyAnalyzesShouldReturnCorrectCount()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
@@ -441,17 +270,7 @@
         [Fact]
         public async Task GetMyAnalyzesShouldReturnOnlyMyAnalyzes()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
@@ -471,17 +290,7 @@
         [Fact]
         public async Task SearchedAnalyzesShouldReturnCorrectCount()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "test", }, "1", "das");
@@ -500,17 +309,7 @@
         [Fact]
         public async Task SearchedAnalyzesShouldReturnCorrectAnalyzes()
         {
-            var imageContent = "Hello";
-            var fileName = "test.gif";
-            var ms = new MemoryStream();
-            var writer = new StreamWriter(ms);
-            writer.Write(imageContent);
-            writer.Flush();
-            ms.Position = 0;
-            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
-            this.fileMock.Setup(x => x.FileName).Returns(fileName);
-            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
-            var file = this.fileMock.Object;
+            var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
                 new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "test", }, "1", "das");
@@ -523,7 +322,7 @@
 
             var result = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>("test", 1, 8).ToList();
 
-            Assert.Equal(2, result.Count());
+            Assert.Equal(2, result.Count);
             Assert.Equal("test", result[0].Title);
             Assert.Equal("testsomething", result[1].Title);
             Assert.Equal("/images/analyzes/", result[0].Image.Substring(0, 17));
@@ -535,6 +334,20 @@
         private static void InitializeMapper()
         {
             AutoMapperConfig.RegisterMappings(Assembly.Load("FinanceWorld.Web.ViewModels"));
+        }
+
+        private IFormFile InitializeFile(string imageContent, string fileName)
+        {
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(imageContent);
+            writer.Flush();
+            ms.Position = 0;
+            this.fileMock.Setup(x => x.OpenReadStream()).Returns(ms);
+            this.fileMock.Setup(x => x.FileName).Returns(fileName);
+            this.fileMock.Setup(x => x.Length).Returns(ms.Length);
+
+            return this.fileMock.Object;
         }
     }
 }

@@ -66,9 +66,9 @@ namespace FinanceWorld.Controllers.Tests
             });
 
             var contoller = new HomeController(this.homeService, GetMemoryCache(true));
-            var result = contoller.Index();
+            
 
-            Assert.NotNull(result);
+            
         }
 
         public static IMemoryCache GetMemoryCache(object expectedValue)
