@@ -28,11 +28,11 @@
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Trends">Trends</a></li>
-                                <li><a class="dropdown-item" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Political">Political</a></li>
-                                <li><a class="dropdown-item" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Markets">Markets</a></li>
-                                <li><a class="dropdown-item" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Company">Company</a></li>
-                                <li><a class="dropdown-item" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Trading">Trading</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Trends">Trends</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Political">Political</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Markets">Markets</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Company">Company</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Trading">Trading</a></li>
                             </ul>
                         </li>
                         @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
