@@ -1,10 +1,15 @@
-﻿using FinanceWorld.Data.Common.Repositories;
+﻿using FinanceWorld.Common;
+using FinanceWorld.Data.Common.Repositories;
 using FinanceWorld.Data.Models;
 using FinanceWorld.Services.Data.Analyzes;
+using FinanceWorld.Services.Data.Models;
 using FinanceWorld.Services.Data.News;
 using FinanceWorld.Services.Mapping;
 using FinanceWorld.Web.Areas.Administration.Controllers;
+using FinanceWorld.Web.Controllers;
+using FinanceWorld.Web.ViewModels.News;
 using Moq;
+using MyTested.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,24 +22,138 @@ namespace FinanceWorld.Controllers.Tests
 {
     public class NewsControllerTests
     {
-        private readonly Mock<IDeletableEntityRepository<News>> mockNews;
-        private readonly List<News> news;
-        private readonly NewsService newsService;
-
-        public NewsControllerTests()
+        [Fact]
+        public void GetCreateShouldBeForAdminsAndShouldReturnView()
         {
-            InitializeMapper();
-            this.mockNews = new Mock<IDeletableEntityRepository<News>>();
-            this.newsService = new NewsService(this.mockNews.Object);
-            this.news = new List<News>();
-            this.mockNews.Setup(x => x.AllAsNoTracking()).Returns(this.news.AsQueryable());
-            this.mockNews.Setup(x => x.AddAsync(It.IsAny<News>())).Callback((News news) => this.news.Add(news));
+            MyController<Web.Areas.Administration.Controllers.NewsController>
+                .Instance()
+                .Calling(x => x.Create())
+                .ShouldHave()
+                .ActionAttributes(attr => attr
+                .RestrictingForAuthorizedRequests(GlobalConstants.AdministratorRoleName))
+                .AndAlso()
+                .ShouldReturn()
+                .View();
         }
 
-
-        private static void InitializeMapper()
+        [Fact]
+        public void PostCreateShouldBeForAdminsAndReturnRedirectWithValidData()
         {
-            AutoMapperConfig.RegisterMappings(Assembly.Load("FinanceWorld.Web.ViewModels"));
+            MyController<Web.Areas.Administration.Controllers.NewsController>
+                .Instance(c => c
+                .WithUser())
+                .Calling(x => x.Create(new CreateNewsDto
+                {
+                    Title = "test",
+                    Content = "testtest",
+                    CategoryId = 1,
+                    ImageUrl = "test.com"
+                }));
+        }
+
+        [Theory]
+        [InlineData(12)]
+        public void DeleteShouldBeForAdminsAndShouldReturnView(int id)
+        {
+            MyController<Web.Areas.Administration.Controllers.NewsController>
+                .Instance(x => x.WithData(new News
+                {
+                    CategoryId = 1,
+                    Content = "test",
+                    Title = "test",
+                    Id = 12,
+                    ImageUrl = "test.com",
+                    AddedByUserId = "1",
+                    CreatedOn = DateTime.UtcNow
+                }))
+                .Calling(x => x.Delete(id))
+                .ShouldHave()
+                .ActionAttributes(attr => attr
+                .RestrictingForAuthorizedRequests(GlobalConstants.AdministratorRoleName))
+                .AndAlso()
+                .ShouldReturn()
+                .Redirect();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public void GetEditShouldBeForAdminsAndShouldReturnView(int id)
+        {
+            MyController<Web.Areas.Administration.Controllers.NewsController>
+                .Instance(x => x.WithData(new News
+                {
+                    CategoryId = 1,
+                    Content = "test",
+                    ImageUrl = "test.com",
+                    Title = "test",
+                    AddedByUserId = "1",
+                    Id = id,
+                    CreatedOn = DateTime.UtcNow,
+                }))
+                .Calling(x => x.Edit(id))
+                .ShouldHave()
+                .ActionAttributes(attr => attr
+                .RestrictingForAuthorizedRequests(GlobalConstants.AdministratorRoleName))
+                .AndAlso()
+                .ShouldReturn()
+                .View();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public void PostEditShoulBeForAdminsAndReturnRedirect(int id)
+        {
+            MyController<Web.Areas.Administration.Controllers.NewsController>
+                .Instance(x => x.WithData(new News
+                {
+                    AddedByUserId = "1",
+                    CategoryId = 1,
+                    Content = "test",
+                    Title = "test",
+                    Id = id,
+                    ImageUrl = "test.com",
+                    CreatedOn = DateTime.UtcNow,
+                }))
+                .Calling(x => x.Edit(id, new CreateEditNewsInputModel
+                {
+                    CategoryId = 1,
+                    Content = "test",
+                    Title = "test",
+                    ImageUrl = "test.com",
+                }))
+                .ShouldHave()
+                .ActionAttributes(attr => attr
+                .RestrictingForAuthorizedRequests(GlobalConstants.AdministratorRoleName)
+                .RestrictingForHttpMethod(HttpMethod.Post))
+                .AndAlso()
+                .ShouldReturn()
+                .Redirect();
+        }
+
+        [Theory]
+        [InlineData(1)]
+        public void PostEditShoulThrowException(int id)
+        {
+            MyController<Web.Areas.Administration.Controllers.NewsController>
+                .Instance(x => x.WithData(new News
+                {
+                    AddedByUserId = "1",
+                    CategoryId = 1,
+                    Content = "test",
+                    Title = "test",
+                    Id = id,
+                    ImageUrl = "test.com",
+                    CreatedOn = DateTime.UtcNow,
+                }))
+                .Calling(x => x.Edit(id, new CreateEditNewsInputModel
+                {
+                    CategoryId = 1,
+                    Content = null,
+                    Title = "test",
+                    ImageUrl = "test.com",
+                }))
+                .ShouldThrow()
+                .Exception();
         }
     }
 }
