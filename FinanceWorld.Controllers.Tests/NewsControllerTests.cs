@@ -1,25 +1,27 @@
-﻿using FinanceWorld.Common;
-using FinanceWorld.Data.Common.Repositories;
-using FinanceWorld.Data.Models;
-using FinanceWorld.Services.Data.Analyzes;
-using FinanceWorld.Services.Data.Models;
-using FinanceWorld.Services.Data.News;
-using FinanceWorld.Services.Mapping;
-using FinanceWorld.Web.Areas.Administration.Controllers;
-using FinanceWorld.Web.Controllers;
-using FinanceWorld.Web.ViewModels.News;
-using Moq;
-using MyTested.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace FinanceWorld.Controllers.Tests
+﻿namespace FinanceWorld.Controllers.Tests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Xunit;
+    using FinanceWorld.Common;
+    using FinanceWorld.Data.Common.Repositories;
+    using FinanceWorld.Data.Models;
+    using FinanceWorld.Services.Data.Analyzes;
+    using FinanceWorld.Services.Data.Models;
+    using FinanceWorld.Services.Data.News;
+    using FinanceWorld.Services.Mapping;
+    using FinanceWorld.Web.Areas.Administration.Controllers;
+    using FinanceWorld.Web.Controllers;
+    using FinanceWorld.Web.ViewModels.News;
+    using Moq;
+    using MyTested.AspNetCore.Mvc;
+    using FinanceWorld.Web.ViewModels.Categories;
+
     public class NewsControllerTests
     {
         [Fact]
@@ -154,6 +156,92 @@ namespace FinanceWorld.Controllers.Tests
                 }))
                 .ShouldThrow()
                 .Exception();
+        }
+
+        [Fact]
+        public void AllShouldReturnView()
+        {
+            MyController<Web.Controllers.NewsController>
+                .Instance(x => x
+                .WithData(new News
+                {
+                    AddedByUserId = "1",
+                    CategoryId = 1,
+                    Content = "test",
+                    Title = "test",
+                    ImageUrl = "test.com",
+                    CreatedOn = DateTime.UtcNow,
+                    Id = 1,
+                }))
+                .Calling(x => x.All(1))
+                .ShouldReturn()
+                .View(view => view
+                .WithModelOfType<AllNewsViewModel>());
+        }
+
+        [Fact]
+        public void AllShouldThrowException()
+        {
+            MyController<Web.Controllers.NewsController>
+                .Instance(x => x
+                .WithData(new News
+                {
+                    AddedByUserId = "1",
+                    CategoryId = 1,
+                    Content = "test",
+                    Title = "test",
+                    ImageUrl = "test.com",
+                    CreatedOn = DateTime.UtcNow,
+                    Id = 1,
+                }))
+                .Calling(x => x.All(-1))
+                .ShouldThrow()
+                .Exception()
+                .OfType<InvalidOperationException>();
+        }
+
+        [Fact]
+        public void ByIdShouldReturnView()
+        {
+            MyController<Web.Controllers.NewsController>
+                .Instance(x => x
+                .WithData(new News
+                {
+                    AddedByUserId = "1",
+                    CategoryId = 1,
+                    Content = "test",
+                    Title = "test",
+                    ImageUrl = "test.com",
+                    CreatedOn = DateTime.UtcNow,
+                    Id = 1,
+                }))
+                .Calling(x => x.ById(1))
+                .ShouldReturn()
+                .View();
+        }
+
+        [Fact]
+        public void NewsByCategoryShouldReturnView()
+        {
+            MyController<Web.Controllers.NewsController>
+                .Instance(x => x
+                .WithData(new News
+                {
+                    AddedByUserId = "1",
+                    CategoryId = 1,
+                    Content = "test",
+                    Title = "test",
+                    ImageUrl = "test.com",
+                    CreatedOn = DateTime.UtcNow,
+                    Id = 1,
+                }))
+                .Calling(x => x.NewsByCategory(new SearchByCategoriesViewModel
+                {
+                    Name = "test"
+                }, 1))
+                .ShouldReturn()
+                .View(view => view
+                .WithModelOfType<SearchByCategoriesViewModel>());
         }
     }
 }
