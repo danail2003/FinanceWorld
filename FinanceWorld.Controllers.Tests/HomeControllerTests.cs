@@ -43,53 +43,6 @@ namespace FinanceWorld.Controllers.Tests
             this.mockAnalyzes.Setup(x => x.AddAsync(It.IsAny<Analyze>())).Callback((Analyze analyze) => this.analyzes.Add(analyze));
             this.homeService = new HomeService(this.mockNews.Object, this.mockAnalyzes.Object);
         }
-
-        [Fact]
-        public async Task IndexMustReturnView()
-        {
-            this.news.Add(new News
-            {
-                Category = new Category(),
-                AddedByUser = new ApplicationUser(),
-                AddedByUserId = "1",
-                CategoryId = 1,
-                Content = "test",
-                CreatedOn = DateTime.UtcNow,
-                Id = 123,
-                ImageUrl = "test.com",
-                Title = "test",
-                IsDeleted = false,
-            });
-
-            this.news.Add(new News
-            {
-                Category = new Category(),
-                AddedByUser = new ApplicationUser(),
-                AddedByUserId = "2",
-                CategoryId = 2,
-                Content = "test",
-                CreatedOn = DateTime.UtcNow,
-                Id = 124,
-                ImageUrl = "test2.com",
-                Title = "test2",
-                IsDeleted = false,
-            });
-
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = InitializeFile("Hello", "test.png"), Description = "dsaas", Title = "ads", }, "1", "das");
-
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = InitializeFile("Hello", "test.png"), Description = "dfsdsdfas", Title = "test", }, "2", "test");
-
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = InitializeFile("Hello", "test.png"), Description = "Test", Title = "test", }, "3", "test/test");
-
-            var controller = new HomeController(this.homeService, GetMemoryCache("Home"));
-
-            var view = controller.Index();
-
-            Assert.NotNull(view);
-        }
         
         private static IMemoryCache GetMemoryCache(object expectedValue)
         {
