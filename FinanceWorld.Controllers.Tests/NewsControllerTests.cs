@@ -46,7 +46,7 @@
                     CategoryId = 1,
                     Content = "test",
                     Title = "test",
-                    Id = 12,
+                    Id = id,
                     ImageUrl = "test.com",
                     AddedByUserId = "1",
                     CreatedOn = DateTime.UtcNow
