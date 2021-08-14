@@ -1,26 +1,14 @@
 ﻿namespace FinanceWorld.Controllers.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    using Xunit;
     using FinanceWorld.Common;
-    using FinanceWorld.Data.Common.Repositories;
     using FinanceWorld.Data.Models;
-    using FinanceWorld.Services.Data.Analyzes;
     using FinanceWorld.Services.Data.Models;
-    using FinanceWorld.Services.Data.News;
-    using FinanceWorld.Services.Mapping;
-    using FinanceWorld.Web.Areas.Administration.Controllers;
-    using FinanceWorld.Web.Controllers;
     using FinanceWorld.Web.ViewModels.News;
-    using Moq;
-    using MyTested.AspNetCore.Mvc;
     using FinanceWorld.Web.ViewModels.Categories;
+    using MyTested.AspNetCore.Mvc;
+    using Xunit;
 
     public class NewsControllerTests
     {
@@ -39,18 +27,13 @@
         }
 
         [Fact]
-        public void PostCreateShouldBeForAdminsAndReturnRedirectWithValidData()
+        public void PostCreateShouldThrowException()
         {
             MyController<Web.Areas.Administration.Controllers.NewsController>
-                .Instance(c => c
-                .WithUser())
-                .Calling(x => x.Create(new CreateNewsDto
-                {
-                    Title = "test",
-                    Content = "testtest",
-                    CategoryId = 1,
-                    ImageUrl = "test.com"
-                }));
+                .Instance()
+                .Calling(x => x.Create(With.Default<CreateNewsDto>()))
+                .ShouldThrow()
+                .Exception();
         }
 
         [Theory]
