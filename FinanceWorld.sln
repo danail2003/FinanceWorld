@@ -37,6 +37,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceWorld.Web.ViewModels
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceWorld.Controllers.Tests", "FinanceWorld.Controllers.Tests\FinanceWorld.Controllers.Tests.csproj", "{8F54A61F-49F5-491F-BA03-01A067EE75C2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{AE4CA382-6C60-4343-AB6D-99D3015A0C11}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\Admin.PNG = ..\..\Admin.PNG
+		..\..\Analyzes.PNG = ..\..\Analyzes.PNG
+		..\..\Dictionary.PNG = ..\..\Dictionary.PNG
+		..\..\Guest.PNG = ..\..\Guest.PNG
+		..\..\LoggedIn.PNG = ..\..\LoggedIn.PNG
+		..\..\News.PNG = ..\..\News.PNG
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
