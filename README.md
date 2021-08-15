@@ -21,6 +21,24 @@
 <h3>Interfaces</h3>
 <hr />
 
+<h5>Guest users</h5>
+<img src="https://github.com/danail2003/FinanceWorld/blob/master/images/Guest.PNG" />
+
+<h5>LoggedIn users</h5>
+<img src="https://github.com/danail2003/FinanceWorld/blob/master/images/LoggedIn.PNG" />
+
+<h5>Admins</h5>
+<img src="https://github.com/danail2003/FinanceWorld/blob/master/images/Admin.PNG" />
+
+<h5>News</h5>
+<img src="https://github.com/danail2003/FinanceWorld/blob/master/images/News.PNG" />
+
+<h5>Analyzes</h5>
+<img src="https://github.com/danail2003/FinanceWorld/blob/master/images/Analyzes.PNG" />
+
+<h5>Dictionary</h5>
+<img src="https://github.com/danail2003/FinanceWorld/blob/master/images/Dictionary.PNG" />
+
 <h3>Additional Information</h3>
 <hr />
 <h6>We can test admin capabilities with this Credentials:</h6>
