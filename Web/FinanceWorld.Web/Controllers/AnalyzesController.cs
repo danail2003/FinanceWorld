@@ -45,7 +45,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Redirect("/Error");
+                throw new InvalidOperationException("Data is not correct!");
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
@@ -59,7 +59,7 @@
                 throw new InvalidOperationException(ex.Message);
             }
 
-            return this.Redirect("/");
+            return this.RedirectToAction(nameof(HomeController.Index), "/");
         }
 
         public IActionResult All(int id = 1)
@@ -85,7 +85,7 @@
         {
             await this.analyzesService.DeleteAsync(id);
 
-            return this.Redirect("/Analyzes/All");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         [Authorize]
@@ -142,7 +142,7 @@
 
             await this.analyzesService.UpdateAsync(id, model);
 
-            return this.Redirect("/Analyzes/All");
+            return this.RedirectToAction(nameof(this.All));
         }
 
         public IActionResult ById(string id)

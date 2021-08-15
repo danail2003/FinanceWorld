@@ -81,6 +81,18 @@
         }
 
         [Fact]
+        public void CreateMethodShouldThrowExceptionWhenFileFormatIsInvalid()
+        {
+            var file = this.InitializeFile("Hello", "test.doc");
+
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                await this.analyzesService.CreateAsync(
+                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+            });
+        }
+
+        [Fact]
         public async Task CreateMethodShouldAddManyAnalyzes()
         {
             var file = this.InitializeFile("Hello", "test.png");
