@@ -18,8 +18,11 @@
 <li>SendGrid</li>
 </ul>
 
+<h3>Interfaces</h3>
+<hr />
+
 <h3>Additional Information</h3>
 <hr />
 <h6>We can test admin capabilities with this Credentials:</h6>
-<span>Email: ddobrev22@gmail.com</span>
-<span>Pass: 123456</span>
+<p>Email: ddobrev22@gmail.com</p>
+<p>Pass: 123456</p>
