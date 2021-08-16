@@ -1,6 +1,6 @@
 <h1>FinanceWorld</h1>
 
-<h6>FinanceWorld is website for financial education and information. The users can add own analyzes of financial instruments, read news and improve their financial culture through the dictionary of financial terms </h6>
+<h6>FinanceWorld is website for financial education and information. The users can add own analyzes of financial instruments, read news and improve their financial culture through the dictionary of financial terms.</h6>
 
 <h5>The site is accessible from here: https://financeworld.azurewebsites.net/</h5>
 
