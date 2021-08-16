@@ -1,12 +1,10 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
     using System;
-    using System.Text;
     using System.Threading.Tasks;
 
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Analyzes;
-    using FinanceWorld.Services.Messaging;
     using FinanceWorld.Web.ViewModels.Analyzes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
@@ -19,18 +17,15 @@
         private readonly IAnalyzesService analyzesService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
-        private readonly IEmailSender emailSender;
 
         public AnalyzesController(
             IAnalyzesService analyzesService,
             UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment environment,
-            IEmailSender emailSender)
+            IWebHostEnvironment environment)
         {
             this.analyzesService = analyzesService;
             this.userManager = userManager;
             this.environment = environment;
-            this.emailSender = emailSender;
         }
 
         [Authorize]
@@ -172,18 +167,6 @@
             };
 
             return this.View(viewModel);
-        }
-
-        public async Task<IActionResult> SendEmail(string id)
-        {
-            var analyze = this.analyzesService.GetById<AnalyzesViewModel>(id);
-            var sb = new StringBuilder();
-            sb.AppendLine($"<h1>{analyze.Title}</h1>");
-            sb.AppendLine($"<p>{analyze.Description}</p>");
-            sb.AppendLine($"<img src=\"https://financeworld.azurewebsites.net{analyze.Image}\" />");
-            await this.emailSender.SendEmailAsync("ddobrev20@outlook.com", "FinanceWorld", "ddobrev21@gmail.com", analyze.Title, sb.ToString());
-
-            return this.RedirectToAction(nameof(this.ById), new { id });
         }
     }
 }

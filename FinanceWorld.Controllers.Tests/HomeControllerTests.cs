@@ -1,10 +1,11 @@
 namespace FinanceWorld.Controllers.Tests
 {
-    using Xunit;
     using FinanceWorld.Web.Controllers;
     using FinanceWorld.Web.ViewModels.Home;
-    using MyTested.AspNetCore.Mvc;
     using FinanceWorld.Web.ViewModels;
+
+    using MyTested.AspNetCore.Mvc;
+    using Xunit;
 
     public class HomeControllerTests
     {

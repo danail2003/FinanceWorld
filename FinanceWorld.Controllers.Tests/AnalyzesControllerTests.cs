@@ -5,11 +5,12 @@
     using FinanceWorld.Data.Common.Repositories;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Analyzes;
-    using FinanceWorld.Services.Messaging;
     using FinanceWorld.Web.Controllers;
     using FinanceWorld.Web.ViewModels.Analyzes;
+
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+
     using Moq;
     using MyTested.AspNetCore.Mvc;
     using Xunit;
@@ -31,7 +32,6 @@
             MyController<AnalyzesController>
                 .Instance(i => i
                 .WithDependencies(d => d
-                .WithNo<IEmailSender>()
                 .WithNo<IAnalyzesService>()
                 .WithNo<IWebHostEnvironment>()
                 .WithNo<UserManager<ApplicationUser>>()))
@@ -50,7 +50,6 @@
             MyController<AnalyzesController>
                 .Instance(i => i
                 .WithDependencies(d => d
-                .WithNo<IEmailSender>()
                 .WithNo<IAnalyzesService>()
                 .WithNo<IWebHostEnvironment>()
                 .WithNo<UserManager<ApplicationUser>>()))
@@ -69,7 +68,6 @@
             MyController<AnalyzesController>
                 .Instance(i => i
                 .WithDependencies(d => d
-                .WithNo<IEmailSender>()
                 .WithNo<IAnalyzesService>()
                 .WithNo<IWebHostEnvironment>()
                 .WithNo<UserManager<ApplicationUser>>()))
@@ -86,7 +84,6 @@
                 .Instance(i => i
                 .WithDependencies(d => d
                 .With<IAnalyzesService>(this.analyzesService)
-                .WithNo<IEmailSender>()
                 .WithNo<IWebHostEnvironment>()
                 .WithNo<UserManager<ApplicationUser>>())
                 .WithData(new Analyze
@@ -111,7 +108,6 @@
                 .Instance(i => i
                 .WithDependencies(d => d
                 .With<IAnalyzesService>(this.analyzesService)
-                .WithNo<IEmailSender>()
                 .WithNo<IWebHostEnvironment>()
                 .WithNo<UserManager<ApplicationUser>>())
                 .WithData(new Analyze
@@ -136,7 +132,6 @@
                 .Instance(i => i
                 .WithDependencies(d => d
                 .With<IAnalyzesService>(this.analyzesService)
-                .WithNo<IEmailSender>()
                 .WithNo<IWebHostEnvironment>()
                 .WithNo<UserManager<ApplicationUser>>())
                 .WithData(new Analyze

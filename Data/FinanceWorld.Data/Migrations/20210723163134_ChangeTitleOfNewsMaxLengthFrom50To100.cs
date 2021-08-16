@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace FinanceWorld.Data.Migrations
+﻿namespace FinanceWorld.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ChangeTitleOfNewsMaxLengthFrom50To100 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

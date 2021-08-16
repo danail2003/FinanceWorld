@@ -1,16 +1,13 @@
 ﻿namespace FinanceWorld.Controllers.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    using Xunit;
-    using MyTested.AspNetCore.Mvc;
     using FinanceWorld.Web.ViewModels.Dictionaries;
     using FinanceWorld.Common;
     using FinanceWorld.Services.Data.Models;
+
+    using Xunit;
+    using MyTested.AspNetCore.Mvc;
 
     public class DictionariesControllerTests
     {

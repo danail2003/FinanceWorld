@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace FinanceWorld.Data.Migrations
+﻿namespace FinanceWorld.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class RemovedNewsColumnInImage : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
