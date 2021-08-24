@@ -1,5 +1,6 @@
 ﻿namespace FinanceWorld.Web.ViewModels.Analyzes
 {
+    using System;
     using System.Linq;
 
     using AutoMapper;
@@ -15,6 +16,10 @@
         public string Description { get; set; }
 
         public string Image { get; set; }
+
+        public string AddedByUser { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public int LikesCount { get; set; }
 

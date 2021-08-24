@@ -218,28 +218,6 @@
         }
 
         [Fact]
-        public void DisplayAnalyzeInfoMethodShouldWorkCorrectly()
-        {
-            this.analyzes.Add(new Analyze
-            {
-                AddedByUserId = "1",
-                AddedByUser = new ApplicationUser(),
-                CreatedOn = DateTime.UtcNow,
-                Description = "test",
-                Id = "123",
-                Image = new Image(),
-                ModifiedOn = null,
-                Title = "test",
-                IsDeleted = false,
-            });
-
-            var result = this.analyzesService.DisplayAnalyzeInfo("123");
-
-            Assert.NotNull(result);
-            Assert.Equal("No", result.IsModified);
-        }
-
-        [Fact]
         public async Task GetByIdShouldWorkProperly()
         {
             var file = this.InitializeFile("Hello", "test.gif");

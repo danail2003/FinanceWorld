@@ -22,8 +22,6 @@
 
         bool IsAnalyzeAndUserMatch(string id, string userId);
 
-        AnalyzeInfoViewModel DisplayAnalyzeInfo(string id);
-
         int GetCount();
 
         IEnumerable<T> SearchedAnalyzes<T>(string title, int page, int itemsPerPage);

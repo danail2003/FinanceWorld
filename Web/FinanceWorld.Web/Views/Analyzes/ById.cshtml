@@ -1,35 +1,35 @@
-﻿@model FinanceWorld.Web.ViewModels.Analyzes.AnalyzeWithInfoViewModel
+﻿@model FinanceWorld.Web.ViewModels.Analyzes.AnalyzesViewModel
 @{
-    this.ViewData["Title"] = Model.Analyze.Title;
+    this.ViewData["Title"] = Model.Title;
 }
 <h1 class="text-center mt-3">@this.ViewData["Title"]</h1>
-
-<div class="text-center border mb-2 font-weight-bold">
-    @Html.DisplayFor(x => x.AnalyzeWithInfo)
-</div>
 
 <div class="container-fluid mt-100" style="width: 90%">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
                 <div class="card-header">
-                    <div class="media flex-wrap w-100" style="display: flex; justify-content: center;">
-                        <img src="@Model.Analyze.Image" class="ui-w-40" alt="@Model.Analyze.Title" style="height: 500px;">
-                        <p class="mt-4">@Model.Analyze.Description</p>
+                    <div class="media flex-wrap w-100 d-flex justify-content-center">
+                        <div class="text-center">
+                            <p class="font-weight-bold">Added by user: @Model.AddedByUser</p>
+                            <p class="font-weight-bold">Created on: @Model.CreatedOn</p>
+                        </div>
+                        <img src="@Model.Image" class="ui-w-40" alt="@Model.Title" style="height: 500px;">
+                        <p class="mt-4">@Model.Description</p>
                         <div class="col-md-12 mt-2">
                             <div class="row text-muted small ml-3" style="display: flex; justify-content: center;">
                                 <form id="antiForgery" method="post"></form>
                                 <div class="mr-5">
-                                    <a href="#" onclick="sendVote(`@Model.Analyze.Id`, true)">
+                                    <a href="#" onclick="sendVote(`@Model.Id`, true)">
                                         <i class="fa fa-thumbs-up" style="font-size: 20px;"></i>
                                     </a>
-                                    <div id="likesCount">@Model.Analyze.LikesCount</div>
+                                    <div id="likesCount">@Model.LikesCount</div>
                                 </div>
                                 <div class="mr-5">
-                                    <a href="#" onclick="sendVote(`@Model.Analyze.Id`, false)">
+                                    <a href="#" onclick="sendVote(`@Model.Id`, false)">
                                         <i class="fa fa-thumbs-down" style="font-size: 20px;"></i>
                                     </a>
-                                    <div id="dislikesCount">@Model.Analyze.DislikesCount</div>
+                                    <div id="dislikesCount">@Model.DislikesCount</div>
                                 </div>
                             </div>
                         </div>
