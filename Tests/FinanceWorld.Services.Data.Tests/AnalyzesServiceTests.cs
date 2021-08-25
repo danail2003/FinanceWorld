@@ -232,15 +232,31 @@
         }
 
         [Fact]
-        public async Task GetAllShouldWorkProperly()
+        public void GetAllShouldWorkProperly()
         {
-            var file = this.InitializeFile("Hello", "test.gif");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "123",
+                CreatedOn = DateTime.UtcNow,
+                Id = "1",
+                Image = new Image(),
+                Description = "testtest2",
+                Title = "test2",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
-
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "2",
+                Image = new Image(),
+                Description = "testtest",
+                Title = "test",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
             var result = this.analyzesService.GetAll<AnalyzesViewModel>(1, 8);
 
@@ -249,57 +265,108 @@
         }
 
         [Fact]
-        public async Task GetMyAnalyzesShouldReturnCorrectCount()
+        public void GetMyAnalyzesShouldReturnCorrectCount()
         {
-            var file = this.InitializeFile("Hello", "test.gif");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "123",
+                CreatedOn = DateTime.UtcNow,
+                Id = "1",
+                Image = new Image(),
+                Description = "testtest2",
+                Title = "test2",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "2",
+                Image = new Image(),
+                Description = "testtest",
+                Title = "test",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "2",
+                Image = new Image(),
+                Description = "testtest",
+                Title = "test",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "2", "das");
-
-            var result = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>("1", 1, 8);
+            var result = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>("12", 1, 8);
 
             Assert.Equal(2, result.Count());
         }
 
         [Fact]
-        public async Task GetMyAnalyzesShouldReturnOnlyMyAnalyzes()
+        public void GetMyAnalyzesShouldReturnOnlyMyAnalyzes()
         {
-            var file = this.InitializeFile("Hello", "test.gif");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "1",
+                Image = new Image(),
+                Description = "testtest2",
+                Title = "test2",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "2",
+                Image = new Image(),
+                Description = "testtest",
+                Title = "test",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test2", Title = "ads", }, "1", "das");
+            var result = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>("12", 1, 8).ToList();
 
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "2", "das");
-
-            var result = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>("1", 1, 8).ToList();
-
-            Assert.Equal("test", result[0].Description);
-            Assert.Equal("test2", result[1].Description);
+            Assert.Equal("testtest2", result[0].Description);
+            Assert.Equal("testtest", result[1].Description);
         }
 
         [Fact]
-        public async Task SearchedAnalyzesShouldReturnCorrectCount()
+        public void SearchedAnalyzesShouldReturnCorrectCount()
         {
-            var file = this.InitializeFile("Hello", "test.gif");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "1",
+                Image = new Image(),
+                Description = "testtest2",
+                Title = "test2",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "test", }, "1", "das");
-
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test2", Title = "someother", }, "1", "das");
-
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "anything", }, "2", "das");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "2",
+                Image = new Image(),
+                Description = "test",
+                Title = "tipo",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
             var result = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>("test", 1, 8);
 
@@ -307,26 +374,38 @@
         }
 
         [Fact]
-        public async Task SearchedAnalyzesShouldReturnCorrectAnalyzes()
+        public void SearchedAnalyzesShouldReturnCorrectAnalyzes()
         {
-            var file = this.InitializeFile("Hello", "test.gif");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "1",
+                Image = new Image(),
+                Description = "testtest2",
+                Title = "testsomething",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
-            var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "test", }, "1", "das");
-
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test2", Title = "testsomething", }, "1", "das");
-
-            await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "anything", }, "2", "das");
+            this.analyzes.Add(new Analyze
+            {
+                AddedByUserId = "12",
+                CreatedOn = DateTime.UtcNow,
+                Id = "2",
+                Image = new Image(),
+                Description = "test",
+                Title = "test",
+                ImageId = "1",
+                AddedByUser = new ApplicationUser(),
+            });
 
             var result = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>("test", 1, 8).ToList();
 
             Assert.Equal(2, result.Count);
-            Assert.Equal("test", result[0].Title);
-            Assert.Equal("testsomething", result[1].Title);
+            Assert.Equal("testsomething", result[0].Title);
+            Assert.Equal("test", result[1].Title);
             Assert.Equal("/images/analyzes/", result[0].Image.Substring(0, 17));
-            Assert.Equal(id, result[0].Id);
             Assert.Equal(0, result[0].LikesCount);
             Assert.Equal(0, result[0].DislikesCount);
         }
