@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Common;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Analyzes;
     using FinanceWorld.Web.ViewModels.Analyzes;
@@ -54,6 +55,8 @@
                 throw new InvalidOperationException(ex.Message);
             }
 
+            this.TempData[GlobalConstants.GlobalMessage] = "Successfully added analyze!";
+
             return this.RedirectToAction(nameof(HomeController.Index), "/");
         }
 
@@ -79,6 +82,8 @@
         public async Task<IActionResult> Delete(string id)
         {
             await this.analyzesService.DeleteAsync(id);
+
+            this.TempData[GlobalConstants.GlobalMessage] = "Successfully delete!";
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -136,6 +141,8 @@
             }
 
             await this.analyzesService.UpdateAsync(id, model);
+
+            this.TempData[GlobalConstants.GlobalMessage] = "Successfully edited analyze!";
 
             return this.RedirectToAction(nameof(this.All));
         }

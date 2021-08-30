@@ -44,6 +44,8 @@
 
             await this.dictionariesService.CreateAsync(dto, user.Id);
 
+            this.TempData[GlobalConstants.GlobalMessage] = "Successfully added term!";
+
             return this.Redirect("/");
         }
     }

@@ -78,6 +78,12 @@
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
+            @if (TempData.ContainsKey(GlobalConstants.GlobalMessage))
+            {
+                <div class="alert alert-success" role="alert">
+                    @TempData[GlobalConstants.GlobalMessage]
+                </div>
+            }
             @this.RenderBody()
         </main>
     </div>

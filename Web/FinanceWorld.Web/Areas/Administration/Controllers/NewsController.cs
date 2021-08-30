@@ -53,6 +53,8 @@
 
             await this.newsService.CreateAsync(dto, user.Id);
 
+            this.TempData[GlobalConstants.GlobalMessage] = "Successfully added news!";
+
             return this.Redirect("/");
         }
 
@@ -60,6 +62,8 @@
         public async Task<IActionResult> Delete(int id)
         {
             await this.newsService.DeleteAsync(id);
+
+            this.TempData[GlobalConstants.GlobalMessage] = "Successfully delete!";
 
             return this.Redirect("/News/All");
         }
@@ -85,6 +89,8 @@
             }
 
             await this.newsService.UpdateAsync(id, model);
+
+            this.TempData[GlobalConstants.GlobalMessage] = "Successfully edited news!";
 
             return this.Redirect("/News/All");
         }

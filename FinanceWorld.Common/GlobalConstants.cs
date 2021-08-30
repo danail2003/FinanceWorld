@@ -5,5 +5,7 @@
         public const string SystemName = "FinanceWorld";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const string GlobalMessage = "Global Message";
     }
 }
