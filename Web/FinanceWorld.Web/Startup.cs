@@ -10,6 +10,7 @@
     using FinanceWorld.Data.Seeding;
     using FinanceWorld.Services.Data.Analyzes;
     using FinanceWorld.Services.Data.Categories;
+    using FinanceWorld.Services.Data.Comments;
     using FinanceWorld.Services.Data.Dictionaries;
     using FinanceWorld.Services.Data.Home;
     using FinanceWorld.Services.Data.News;
@@ -53,12 +54,6 @@
                     });
 
             services.AddMemoryCache();
-            services.AddDistributedSqlServerCache(options =>
-            {
-                options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
-                options.SchemaName = "dbo";
-                options.TableName = "CachedNews";
-            });
 
             services.AddControllersWithViews(
                 options =>
@@ -97,6 +92,7 @@
             services.AddTransient<IDictionariesService, DictionariesService>();
             services.AddTransient<IAnalyzesService, AnalyzesService>();
             services.AddTransient<IVotesService, VotesService>();
+            services.AddTransient<ICommentsService, CommentsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -36,5 +36,9 @@ namespace FinanceWorld.Data.Models
         public ICollection<Image> Images { get; set; } = new HashSet<Image>();
 
         public ICollection<Dictionary> Dictionaries { get; set; } = new HashSet<Dictionary>();
+
+        public ICollection<Vote> Votes { get; set; }
+
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }

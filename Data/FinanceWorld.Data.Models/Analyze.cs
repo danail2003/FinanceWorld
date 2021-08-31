@@ -29,5 +29,7 @@
         public Image Image { get; set; }
 
         public ICollection<Vote> Votes { get; set; } = new HashSet<Vote>();
+
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }
