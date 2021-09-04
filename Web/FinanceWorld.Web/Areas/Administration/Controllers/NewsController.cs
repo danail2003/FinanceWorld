@@ -13,7 +13,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class NewsController : AdministrationController
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+    [Area("Administration")]
+    public class NewsController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICategoriesService categoriesService;

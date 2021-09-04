@@ -176,7 +176,6 @@
             Assert.Equal("test", result[0].Content);
             Assert.Equal(123, result[1].Id);
             Assert.Equal("Trends", result[0].CategoryName);
-            Assert.Equal(DateTime.UtcNow.ToString("d"), result[1].CreatedOnFormatted);
         }
 
         [Fact]

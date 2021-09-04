@@ -42,7 +42,7 @@
             var file = this.InitializeFile("Hello", "test.png");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             Assert.Single(this.analyzes);
         }
@@ -53,7 +53,7 @@
             var file = this.InitializeFile("Hello", "test.jpeg");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             Assert.Single(this.analyzes);
         }
@@ -64,7 +64,7 @@
             var file = this.InitializeFile("Hello", "test.jpg");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             Assert.Single(this.analyzes);
         }
@@ -75,7 +75,7 @@
             var file = this.InitializeFile("Hello", "test.gif");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             Assert.Single(this.analyzes);
         }
@@ -88,7 +88,7 @@
             Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
                 await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
             });
         }
 
@@ -98,13 +98,13 @@
             var file = this.InitializeFile("Hello", "test.png");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dfsdsdfas", Title = "test", }, "2", "test");
+                new CreateAnalysisInputModel { Image = file, Description = "dfsdsdfas", Title = "test", }, "2", "test");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "Test", Title = "test", }, "3", "test/test");
+                new CreateAnalysisInputModel { Image = file, Description = "Test", Title = "test", }, "3", "test/test");
 
             Assert.Equal(3, this.analyzes.Count);
         }
@@ -115,7 +115,7 @@
             var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             Assert.True(this.analyzesService.IsAnalyzeAndUserMatch(id, "1"));
         }
@@ -126,7 +126,7 @@
             var file = this.InitializeFile("Hello", "test.gif");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             Assert.False(this.analyzesService.IsAnalyzeAndUserMatch("someId", "1"));
         }
@@ -137,13 +137,13 @@
             var file = this.InitializeFile("Hello", "test.png");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dfsdsdfas", Title = "test", }, "2", "test");
+                new CreateAnalysisInputModel { Image = file, Description = "dfsdsdfas", Title = "test", }, "2", "test");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "Test", Title = "test", }, "3", "test/test");
+                new CreateAnalysisInputModel { Image = file, Description = "Test", Title = "test", }, "3", "test/test");
 
             Assert.Equal(3, this.analyzesService.GetCount());
         }
@@ -154,13 +154,13 @@
             var file = this.InitializeFile("Hello", "test.png");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dfsdsdfas", Title = "test", }, "2", "test");
+                new CreateAnalysisInputModel { Image = file, Description = "dfsdsdfas", Title = "test", }, "2", "test");
 
             await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "Test", Title = "test", }, "3", "test/test");
+                new CreateAnalysisInputModel { Image = file, Description = "Test", Title = "test", }, "3", "test/test");
 
             Assert.False(this.analyzesService.GetCount() == 2);
         }
@@ -171,7 +171,7 @@
             var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
             await this.analyzesService.DeleteAsync(id);
 
@@ -184,9 +184,9 @@
             var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
-            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = "test", Title = "adss" });
+            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalysisViewModel { Description = "test", Title = "adss" });
 
             Assert.Equal("adss", analyze.Title);
         }
@@ -197,9 +197,9 @@
             var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "dsaas", Title = "ads", }, "1", "das");
 
-            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = "test", Title = "ads" });
+            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalysisViewModel { Description = "test", Title = "ads" });
 
             Assert.Equal("test", analyze.Description);
         }
@@ -210,9 +210,9 @@
             var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
 
-            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalyzesViewModel { Description = "test", Title = "ads" });
+            var analyze = await this.analyzesService.UpdateAsync(id, new EditAnalysisViewModel { Description = "test", Title = "ads" });
 
             Assert.Equal("test", analyze.Description);
         }
@@ -223,7 +223,7 @@
             var file = this.InitializeFile("Hello", "test.gif");
 
             var id = await this.analyzesService.CreateAsync(
-                new CreateAnalyzeInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
+                new CreateAnalysisInputModel { Image = file, Description = "test", Title = "ads", }, "1", "das");
 
             var result = this.analyzesService.GetById<AnalyzesByIdViewModel>(id);
 
@@ -258,7 +258,7 @@
                 AddedByUser = new ApplicationUser(),
             });
 
-            var result = this.analyzesService.GetAll<AnalyzesViewModel>(1, 8);
+            var result = this.analyzesService.GetAll<AnalysisViewModel>(1, 8);
 
             Assert.NotNull(result);
             Assert.Equal(2, result.Count());
@@ -303,7 +303,7 @@
                 AddedByUser = new ApplicationUser(),
             });
 
-            var result = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>("12", 1, 8);
+            var result = this.analyzesService.GetMyAnalyzes<AnalysisViewModel>("12", 1, 8);
 
             Assert.Equal(2, result.Count());
         }
@@ -335,7 +335,7 @@
                 AddedByUser = new ApplicationUser(),
             });
 
-            var result = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>("12", 1, 8).ToList();
+            var result = this.analyzesService.GetMyAnalyzes<AnalysisViewModel>("12", 1, 8).ToList();
 
             Assert.Equal("testtest2", result[0].Description);
             Assert.Equal("testtest", result[1].Description);
@@ -368,7 +368,7 @@
                 AddedByUser = new ApplicationUser(),
             });
 
-            var result = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>("test", 1, 8);
+            var result = this.analyzesService.SearchedAnalyzes<AnalysisViewModel>("test", 1, 8);
 
             Assert.Single(result);
         }
@@ -400,7 +400,7 @@
                 AddedByUser = new ApplicationUser(),
             });
 
-            var result = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>("test", 1, 8).ToList();
+            var result = this.analyzesService.SearchedAnalyzes<AnalysisViewModel>("test", 1, 8).ToList();
 
             Assert.Equal(2, result.Count);
             Assert.Equal("testsomething", result[0].Title);

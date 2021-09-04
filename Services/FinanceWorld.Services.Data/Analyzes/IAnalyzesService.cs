@@ -8,13 +8,13 @@
 
     public interface IAnalyzesService
     {
-        Task<string> CreateAsync(CreateAnalyzeInputModel model, string userId, string path);
+        Task<string> CreateAsync(CreateAnalysisInputModel model, string userId, string path);
 
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
 
         T GetById<T>(string id);
 
-        Task<Analyze> UpdateAsync(string id, EditAnalyzesViewModel model);
+        Task<Analyze> UpdateAsync(string id, EditAnalysisViewModel model);
 
         Task DeleteAsync(string id);
 

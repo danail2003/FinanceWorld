@@ -11,8 +11,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area("Administration")]
-    public class DictionariesController : AdministrationController
+    public class DictionariesController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDictionariesService dictionariesService;

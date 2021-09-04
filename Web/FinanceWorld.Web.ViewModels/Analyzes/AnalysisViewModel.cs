@@ -8,7 +8,7 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Mapping;
 
-    public class AnalyzesViewModel : IMapFrom<Analyze>, IMapFrom<Comment>, IHaveCustomMappings
+    public class AnalysisViewModel : IMapFrom<Analyze>, IMapFrom<Comment>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -30,7 +30,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Analyze, AnalyzesViewModel>()
+            configuration.CreateMap<Analyze, AnalysisViewModel>()
                 .ForMember(x => x.Image, opt =>
                 opt.MapFrom(x => "/images/analyzes/" + x.Image.Id + "." + x.Image.Extension))
                 .ForMember(x => x.LikesCount, opt =>

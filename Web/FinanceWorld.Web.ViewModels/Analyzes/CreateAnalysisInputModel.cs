@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Http;
 
-    public class CreateAnalyzeInputModel
+    public class CreateAnalysisInputModel
     {
         [Required]
         [MaxLength(50)]

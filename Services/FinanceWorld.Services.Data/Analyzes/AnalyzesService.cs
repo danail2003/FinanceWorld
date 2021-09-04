@@ -19,7 +19,7 @@
         public AnalyzesService(IDeletableEntityRepository<Analyze> analyzesRepository)
             => this.analyzesRepository = analyzesRepository;
 
-        public async Task<string> CreateAsync(CreateAnalyzeInputModel model, string userId, string path)
+        public async Task<string> CreateAsync(CreateAnalysisInputModel model, string userId, string path)
         {
             var analyze = new Analyze
             {
@@ -94,7 +94,7 @@
             return this.analyzesRepository.All().Where(x => x.Title.ToLower().Contains(title)).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
         }
 
-        public async Task<Analyze> UpdateAsync(string id, EditAnalyzesViewModel model)
+        public async Task<Analyze> UpdateAsync(string id, EditAnalysisViewModel model)
         {
             var analyze = this.analyzesRepository.All().FirstOrDefault(x => x.Id == id);
 

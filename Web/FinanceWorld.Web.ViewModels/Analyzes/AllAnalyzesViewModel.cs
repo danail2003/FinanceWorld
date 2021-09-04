@@ -8,6 +8,6 @@
         [Display(Name = "Search by title")]
         public string SearchTitle { get; set; }
 
-        public IEnumerable<AnalyzesViewModel> Analyzes { get; set; }
+        public IEnumerable<AnalysisViewModel> Analyzes { get; set; }
     }
 }

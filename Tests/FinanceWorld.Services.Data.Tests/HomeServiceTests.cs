@@ -67,7 +67,7 @@
                 AddedByUser = new ApplicationUser(),
             });
 
-            var result = this.homeService.GetLastThreeAnalyzes<AnalyzesViewModel>().ToList();
+            var result = this.homeService.GetLastThreeAnalyzes<AnalysisViewModel>().ToList();
 
             Assert.Equal(2, result.Count);
             Assert.Equal("test", result[0].Title);

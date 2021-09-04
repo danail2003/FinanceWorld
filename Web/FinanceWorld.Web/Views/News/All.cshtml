@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@news.Title</h5>
                         <p class="card-text text-truncate">@news.Content</p>
-                        <p class="card-text"><small class="text-muted">@news.CreatedOnFormatted</small><a class="btn btn-primary" style="margin-left: 20px" asp-action="ById" asp-route-id="@news.Id">Read</a></p>
+                        <p class="card-text"><small class="text-muted">@news.CreatedOn.ToString("d")</small><a class="btn btn-primary" style="margin-left: 20px" asp-action="ById" asp-route-id="@news.Id">Read</a></p>
                     </div>
                 </div>
             </div>

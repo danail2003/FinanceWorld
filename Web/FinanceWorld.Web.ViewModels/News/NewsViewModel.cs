@@ -17,8 +17,6 @@
 
         public string ImageUrl { get; set; }
 
-        public string CreatedOnFormatted => this.CreatedOn.ToString("d");
-
         public DateTime CreatedOn { get; set; }
     }
 }

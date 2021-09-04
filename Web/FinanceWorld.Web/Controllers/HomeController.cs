@@ -30,7 +30,7 @@
             {
                 viewModel = new HomeViewModel
                 {
-                    Analyzes = this.homeService.GetLastThreeAnalyzes<AnalyzesViewModel>(),
+                    Analyzes = this.homeService.GetLastThreeAnalyzes<AnalysisViewModel>(),
                     News = this.homeService.GetLastThreeNews<NewsViewModel>(),
                 };
 

@@ -37,7 +37,7 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateAnalyzeInputModel model)
+        public async Task<IActionResult> Create(CreateAnalysisInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -72,7 +72,7 @@
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
                 Count = this.analyzesService.GetCount(),
-                Analyzes = this.analyzesService.GetAll<AnalyzesViewModel>(id, ItemsPerPage),
+                Analyzes = this.analyzesService.GetAll<AnalysisViewModel>(id, ItemsPerPage),
             };
 
             return this.View(viewModel);
@@ -103,7 +103,7 @@
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
                 Count = this.analyzesService.GetCount(),
-                Analyzes = this.analyzesService.GetMyAnalyzes<AnalyzesViewModel>(user.Id, id, ItemsPerPage),
+                Analyzes = this.analyzesService.GetMyAnalyzes<AnalysisViewModel>(user.Id, id, ItemsPerPage),
             };
 
             return this.View(viewModel);
@@ -126,7 +126,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(string id, EditAnalyzesViewModel model)
+        public async Task<IActionResult> Edit(string id, EditAnalysisViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -149,7 +149,7 @@
 
         public IActionResult ById(string id)
         {
-            var viewModel = this.analyzesService.GetById<AnalyzesViewModel>(id);
+            var viewModel = this.analyzesService.GetById<AnalysisViewModel>(id);
 
             return this.View(viewModel);
         }
@@ -166,7 +166,7 @@
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
                 Count = this.analyzesService.GetCount(),
-                Analyzes = this.analyzesService.SearchedAnalyzes<AnalyzesViewModel>(model.SearchTitle, id, ItemsPerPage),
+                Analyzes = this.analyzesService.SearchedAnalyzes<AnalysisViewModel>(model.SearchTitle, id, ItemsPerPage),
             };
 
             return this.View(viewModel);

@@ -9,6 +9,6 @@
     {
         public List<NewsViewModel> News { get; set; }
 
-        public List<AnalyzesViewModel> Analyzes { get; set; }
+        public List<AnalysisViewModel> Analyzes { get; set; }
     }
 }

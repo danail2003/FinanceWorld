@@ -5,7 +5,7 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Mapping;
 
-    public class EditAnalyzesViewModel : IMapFrom<Analyze>
+    public class EditAnalysisViewModel : IMapFrom<Analyze>
     {
         [Required]
         [MaxLength(50)]
