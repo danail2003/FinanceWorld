@@ -15,12 +15,8 @@
 
         public Analyze Analyze { get; set; }
 
-        public string ParentId { get; set; }
-
-        public Comment Parent { get; set; }
-
         public string AddedByUserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public ApplicationUser AddedByUser { get; set; }
     }
 }

@@ -1,13 +1,14 @@
 ﻿namespace FinanceWorld.Web.ViewModels.Analyzes
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using AutoMapper;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Mapping;
 
-    public class AnalyzesViewModel : IMapFrom<Analyze>, IHaveCustomMappings
+    public class AnalyzesViewModel : IMapFrom<Analyze>, IMapFrom<Comment>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -24,6 +25,8 @@
         public int LikesCount { get; set; }
 
         public int DislikesCount { get; set; }
+
+        public IEnumerable<AnalysisCommentViewModel> Comments { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

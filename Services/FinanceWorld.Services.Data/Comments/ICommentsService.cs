@@ -4,7 +4,7 @@
 
     public interface ICommentsService
     {
-        Task Create(string analyzeId, string userId, string content, string parentId);
+        Task Create(string analyzeId, string userId, string content);
 
         bool IsInAnalyzeId(string commentId, string analyzeId);
     }

@@ -24,19 +24,9 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateCommentInputModel inputModel)
         {
-            var parentId = inputModel.ParentId == string.Empty ? null : inputModel.ParentId;
-
-            if (parentId != null)
-            {
-                if (!this.commentsService.IsInAnalyzeId(parentId, inputModel.AnalyzeId))
-                {
-                    return this.BadRequest();
-                }
-            }
-
             var userId = this.userManager.GetUserId(this.User);
 
-            await this.commentsService.Create(inputModel.AnalyzeId, userId, inputModel.Content, parentId);
+            await this.commentsService.Create(inputModel.AnalyzeId, userId, inputModel.Content);
 
             return this.RedirectToAction("ById", "Analyzes", new { id = inputModel.AnalyzeId });
         }
