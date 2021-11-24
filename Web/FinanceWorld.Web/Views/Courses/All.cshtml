@@ -1,0 +1,17 @@
+﻿@model IEnumerable<CoursesViewModel>
+@{
+    this.ViewData["Title"] = "All courses";
+}
+
+@foreach (var course in Model)
+{
+    <div class="jumbotron">
+        <h1 class="display-4">@course.Name</h1>
+        <p class="lead">@course.Description</p>
+        <hr class="my-4">
+        <p>@course.Price</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p>
+    </div>
+}
