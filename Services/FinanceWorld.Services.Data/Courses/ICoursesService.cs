@@ -14,8 +14,8 @@
 
         T GetById<T>(int id);
 
-        Task<Course> UpdateAsync(int id);
+        Task<Course> UpdateAsync(int id, EditCoursesDto dto);
 
-        Task<int> DeleteAsync(int id);
+        Task DeleteAsync(int id);
     }
 }
