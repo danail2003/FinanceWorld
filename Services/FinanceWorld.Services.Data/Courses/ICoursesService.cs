@@ -4,10 +4,11 @@
     using System.Threading.Tasks;
 
     using FinanceWorld.Data.Models;
+    using FinanceWorld.Services.Data.Models;
 
     public interface ICoursesService
     {
-        Task<Course> CreatAsync();
+        Task<int> CreatAsync(CreateCourseDto dto);
 
         IEnumerable<T> GetAll<T>();
 

@@ -1,0 +1,24 @@
+﻿@model FinanceWorld.Web.ViewModels.Courses.CreateCourseInputModel
+@{ 
+    this.ViewData["Title"] = "Create Course";
+}
+
+<form method="post">
+    <h1>@this.ViewData["Title"]</h1>
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Price</label>
+        <textarea asp-for="Price" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Price"></span>
+    </div>
+    <input class="btn btn-success" type="submit" value="Submit" />
+</form>
