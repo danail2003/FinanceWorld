@@ -37,7 +37,7 @@
 
             await this.coursesService.CreatAsync(dto);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction("All", "Courses", new { area = string.Empty });
         }
     }
 }

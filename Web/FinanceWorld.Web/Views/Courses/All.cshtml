@@ -5,13 +5,15 @@
 
 @foreach (var course in Model)
 {
-    <div class="jumbotron">
-        <h1 class="display-4">@course.Name</h1>
+    <div class="jumbotron mt-5">
+        <h1 class="display-4 text-center">@course.Name</h1>
         <p class="lead">@course.Description</p>
         <hr class="my-4">
-        <p>@course.Price</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <div class="text-center">
+            <p class="font-weight-bold">Price for course is: @course.Price $</p>
+        </div>
+        <p class="lead text-center">
+            <a class="btn btn-primary btn-lg" asp-action="ById" asp-route-id="@course.Id" role="button">View course</a>
         </p>
     </div>
 }
