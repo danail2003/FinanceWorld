@@ -1,18 +1,23 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
+    using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Courses;
     using FinanceWorld.Web.ViewModels.Courses;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class CoursesController : Controller
     {
         private readonly ICoursesService coursesService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CoursesController(ICoursesService coursesService)
+        public CoursesController(ICoursesService coursesService, UserManager<ApplicationUser> userManager)
         {
             this.coursesService = coursesService;
+            this.userManager = userManager;
         }
 
         public IActionResult All()
@@ -27,6 +32,15 @@
             CoursesViewModel course = this.coursesService.GetById<CoursesViewModel>(id);
 
             return this.View(course);
+        }
+
+        public async Task<IActionResult> Enroll(int id)
+        {
+            ApplicationUser user = await this.userManager.GetUserAsync(this.User);
+
+            await this.coursesService.Enroll(user, id);
+
+            return this.RedirectToAction("CoursesById", "Courses");
         }
     }
 }

@@ -56,5 +56,12 @@
 
             return this.RedirectToAction("All", "Courses", new { area = string.Empty });
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.coursesService.DeleteAsync(id);
+
+            return this.RedirectToAction("All", "Courses", new { area = string.Empty });
+        }
     }
 }

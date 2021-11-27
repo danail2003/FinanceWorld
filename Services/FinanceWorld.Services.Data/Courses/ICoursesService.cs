@@ -17,5 +17,7 @@
         Task<Course> UpdateAsync(int id, EditCoursesDto dto);
 
         Task DeleteAsync(int id);
+
+        Task Enroll(ApplicationUser user, int id);
     }
 }

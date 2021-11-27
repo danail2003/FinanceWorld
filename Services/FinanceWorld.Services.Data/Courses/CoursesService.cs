@@ -40,6 +40,15 @@
             await this.coursesRepository.SaveChangesAsync();
         }
 
+        public async Task Enroll(ApplicationUser user, int id)
+        {
+            Course course = this.coursesRepository.All().FirstOrDefault(x => x.Id == id);
+            course.Users.Add(user);
+            user.Courses.Add(course);
+
+            await this.coursesRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             return this.coursesRepository.AllAsNoTracking().To<T>().ToList();

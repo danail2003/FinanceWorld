@@ -7,13 +7,40 @@
 }
 
 <div>
-    <h1>@Model.Name</h1>
+    <h1 class="text-center">@Model.Name</h1>
     <p>@Model.Description</p>
-    <p>@Model.Price</p>
-    <button>Enroll Now!</button>
-    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName)) 
-    { 
-        <a class="btn btn-warning" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-        <button class="btn btn-danger" asp-area="Administration" asp-action="Delete" asp-route-id="@Model.Id">Delete</button>
+    <p class="font-weight-bold">Price for course: @Model.Price $</p>
+    @if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+        <a class="btn btn-primary mb-5" asp-action="Enroll" asp-route-id="@Model.Id">Enroll Now!</a>
     }
+    else
+    {
+        <div class="d-flex">
+            <a class="btn btn-warning mr-5" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <form method="post" id="deleteForm" asp-area="Administration" asp-action="Delete" asp-route-id="@Model.Id">
+            </form>
+            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete entry ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" onclick="deleteForm.submit()">Yes</button>
+            </div>
+        </div>
+    </div>
 </div>
