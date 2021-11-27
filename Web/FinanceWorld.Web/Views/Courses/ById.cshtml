@@ -1,6 +1,19 @@
 ﻿@model CoursesViewModel
-@{ 
+
+@using FinanceWorld.Common
+
+@{
     this.ViewData["Title"] = Model.Name;
 }
 
-<h1>@Model.Name</h1>
+<div>
+    <h1>@Model.Name</h1>
+    <p>@Model.Description</p>
+    <p>@Model.Price</p>
+    <button>Enroll Now!</button>
+    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName)) 
+    { 
+        <a class="btn btn-warning" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <button class="btn btn-danger" asp-area="Administration" asp-action="Delete" asp-route-id="@Model.Id">Delete</button>
+    }
+</div>

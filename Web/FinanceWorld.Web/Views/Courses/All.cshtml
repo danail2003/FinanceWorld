@@ -1,19 +1,21 @@
 ﻿@model IEnumerable<CoursesViewModel>
+
 @{
     this.ViewData["Title"] = "All courses";
 }
 
-@foreach (var course in Model)
-{
-    <div class="jumbotron mt-5">
-        <h1 class="display-4 text-center">@course.Name</h1>
-        <p class="lead">@course.Description</p>
-        <hr class="my-4">
-        <div class="text-center">
-            <p class="font-weight-bold">Price for course is: @course.Price $</p>
+<div class="row">
+    @foreach (var course in Model)
+    {
+        <div class="col-sm-6 mb-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@course.Name</h5>
+                    <p class="card-text text-truncate">@course.Description</p>
+                    <p class="card-text">The price is: @course.Price $</p>
+                    <a asp-action="ById" asp-route-id="@course.Id" class="btn btn-primary">View course</a>
+                </div>
+            </div>
         </div>
-        <p class="lead text-center">
-            <a class="btn btn-primary btn-lg" asp-action="ById" asp-route-id="@course.Id" role="button">View course</a>
-        </p>
-    </div>
-}
+    }
+</div>

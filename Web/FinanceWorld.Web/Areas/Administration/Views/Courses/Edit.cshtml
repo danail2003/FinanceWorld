@@ -1,11 +1,11 @@
-﻿@model FinanceWorld.Web.ViewModels.Courses.CreateCourseInputModel
+﻿@model FinanceWorld.Web.ViewModels.Courses.CoursesViewModel
 
 @{ 
-    this.ViewData["Title"] = "Create Course";
+    this.ViewData["Title"] = "Edit course";
 }
 
 <form method="post">
-    <h1>@this.ViewData["Title"]</h1>
+    <h1 class="text-center mb-3">@this.ViewData["Title"]</h1>
     <div class="form-group">
         <label asp-for="Name">Name</label>
         <input asp-for="Name" class="form-control" />

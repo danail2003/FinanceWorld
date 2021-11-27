@@ -35,7 +35,7 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="News" asp-action="NewsByCategory" asp-route-name="Trading">Trading</a></li>
                             </ul>
                         </li>
-                        @if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="Administration" asp-controller="News" asp-action="Create">Add News</a>

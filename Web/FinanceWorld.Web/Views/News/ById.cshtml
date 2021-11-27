@@ -11,7 +11,7 @@
     <img src="@Model.ImageUrl" class="img-fluid" />
     <p class="mt-5">@Model.Content</p>
 </div>
-@if (User.IsInRole(GlobalConstants.AdministratorRoleName))
+@if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
 {
     <div class="row d-flex justify-content-center">
         <a class="btn btn-warning mr-5 ml-5" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
