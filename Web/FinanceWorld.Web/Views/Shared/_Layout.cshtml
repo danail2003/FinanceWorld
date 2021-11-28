@@ -56,9 +56,12 @@
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="" asp-controller="Analyzes" asp-action="AnalyzesById">My Analyzes</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-area="" asp-controller="Courses" asp-action="CoursesById">My Courses</a>
-                            </li>
+                            @if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link active" asp-area="" asp-controller="Courses" asp-action="CoursesById">My Courses</a>
+                                </li>
+                            }
                         }
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Dictionaries" asp-action="List">Dictionary</a>
