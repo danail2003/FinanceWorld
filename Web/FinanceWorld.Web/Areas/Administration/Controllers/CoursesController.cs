@@ -25,7 +25,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCourseDto dto)
+        public async Task<IActionResult> Create(CourseDto dto)
         {
             if (!this.ModelState.IsValid)
             {
@@ -45,7 +45,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditCoursesDto editDto)
+        public async Task<IActionResult> Edit(int id, CourseDto editDto)
         {
             if (!this.ModelState.IsValid)
             {

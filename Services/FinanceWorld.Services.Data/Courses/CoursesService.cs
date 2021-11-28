@@ -16,7 +16,7 @@
         public CoursesService(IDeletableEntityRepository<Course> coursesRepository)
             => this.coursesRepository = coursesRepository;
 
-        public async Task<int> CreatAsync(CreateCourseDto dto)
+        public async Task<int> CreatAsync(CourseDto dto)
         {
             Course course = new()
             {
@@ -59,7 +59,7 @@
             return this.coursesRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
         }
 
-        public async Task<Course> UpdateAsync(int id, EditCoursesDto dto)
+        public async Task<Course> UpdateAsync(int id, CourseDto dto)
         {
             Course course = this.coursesRepository.All().FirstOrDefault(x => x.Id == id);
 

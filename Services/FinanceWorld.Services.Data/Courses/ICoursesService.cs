@@ -8,13 +8,13 @@
 
     public interface ICoursesService
     {
-        Task<int> CreatAsync(CreateCourseDto dto);
+        Task<int> CreatAsync(CourseDto dto);
 
         IEnumerable<T> GetAll<T>();
 
         T GetById<T>(int id);
 
-        Task<Course> UpdateAsync(int id, EditCoursesDto dto);
+        Task<Course> UpdateAsync(int id, CourseDto dto);
 
         Task DeleteAsync(int id);
 

@@ -1,6 +1,6 @@
-﻿namespace FinanceWorld.Web.ViewModels.Courses
+﻿namespace FinanceWorld.Services.Data.Models
 {
-    public class EditCourseViewModel
+    public class CourseDto
     {
         public string Name { get; set; }
 
