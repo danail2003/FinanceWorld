@@ -1,6 +1,6 @@
 ﻿@model FinanceWorld.Web.ViewModels.Courses.CoursesViewModel
 
-@{ 
+@{
     this.ViewData["Title"] = "Create Course";
 }
 
@@ -21,5 +21,19 @@
         <textarea asp-for="Price" class="form-control"></textarea>
         <span class="text-danger" asp-validation-for="Price"></span>
     </div>
+    <div id="lessons" class="mb-3">
+        <label class="mr-3" asp-for="Lessons">Lessons</label>
+        <a class="btn btn-primary mb-3" onclick="AddMore()">Add</a>
+    </div>
     <input class="btn btn-success" type="submit" value="Submit" />
 </form>
+
+@section Scripts {
+    <script>
+        var index = 0;
+        function AddMore() {
+            $("#lessons").append("<div class=\"mb-3\">Name: <input type='text' name='Lessons[" + index + "].Name' />");
+            index++;
+        }
+    </script>
+}

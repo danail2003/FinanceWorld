@@ -25,6 +25,16 @@
                 Price = dto.Price,
             };
 
+            foreach (var lesson in dto.Lessons)
+            {
+                Lesson newLesson = new()
+                {
+                    Name = lesson.Name,
+                };
+
+                course.Lessons.Add(newLesson);
+            }
+
             await this.coursesRepository.AddAsync(course);
             await this.coursesRepository.SaveChangesAsync();
 

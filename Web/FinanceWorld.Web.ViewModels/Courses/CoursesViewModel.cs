@@ -1,5 +1,6 @@
 ﻿namespace FinanceWorld.Web.ViewModels.Courses
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using FinanceWorld.Data.Models;
@@ -20,5 +21,7 @@
 
         [Range(1, 5000)]
         public double Price { get; set; }
+
+        public ICollection<LessonsInputModel> Lessons { get; set; }
     }
 }
