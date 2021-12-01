@@ -7,28 +7,37 @@
 }
 
 <div>
-    <h1 class="text-center">@Model.Name</h1>
+    <h1 class="text-center mt-3 mb-3">@Model.Name</h1>
     <h2 class="font-weight-bold">What will I learn?</h2>
     <ul>
-        @foreach (var paragraph in Model.Description.Split('.').SkipLast(1).ToList())
+        @foreach (var paragraph in Model.Description.Split('.').SkipLast(1))
         {
             <li class="font-weight-bolder" style="list-style: circle">@paragraph</li>
         }
     </ul>
-    <p class="font-weight-bold">Price for course: @Model.Price $</p>
-    @if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-    {
-        <a class="btn btn-primary mb-5" asp-action="Enroll" asp-route-id="@Model.Id">Enroll Now!</a>
-    }
-    else
-    {
-        <div class="d-flex">
-            <a class="btn btn-warning mr-5" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-            <form method="post" id="deleteForm" asp-area="Administration" asp-action="Delete" asp-route-id="@Model.Id">
-            </form>
-            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
-        </div>
-    }
+    <h2 class="font-weight-bold">Curriculum</h2>
+    <ul>
+        @foreach (var lesson in Model.Description.Split(','))
+        {
+            <li class="font-weight-bolder" style="list-style: circle">@lesson</li>
+        }
+    </ul>
+    <div class="d-flex flex-column align-items-center">
+        <p class="font-weight-bold">Price for course: @Model.Price $</p>
+        @if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <a class="btn btn-primary mb-5" asp-action="Enroll" asp-route-id="@Model.Id">Enroll Now!</a>
+        }
+        else
+        {
+            <div class="d-flex">
+                <a class="btn btn-warning mr-5" asp-area="Administration" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <form method="post" id="deleteForm" asp-area="Administration" asp-action="Delete" asp-route-id="@Model.Id">
+                </form>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            </div>
+        }
+    </div>
 </div>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

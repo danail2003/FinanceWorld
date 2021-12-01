@@ -30,6 +30,7 @@
                 Lesson newLesson = new()
                 {
                     Name = lesson.Name,
+                    Description = lesson.Description,
                 };
 
                 course.Lessons.Add(newLesson);

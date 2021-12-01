@@ -6,5 +6,7 @@
     public class LessonsInputModel : IMapFrom<Lesson>
     {
         public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }
