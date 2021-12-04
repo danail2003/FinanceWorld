@@ -64,7 +64,7 @@
         {
             if (id < 1)
             {
-                throw new InvalidOperationException("The pages starts from one!");
+                return this.BadRequest();
             }
 
             var viewModel = new AllAnalyzesViewModel
@@ -93,7 +93,7 @@
         {
             if (id < 1)
             {
-                throw new InvalidOperationException("The pages starts from one!");
+                return this.BadRequest();
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
@@ -116,7 +116,7 @@
 
             if (!this.analyzesService.IsAnalyzeAndUserMatch(id, user.Id))
             {
-                throw new InvalidOperationException("This analyze doesn't belong to that user!");
+                return this.Unauthorized();
             }
 
             var viewModel = this.analyzesService.GetById<AnalyzesByIdViewModel>(id);
@@ -137,7 +137,7 @@
 
             if (!this.analyzesService.IsAnalyzeAndUserMatch(id, user.Id))
             {
-                throw new InvalidOperationException("This analyze doesn't belong to that user!");
+                return this.Unauthorized();
             }
 
             await this.analyzesService.UpdateAsync(id, model);
@@ -158,7 +158,7 @@
         {
             if (id < 1)
             {
-                throw new InvalidOperationException("The pages starts from one!");
+                return this.BadRequest();
             }
 
             var viewModel = new AllAnalyzesViewModel

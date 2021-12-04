@@ -31,7 +31,6 @@
             this.newsService = newsService;
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             var createNewsDto = new CreateEditNewsInputModel
@@ -43,7 +42,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Create(CreateNewsDto dto)
         {
             if (!this.ModelState.IsValid)
@@ -60,7 +58,6 @@
             return this.Redirect("/");
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             await this.newsService.DeleteAsync(id);
@@ -70,7 +67,6 @@
             return this.Redirect("/News/All");
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Edit(int id)
         {
             var viewModel = this.newsService.GetById<CreateEditNewsInputModel>(id);
@@ -82,7 +78,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Edit(int id, CreateEditNewsInputModel model)
         {
             if (!this.ModelState.IsValid)

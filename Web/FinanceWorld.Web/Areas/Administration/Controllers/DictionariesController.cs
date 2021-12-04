@@ -26,14 +26,12 @@
             this.dictionariesService = dictionariesService;
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Create(CreateDictionaryDto dto)
         {
             if (!this.ModelState.IsValid)

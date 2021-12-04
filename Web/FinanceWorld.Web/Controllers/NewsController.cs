@@ -21,7 +21,7 @@
         {
             if (id < 1)
             {
-                throw new InvalidOperationException("The pages starts from one!");
+                return this.BadRequest();
             }
 
             var viewModel = new AllNewsViewModel

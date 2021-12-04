@@ -1,5 +1,5 @@
 ﻿@model FinanceWorld.Web.ViewModels.News.CreateEditNewsInputModel
-@{ 
+@{
     this.ViewData["Title"] = "Create News";
     var items = Model.Categories.Select(x => new SelectListItem(x.Value, x.Key));
 }
