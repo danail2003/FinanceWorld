@@ -1,6 +1,5 @@
 ﻿namespace FinanceWorld.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using FinanceWorld.Common;
@@ -46,7 +45,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                throw new InvalidOperationException("Data is not correct!");
+                return this.View();
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
@@ -80,9 +79,14 @@
         [HttpPost]
         public async Task<IActionResult> Edit(int id, CreateEditNewsInputModel model)
         {
+            var viewModel = this.newsService.GetById<CreateEditNewsInputModel>(id);
+            var categories = this.categoriesService.GetCategories();
+
+            viewModel.Categories = categories;
+
             if (!this.ModelState.IsValid)
             {
-                throw new InvalidOperationException("Data is not correct!");
+                return this.View(viewModel);
             }
 
             await this.newsService.UpdateAsync(id, model);

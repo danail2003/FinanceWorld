@@ -61,14 +61,13 @@
         }
 
         public IEnumerable<T> GetAll<T>()
-        {
-            return this.coursesRepository.AllAsNoTracking().To<T>().ToList();
-        }
+            => this.coursesRepository.AllAsNoTracking().To<T>().ToList();
 
         public T GetById<T>(int id)
-        {
-            return this.coursesRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
-        }
+            => this.coursesRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
+
+        public IEnumerable<T> GetMyCourses<T>(string userId)
+            => this.coursesRepository.AllAsNoTracking().Where(x => x.Users.Any(u => u.Id == userId)).To<T>().ToList();
 
         public async Task<Course> UpdateAsync(int id, CourseDto dto)
         {

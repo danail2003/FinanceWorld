@@ -33,13 +33,12 @@
         }
 
         public IEnumerable<T> GetAll<T>()
-        {
-            return this.dictionaryRepository.AllAsNoTracking().OrderBy(x => x.Name).To<T>().ToList();
-        }
+            => this.dictionaryRepository.AllAsNoTracking().OrderBy(x => x.Name).To<T>().ToList();
 
         public T GetById<T>(string id)
-        {
-            return this.dictionaryRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
-        }
+            => this.dictionaryRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
+
+        public bool IsTermExist(string id)
+            => this.dictionaryRepository.All().Any(x => x.Id == id);
     }
 }

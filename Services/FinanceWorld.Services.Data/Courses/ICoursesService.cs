@@ -12,6 +12,8 @@
 
         IEnumerable<T> GetAll<T>();
 
+        IEnumerable<T> GetMyCourses<T>(string userId);
+
         T GetById<T>(int id);
 
         Task<Course> UpdateAsync(int id, CourseDto dto);

@@ -1,7 +1,5 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
-    using System;
-
     using FinanceWorld.Services.Data.Dictionaries;
     using FinanceWorld.Web.ViewModels.Dictionaries;
     using Microsoft.AspNetCore.Mvc;
@@ -11,9 +9,7 @@
         private readonly IDictionariesService dictionariesService;
 
         public DictionariesController(IDictionariesService dictionariesService)
-        {
-            this.dictionariesService = dictionariesService;
-        }
+            => this.dictionariesService = dictionariesService;
 
         public IActionResult List()
         {
@@ -27,16 +23,12 @@
 
         public IActionResult ById(string id)
         {
-            TermByIdViewModel viewModel;
+            if (!this.dictionariesService.IsTermExist(id))
+            {
+                return this.BadRequest();
+            }
 
-            try
-            {
-                viewModel = this.dictionariesService.GetById<TermByIdViewModel>(id);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException(ex.Message);
-            }
+            TermByIdViewModel viewModel = this.dictionariesService.GetById<TermByIdViewModel>(id);
 
             return this.View(viewModel);
         }

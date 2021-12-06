@@ -12,5 +12,7 @@
         IEnumerable<T> GetAll<T>();
 
         T GetById<T>(string id);
+
+        bool IsTermExist(string id);
     }
 }

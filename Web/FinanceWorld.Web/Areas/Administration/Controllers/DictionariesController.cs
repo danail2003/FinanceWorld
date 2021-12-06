@@ -1,6 +1,5 @@
 ﻿namespace FinanceWorld.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using FinanceWorld.Common;
@@ -27,16 +26,14 @@
         }
 
         public IActionResult Create()
-        {
-            return this.View();
-        }
+            => this.View();
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateDictionaryDto dto)
         {
             if (!this.ModelState.IsValid)
             {
-                throw new InvalidOperationException("Data is not correct!");
+                return this.View();
             }
 
             var user = await this.userManager.GetUserAsync(this.User);

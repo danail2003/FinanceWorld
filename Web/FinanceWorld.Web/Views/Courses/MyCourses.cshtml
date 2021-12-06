@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MyCoursesViewModel>
+
+@{ 
+    this.ViewData["Title"] = "My Courses";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+<div>
+    @foreach (var course in Model)
+    {
+        <h2>@course.Name</h2>
+        <p>@course.Grade</p>
+    }
+</div>

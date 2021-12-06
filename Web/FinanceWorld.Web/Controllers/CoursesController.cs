@@ -27,6 +27,15 @@
             return this.View(allCourses);
         }
 
+        public async Task<IActionResult> MyCourses()
+        {
+            ApplicationUser user = await this.userManager.GetUserAsync(this.User);
+
+            IEnumerable<MyCoursesViewModel> viewModel = this.coursesService.GetMyCourses<MyCoursesViewModel>(user.Id);
+
+            return this.View(viewModel);
+        }
+
         public IActionResult ById(int id)
         {
             CoursesViewModel course = this.coursesService.GetById<CoursesViewModel>(id);
@@ -40,7 +49,7 @@
 
             await this.coursesService.Enroll(user, id);
 
-            return this.RedirectToAction("CoursesById", "Courses");
+            return this.RedirectToAction("MyCourses", "Courses");
         }
     }
 }

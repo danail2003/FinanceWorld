@@ -1,7 +1,5 @@
 ﻿namespace FinanceWorld.Web.Controllers
 {
-    using System;
-
     using FinanceWorld.Services.Data.News;
     using FinanceWorld.Web.ViewModels.Categories;
     using FinanceWorld.Web.ViewModels.News;
@@ -13,9 +11,7 @@
         private readonly INewsService newsService;
 
         public NewsController(INewsService newsService)
-        {
-            this.newsService = newsService;
-        }
+            => this.newsService = newsService;
 
         public IActionResult All(int id = 1)
         {
@@ -37,16 +33,12 @@
 
         public IActionResult ById(int id)
         {
-            NewsViewModel viewModel;
+            if (!this.newsService.IsNewsExist(id))
+            {
+                return this.BadRequest();
+            }
 
-            try
-            {
-                viewModel = this.newsService.GetById<NewsViewModel>(id);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException(ex.Message);
-            }
+            NewsViewModel viewModel = this.newsService.GetById<NewsViewModel>(id);
 
             return this.View(viewModel);
         }

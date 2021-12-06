@@ -72,6 +72,9 @@
             return this.newsRepository.AllAsNoTracking().Where(x => x.Category.Name == name).Count();
         }
 
+        public bool IsNewsExist(int id)
+            => this.newsRepository.All().Any(x => x.Id == id);
+
         public async Task<News> UpdateAsync(int id, CreateEditNewsInputModel model)
         {
             var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);

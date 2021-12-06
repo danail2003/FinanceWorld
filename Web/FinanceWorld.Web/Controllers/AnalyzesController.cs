@@ -31,9 +31,7 @@
 
         [Authorize]
         public IActionResult Create()
-        {
-            return this.View();
-        }
+            => this.View();
 
         [Authorize]
         [HttpPost]
@@ -41,7 +39,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                throw new InvalidOperationException("Data is not correct!");
+                return this.View();
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
@@ -128,9 +126,11 @@
         [Authorize]
         public async Task<IActionResult> Edit(string id, EditAnalysisViewModel model)
         {
+            AnalyzesByIdViewModel viewModel = this.analyzesService.GetById<AnalyzesByIdViewModel>(id);
+
             if (!this.ModelState.IsValid)
             {
-                throw new InvalidOperationException("Data is not correct!");
+                return this.View(viewModel);
             }
 
             var user = await this.userManager.GetUserAsync(this.User);

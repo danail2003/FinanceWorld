@@ -65,34 +65,22 @@
         }
 
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage)
-        {
-            return this.analyzesRepository.AllAsNoTracking().Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
-        }
+            => this.analyzesRepository.AllAsNoTracking().Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
 
         public T GetById<T>(string id)
-        {
-            return this.analyzesRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
-        }
+            => this.analyzesRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
 
         public int GetCount()
-        {
-            return this.analyzesRepository.AllAsNoTracking().Count();
-        }
+            => this.analyzesRepository.AllAsNoTracking().Count();
 
         public IEnumerable<T> GetMyAnalyzes<T>(string userId, int page, int itemsPerPage)
-        {
-            return this.analyzesRepository.All().Where(x => x.AddedByUserId == userId).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
-        }
+            => this.analyzesRepository.All().Where(x => x.AddedByUserId == userId).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
 
         public bool IsAnalyzeAndUserMatch(string id, string userId)
-        {
-            return this.analyzesRepository.AllAsNoTracking().Any(x => x.AddedByUserId == userId && x.Id == id);
-        }
+            => this.analyzesRepository.AllAsNoTracking().Any(x => x.AddedByUserId == userId && x.Id == id);
 
         public IEnumerable<T> SearchedAnalyzes<T>(string title, int page, int itemsPerPage)
-        {
-            return this.analyzesRepository.All().Where(x => x.Title.ToLower().Contains(title)).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
-        }
+            => this.analyzesRepository.All().Where(x => x.Title.ToLower().Contains(title)).Skip((page - 1) * itemsPerPage).Take(itemsPerPage).To<T>().ToList();
 
         public async Task<Analyze> UpdateAsync(string id, EditAnalysisViewModel model)
         {

@@ -24,5 +24,7 @@
         int GetCount();
 
         int GetCountByCategory(string name);
+
+        bool IsNewsExist(int id);
     }
 }

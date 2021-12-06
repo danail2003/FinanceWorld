@@ -1,6 +1,5 @@
 ﻿namespace FinanceWorld.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using FinanceWorld.Common;
@@ -20,16 +19,14 @@
             => this.coursesService = coursesService;
 
         public IActionResult Create()
-        {
-            return this.View();
-        }
+            => this.View();
 
         [HttpPost]
         public async Task<IActionResult> Create(CourseDto dto)
         {
             if (!this.ModelState.IsValid)
             {
-                throw new InvalidOperationException("Data is not correct!");
+                return this.View();
             }
 
             await this.coursesService.CreatAsync(dto);
@@ -47,9 +44,11 @@
         [HttpPost]
         public async Task<IActionResult> Edit(int id, CourseDto editDto)
         {
+            CoursesViewModel course = this.coursesService.GetById<CoursesViewModel>(id);
+
             if (!this.ModelState.IsValid)
             {
-                throw new InvalidOperationException("Data is not correct");
+                return this.View(course);
             }
 
             await this.coursesService.UpdateAsync(id, editDto);
