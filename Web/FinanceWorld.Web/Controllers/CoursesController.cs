@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using FinanceWorld.Common;
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Courses;
     using FinanceWorld.Web.ViewModels.Courses;
@@ -31,6 +32,11 @@
         {
             ApplicationUser user = await this.userManager.GetUserAsync(this.User);
 
+            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.BadRequest();
+            }
+
             IEnumerable<MyCoursesViewModel> viewModel = this.coursesService.GetMyCourses<MyCoursesViewModel>(user.Id);
 
             return this.View(viewModel);
@@ -46,6 +52,11 @@
         public async Task<IActionResult> Enroll(int id)
         {
             ApplicationUser user = await this.userManager.GetUserAsync(this.User);
+
+            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.BadRequest();
+            }
 
             await this.coursesService.Enroll(user, id);
 
