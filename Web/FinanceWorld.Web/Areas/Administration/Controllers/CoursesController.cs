@@ -1,5 +1,6 @@
 ﻿namespace FinanceWorld.Web.Areas.Administration.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using FinanceWorld.Common;
@@ -61,6 +62,13 @@
             await this.coursesService.DeleteAsync(id);
 
             return this.RedirectToAction("All", "Courses", new { area = string.Empty });
+        }
+
+        public IActionResult AllUsersWithCourses()
+        {
+            AllUsersWithCoursesViewModel view = this.coursesService.GetAllUsersWithCourses<AllUsersWithCoursesViewModel>();
+
+            return this.View(view);
         }
     }
 }

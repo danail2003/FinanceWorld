@@ -8,6 +8,7 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Services.Mapping;
+    using FinanceWorld.Web.ViewModels.Courses;
 
     public class CoursesService : ICoursesService
     {
@@ -62,6 +63,9 @@
 
         public IEnumerable<T> GetAll<T>()
             => this.coursesRepository.AllAsNoTracking().To<T>().ToList();
+
+        public T GetAllUsersWithCourses<T>()
+            => this.coursesRepository.All().To<T>().FirstOrDefault();
 
         public T GetById<T>(int id)
             => this.coursesRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();

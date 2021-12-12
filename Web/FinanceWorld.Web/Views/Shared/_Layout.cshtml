@@ -46,9 +46,12 @@
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="Administration" asp-controller="Courses" asp-action="Create">Add Course</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" asp-area="Administration" asp-controller="Courses" asp-action="AllUsersWithCourses">Evaluation</a>
+                            </li>
                         }
 
-                        @if (this.User.Identity.IsAuthenticated)
+                        @if (this.User.Identity.IsAuthenticated && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
                             <li class="nav-item">
                                 <a class="nav-link active" asp-area="" asp-controller="Analyzes" asp-action="Create">Add Analysis</a>

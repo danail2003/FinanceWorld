@@ -29,11 +29,11 @@
             this.environment = environment;
         }
 
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public IActionResult Create()
             => this.View();
 
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.UserRoleName)]
         [HttpPost]
         public async Task<IActionResult> Create(CreateAnalysisInputModel model)
         {
@@ -76,7 +76,7 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> Delete(string id)
         {
             await this.analyzesService.DeleteAsync(id);
@@ -86,7 +86,7 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> AnalyzesById(int id = 1)
         {
             if (id < 1)
@@ -107,7 +107,7 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> Edit(string id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -123,7 +123,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> Edit(string id, EditAnalysisViewModel model)
         {
             AnalyzesByIdViewModel viewModel = this.analyzesService.GetById<AnalyzesByIdViewModel>(id);
