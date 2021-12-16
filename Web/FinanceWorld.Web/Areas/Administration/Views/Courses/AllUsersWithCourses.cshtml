@@ -1,7 +1,21 @@
-﻿@model FinanceWorld.Web.ViewModels.Courses.AllUsersWithCoursesViewModel
+﻿@model AllUsersWithCoursesViewModel
 
 @{ 
     this.ViewData["Title"] = "Evaluation";
 }
 
 <h1>@this.ViewData["Title"]</h1>
+
+<div>
+    @foreach (var user in Model.User)
+    {
+        <div>
+            <span>@user.AddedByUser</span>
+            @foreach (var course in Model.Courses)
+            {
+                <span>@course.Name</span>
+                <span>@course.Grade</span>
+            }
+        </div>
+    }
+</div>

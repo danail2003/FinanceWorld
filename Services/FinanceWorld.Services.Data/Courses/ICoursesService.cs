@@ -5,7 +5,6 @@
 
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
-    using FinanceWorld.Web.ViewModels.Courses;
 
     public interface ICoursesService
     {
@@ -23,6 +22,8 @@
 
         Task Enroll(ApplicationUser user, int id);
 
-        T GetAllUsersWithCourses<T>();
+        List<T> GetAllCoursesWithUsers<T>();
+
+        List<T> GetAllUsersWithCourses<T>();
     }
 }

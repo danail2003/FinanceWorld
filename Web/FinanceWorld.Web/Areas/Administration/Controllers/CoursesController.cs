@@ -66,7 +66,11 @@
 
         public IActionResult AllUsersWithCourses()
         {
-            AllUsersWithCoursesViewModel view = this.coursesService.GetAllUsersWithCourses<AllUsersWithCoursesViewModel>();
+            AllUsersWithCoursesViewModel view = new()
+            {
+                User = this.coursesService.GetAllUsersWithCourses<UsersWithCoursesViewModel>(),
+                Courses = this.coursesService.GetAllCoursesWithUsers<MyCoursesViewModel>(),
+            };
 
             return this.View(view);
         }

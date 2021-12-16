@@ -8,14 +8,17 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Services.Mapping;
-    using FinanceWorld.Web.ViewModels.Courses;
 
     public class CoursesService : ICoursesService
     {
         private readonly IDeletableEntityRepository<Course> coursesRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public CoursesService(IDeletableEntityRepository<Course> coursesRepository)
-            => this.coursesRepository = coursesRepository;
+        public CoursesService(IDeletableEntityRepository<Course> coursesRepository, IDeletableEntityRepository<ApplicationUser> usersRepository)
+        {
+            this.coursesRepository = coursesRepository;
+            this.usersRepository = usersRepository;
+        }
 
         public async Task<int> CreatAsync(CourseDto dto)
         {
@@ -64,8 +67,11 @@
         public IEnumerable<T> GetAll<T>()
             => this.coursesRepository.AllAsNoTracking().To<T>().ToList();
 
-        public T GetAllUsersWithCourses<T>()
-            => this.coursesRepository.All().To<T>().FirstOrDefault();
+        public List<T> GetAllCoursesWithUsers<T>()
+            => this.coursesRepository.All().Where(x => x.Users.Count > 0).To<T>().ToList();
+
+        public List<T> GetAllUsersWithCourses<T>()
+            => this.usersRepository.All().Where(x => x.Courses.Count > 0).To<T>().ToList();
 
         public T GetById<T>(int id)
             => this.coursesRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();

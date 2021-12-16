@@ -7,8 +7,8 @@
 
     public class AllUsersWithCoursesViewModel : IMapFrom<Course>
     {
-        public IEnumerable<ApplicationUser> Users { get; set; }
+        public List<UsersWithCoursesViewModel> User { get; set; }
 
-        public IEnumerable<Course> Courses { get; set; }
+        public List<MyCoursesViewModel> Courses { get; set; }
     }
 }
