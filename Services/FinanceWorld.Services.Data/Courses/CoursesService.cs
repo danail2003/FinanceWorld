@@ -67,7 +67,7 @@
         public IEnumerable<T> GetAll<T>()
             => this.coursesRepository.AllAsNoTracking().To<T>().ToList();
 
-        public List<T> GetAllCoursesWithUsers<T>()
+        public List<T> GetAllCoursesWithUsers<T>(string userId)
             => this.coursesRepository.All().Where(x => x.Users.Count > 0).To<T>().ToList();
 
         public List<T> GetAllUsersWithCourses<T>()

@@ -4,10 +4,12 @@
     using System.Threading.Tasks;
 
     using FinanceWorld.Common;
+    using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Courses;
     using FinanceWorld.Services.Data.Models;
     using FinanceWorld.Web.ViewModels.Courses;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
@@ -15,9 +17,15 @@
     public class CoursesController : Controller
     {
         private readonly ICoursesService coursesService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CoursesController(ICoursesService coursesService)
-            => this.coursesService = coursesService;
+        public CoursesController(
+            ICoursesService coursesService,
+            UserManager<ApplicationUser> userManager)
+        {
+            this.coursesService = coursesService;
+            this.userManager = userManager;
+        }
 
         public IActionResult Create()
             => this.View();
@@ -64,12 +72,14 @@
             return this.RedirectToAction("All", "Courses", new { area = string.Empty });
         }
 
-        public IActionResult AllUsersWithCourses()
+        public async Task<IActionResult> AllUsersWithCourses()
         {
+            ApplicationUser user = await this.userManager.GetUserAsync(this.User);
+
             AllUsersWithCoursesViewModel view = new()
             {
                 User = this.coursesService.GetAllUsersWithCourses<UsersWithCoursesViewModel>(),
-                Courses = this.coursesService.GetAllCoursesWithUsers<MyCoursesViewModel>(),
+                Courses = this.coursesService.GetAllCoursesWithUsers<MyCoursesViewModel>(user.Id),
             };
 
             return this.View(view);

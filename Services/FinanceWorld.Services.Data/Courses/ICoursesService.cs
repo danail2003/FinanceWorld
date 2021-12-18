@@ -22,7 +22,7 @@
 
         Task Enroll(ApplicationUser user, int id);
 
-        List<T> GetAllCoursesWithUsers<T>();
+        List<T> GetAllCoursesWithUsers<T>(string userId);
 
         List<T> GetAllUsersWithCourses<T>();
     }
