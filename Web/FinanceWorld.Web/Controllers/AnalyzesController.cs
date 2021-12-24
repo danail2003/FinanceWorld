@@ -7,7 +7,6 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Data.Analyzes;
     using FinanceWorld.Web.ViewModels.Analyzes;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -29,11 +28,9 @@
             this.environment = environment;
         }
 
-        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public IActionResult Create()
             => this.View();
 
-        [Authorize(Roles = GlobalConstants.UserRoleName)]
         [HttpPost]
         public async Task<IActionResult> Create(CreateAnalysisInputModel model)
         {
@@ -76,7 +73,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> Delete(string id)
         {
             await this.analyzesService.DeleteAsync(id);
@@ -86,7 +82,6 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
-        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> AnalyzesById(int id = 1)
         {
             if (id < 1)
@@ -107,7 +102,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> Edit(string id)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -123,7 +117,6 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public async Task<IActionResult> Edit(string id, EditAnalysisViewModel model)
         {
             AnalyzesByIdViewModel viewModel = this.analyzesService.GetById<AnalyzesByIdViewModel>(id);
