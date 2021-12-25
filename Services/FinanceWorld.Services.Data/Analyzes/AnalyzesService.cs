@@ -34,7 +34,7 @@
 
             if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
             {
-                throw new InvalidOperationException("File format is not allowed");
+                throw new InvalidOperationException("File format is not allowed!");
             }
 
             var image = new Image

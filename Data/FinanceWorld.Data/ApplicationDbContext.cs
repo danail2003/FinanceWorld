@@ -38,6 +38,8 @@
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<UserCourse> UserCourses { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -84,6 +86,8 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder.Entity<UserCourse>().HasKey(x => new { x.AddedByUserId, x.CourseId });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

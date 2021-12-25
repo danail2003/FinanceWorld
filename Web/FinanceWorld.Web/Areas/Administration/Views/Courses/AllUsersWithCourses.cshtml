@@ -1,4 +1,4 @@
-﻿@model AllUsersWithCoursesViewModel
+﻿@model UsersWithCoursesViewModel
 
 @{
     this.ViewData["Title"] = "Evaluation";
@@ -18,30 +18,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model.User)
+       @foreach (var course in Model.Courses)
         {
             <tr>
                 <th style="border-bottom: 1px solid #dee2e6;" scope="row">@counter</th>
-                <td>@user.AddedByUser</td>
-                @foreach (var course in Model.Courses)
-                {
-                    @if (coursesCounter == 0)
-                    {
-                        <td style="border-bottom: 1px solid #dee2e6;">@course.Name</td>
-                        <td style="border-bottom: 1px solid #dee2e6;">@course.Grade</td>
-                    }
-                    else
-                    {
-                        <tr>
-                            <th style="border-bottom: 1px solid #dee2e6;" scope="row"></th>
-                            <td style="border-bottom: 1px solid #dee2e6;"></td>
-                            <td style="border-bottom: 1px solid #dee2e6;">@course.Name</td>
-                            <td style="border-bottom: 1px solid #dee2e6;">@course.Grade</td>
-                        </tr>
-                    }
-
-                    coursesCounter++;
-                }
+                <td>@course.AddedByUser</td>
+                
             </tr>
             counter++;
         }

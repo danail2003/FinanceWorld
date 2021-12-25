@@ -4,14 +4,16 @@ using FinanceWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinanceWorld.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211225085121_TableNameIsUpdated")]
+    partial class TableNameIsUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -465,25 +467,6 @@ namespace FinanceWorld.Data.Migrations
                     b.ToTable("News");
                 });
 
-            modelBuilder.Entity("FinanceWorld.Data.Models.UserCourse", b =>
-                {
-                    b.Property<string>("AddedByUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Grade")
-                        .HasMaxLength(6)
-                        .HasColumnType("float");
-
-                    b.HasKey("AddedByUserId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("UserCourses");
-                });
-
             modelBuilder.Entity("FinanceWorld.Data.Models.Vote", b =>
                 {
                     b.Property<int>("Id")
@@ -724,25 +707,6 @@ namespace FinanceWorld.Data.Migrations
                     b.Navigation("AddedByUser");
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("FinanceWorld.Data.Models.UserCourse", b =>
-                {
-                    b.HasOne("FinanceWorld.Data.Models.ApplicationUser", "AddedByUser")
-                        .WithMany()
-                        .HasForeignKey("AddedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FinanceWorld.Data.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("AddedByUser");
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("FinanceWorld.Data.Models.Vote", b =>

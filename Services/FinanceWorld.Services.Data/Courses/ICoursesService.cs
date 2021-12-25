@@ -22,8 +22,8 @@
 
         Task Enroll(ApplicationUser user, int id);
 
-        List<T> GetAllCoursesWithUsers<T>(string userId);
+        List<T> GetAllCoursesWithUsers<T>(IEnumerable<int> courses);
 
-        List<T> GetAllUsersWithCourses<T>();
+        IEnumerable<int> GetAllIds();
     }
 }

@@ -16,9 +16,7 @@
 
         public double Price { get; set; }
 
-        public double Grade { get; set; }
-
-        public ICollection<ApplicationUser> Users { get; set; } = new HashSet<ApplicationUser>();
+        public ICollection<UserCourse> UserCourses { get; set; } = new HashSet<UserCourse>();
 
         public ICollection<Lesson> Lessons { get; set; } = new HashSet<Lesson>();
     }

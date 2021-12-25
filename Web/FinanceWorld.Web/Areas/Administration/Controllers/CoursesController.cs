@@ -72,14 +72,13 @@
             return this.RedirectToAction("All", "Courses", new { area = string.Empty });
         }
 
-        public async Task<IActionResult> AllUsersWithCourses()
+        public IActionResult AllUsersWithCourses()
         {
-            ApplicationUser user = await this.userManager.GetUserAsync(this.User);
+            IEnumerable<int> coursesIds = this.coursesService.GetAllIds();
 
-            AllUsersWithCoursesViewModel view = new()
+            UsersWithCoursesViewModel view = new()
             {
-                User = this.coursesService.GetAllUsersWithCourses<UsersWithCoursesViewModel>(),
-                Courses = this.coursesService.GetAllCoursesWithUsers<MyCoursesViewModel>(user.Id),
+                Courses = this.coursesService.GetAllCoursesWithUsers<MyCoursesViewModel>(coursesIds),
             };
 
             return this.View(view);

@@ -41,6 +41,6 @@ namespace FinanceWorld.Data.Models
 
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
-        public ICollection<Course> Courses { get; set; } = new HashSet<Course>();
+        public ICollection<UserCourse> UserCourses { get; set; } = new HashSet<UserCourse>();
     }
 }

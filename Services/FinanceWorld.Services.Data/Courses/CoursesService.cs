@@ -12,13 +12,9 @@
     public class CoursesService : ICoursesService
     {
         private readonly IDeletableEntityRepository<Course> coursesRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public CoursesService(IDeletableEntityRepository<Course> coursesRepository, IDeletableEntityRepository<ApplicationUser> usersRepository)
-        {
-            this.coursesRepository = coursesRepository;
-            this.usersRepository = usersRepository;
-        }
+        public CoursesService(IDeletableEntityRepository<Course> coursesRepository)
+            => this.coursesRepository = coursesRepository;
 
         public async Task<int> CreatAsync(CourseDto dto)
         {
@@ -58,8 +54,11 @@
         public async Task Enroll(ApplicationUser user, int id)
         {
             Course course = this.coursesRepository.All().FirstOrDefault(x => x.Id == id);
-            course.Users.Add(user);
-            user.Courses.Add(course);
+            course.UserCourses.Add(new UserCourse
+            {
+                AddedByUser = user,
+                Course = course,
+            });
 
             await this.coursesRepository.SaveChangesAsync();
         }
@@ -67,17 +66,26 @@
         public IEnumerable<T> GetAll<T>()
             => this.coursesRepository.AllAsNoTracking().To<T>().ToList();
 
-        public List<T> GetAllCoursesWithUsers<T>(string userId)
-            => this.coursesRepository.All().Where(x => x.Users.Count > 0).To<T>().ToList();
+        public List<T> GetAllCoursesWithUsers<T>(IEnumerable<int> courses)
+        {
+            var query = this.coursesRepository.All();
 
-        public List<T> GetAllUsersWithCourses<T>()
-            => this.usersRepository.All().Where(x => x.Courses.Count > 0).To<T>().ToList();
+            foreach (var courseId in courses)
+            {
+                query = query.Where(x => x.UserCourses.Any(id => id.CourseId == courseId));
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public IEnumerable<int> GetAllIds()
+            => this.coursesRepository.All().Select(x => x.Id).ToList();
 
         public T GetById<T>(int id)
             => this.coursesRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().FirstOrDefault();
 
         public IEnumerable<T> GetMyCourses<T>(string userId)
-            => this.coursesRepository.AllAsNoTracking().Where(x => x.Users.Any(u => u.Id == userId)).To<T>().ToList();
+            => this.coursesRepository.AllAsNoTracking().Where(x => x.UserCourses.Any(u => u.AddedByUser.Id == userId)).To<T>().ToList();
 
         public async Task<Course> UpdateAsync(int id, CourseDto dto)
         {
