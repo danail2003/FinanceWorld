@@ -3,7 +3,6 @@
 @{
     this.ViewData["Title"] = "Evaluation";
     int counter = 1;
-    int coursesCounter = 0;
 }
 
 <h1 class="text-center mt-3 mb-3">@this.ViewData["Title"]</h1>
@@ -18,14 +17,24 @@
         </tr>
     </thead>
     <tbody>
-       @foreach (var course in Model.Courses)
+        @foreach (var course in Model.Courses)
         {
             <tr>
-                <th style="border-bottom: 1px solid #dee2e6;" scope="row">@counter</th>
+                <th>@counter</th>
                 <td>@course.AddedByUser</td>
-                
+                <td>@course.Name</td>
+                <td class="d-flex justify-content-between">
+                    @course.Grade
+                    <button class="btn btn-warning">Change</button>
+                </td>
             </tr>
             counter++;
         }
     </tbody>
 </table>
+
+@section Scripts { 
+    <script>
+
+    </script>
+}

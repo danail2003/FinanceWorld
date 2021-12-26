@@ -12,9 +12,13 @@
     public class CoursesService : ICoursesService
     {
         private readonly IDeletableEntityRepository<Course> coursesRepository;
+        private readonly IRepository<UserCourse> usersCoursesRepository;
 
-        public CoursesService(IDeletableEntityRepository<Course> coursesRepository)
-            => this.coursesRepository = coursesRepository;
+        public CoursesService(IDeletableEntityRepository<Course> coursesRepository, IRepository<UserCourse> usersCoursesRepository)
+        {
+            this.coursesRepository = coursesRepository;
+            this.usersCoursesRepository = usersCoursesRepository;
+        }
 
         public async Task<int> CreatAsync(CourseDto dto)
         {
@@ -66,19 +70,14 @@
         public IEnumerable<T> GetAll<T>()
             => this.coursesRepository.AllAsNoTracking().To<T>().ToList();
 
-        public List<T> GetAllCoursesWithUsers<T>(IEnumerable<int> courses)
+        public List<T> GetAllCoursesWithUsers<T>(IEnumerable<int> courses, IEnumerable<string> users)
         {
-            var query = this.coursesRepository.All();
+            var query = this.usersCoursesRepository.All().Where(x => courses.Contains(x.CourseId) && users.Contains(x.AddedByUserId)).To<T>().ToList();
 
-            foreach (var courseId in courses)
-            {
-                query = query.Where(x => x.UserCourses.Any(id => id.CourseId == courseId));
-            }
-
-            return query.To<T>().ToList();
+            return query;
         }
 
-        public IEnumerable<int> GetAllIds()
+        public IEnumerable<int> GetCoursesIds()
             => this.coursesRepository.All().Select(x => x.Id).ToList();
 
         public T GetById<T>(int id)
@@ -86,6 +85,9 @@
 
         public IEnumerable<T> GetMyCourses<T>(string userId)
             => this.coursesRepository.AllAsNoTracking().Where(x => x.UserCourses.Any(u => u.AddedByUser.Id == userId)).To<T>().ToList();
+
+        public IEnumerable<string> GetUsersIds()
+            => this.usersCoursesRepository.All().Select(x => x.AddedByUserId).ToList();
 
         public async Task<Course> UpdateAsync(int id, CourseDto dto)
         {
