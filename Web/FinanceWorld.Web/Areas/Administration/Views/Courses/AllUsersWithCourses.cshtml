@@ -25,7 +25,7 @@
                 <td>@course.CourseName</td>
                 <td class="d-flex justify-content-between" id="evaluation">
                     @course.Grade
-                    <a class="btn btn-warning" onclick="addInput()">Change</a>
+                    <a class="btn btn-warning" onclick="addInput(@course.CourseId, '@course.AddedByUserId')">Change</a>
                 </td>
             </tr>
             counter++;
@@ -35,12 +35,12 @@
 
 @section Scripts { 
     <script>
-        function addInput() {
-            $("#evaluation").remove(".a").text(null).prepend("<labe>Evaluate</label><input id='evaluation_input' type='number' /><a class='btn btn-warning' asp-route-userId='@@course.CourseId' onclick='evaluates()'>Save</a>")
+        function addInput(courseId, addedByUserId) {
+            $("#evaluation").remove(".a").text(null).prepend('<label for="evaluation_input">Evaluate</label><input id="evaluation_input" type="number" /><a class="btn btn-warning" onclick="evaluates(\'' + courseId + '\', \'' + addedByUserId + '\')">Save</a>');
         }
 
-        function evaluates() {
-            $("#evaluation_input").val()
+        function evaluates(courseId, userId) {
+            const evaluation = $("#evaluation_input").val();
         }
     </script>
 }

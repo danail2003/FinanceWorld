@@ -6,6 +6,8 @@
 
     public class MyCoursesViewModel : IMapFrom<UserCourse>, IMapFrom<Course>, IHaveCustomMappings
     {
+        public string AddedByUserId { get; set; }
+
         public int CourseId { get; set; }
 
         public string AddedByUser { get; set; }
