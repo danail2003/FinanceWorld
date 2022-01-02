@@ -3,6 +3,7 @@
 @{
     this.ViewData["Title"] = "Evaluation";
     int counter = 1;
+    int evaluationIndex = 0;
 }
 
 <h1 class="text-center mt-3 mb-3">@this.ViewData["Title"]</h1>
@@ -19,28 +20,44 @@
     <tbody>
         @foreach (var course in Model.Courses)
         {
+            evaluationIndex++;
             <tr>
                 <th>@counter</th>
                 <td>@course.AddedByUser</td>
                 <td>@course.CourseName</td>
-                <td class="d-flex justify-content-between" id="evaluation">
+                <td class="d-flex justify-content-between" id="@evaluationIndex">
                     @course.Grade
-                    <a class="btn btn-warning" onclick="addInput(@course.CourseId, '@course.AddedByUserId')">Change</a>
+                    <a class="btn btn-warning" onclick="addInput(@course.CourseId, '@course.AddedByUserId', @evaluationIndex)">Change</a>
                 </td>
             </tr>
             counter++;
         }
     </tbody>
 </table>
+<form id="antiForgery" method="post"></form>
 
 @section Scripts { 
     <script>
-        function addInput(courseId, addedByUserId) {
-            $("#evaluation").remove(".a").text(null).prepend('<label for="evaluation_input">Evaluate</label><input id="evaluation_input" type="number" /><a class="btn btn-warning" onclick="evaluates(\'' + courseId + '\', \'' + addedByUserId + '\')">Save</a>');
+        function addInput(courseId, addedByUserId, evaluationIndex) {
+            $("#" + evaluationIndex).remove(".a").text(null).append('<label for="evaluation_input">Evaluate</label><input id="evaluation_input" type="number" min="2" max="6" /><a class="btn btn-warning" onclick="evaluates(\'' + courseId + '\', \'' + addedByUserId + '\')">Save</a>');
         }
 
         function evaluates(courseId, userId) {
             const evaluation = $("#evaluation_input").val();
+            const antiForegeryToken = $('#antiForgery input[name=__RequestVerificationToken]').val();
+            const json = { courseId, userId, evaluation };
+
+            $.ajax({
+                url: "/api/Evaluations",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': antiForegeryToken },
+                success: function (data) {
+                    $("evaluation").html(data.evaluation);
+                }
+            });
         }
     </script>
 }

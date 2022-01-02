@@ -97,8 +97,8 @@
         }
 
         function sendVote(analyzeId, isUpVote) {
-            var antiForegeryToken = $('#antiForgery input[name=__RequestVerificationToken]').val();
-            var json = { analyzeId, isUpVote };
+            const antiForegeryToken = $('#antiForgery input[name=__RequestVerificationToken]').val();
+            const json = { analyzeId, isUpVote };
             $.ajax({
                 url: "/api/Votes",
                 type: "POST",

@@ -2,8 +2,10 @@
 {
     using System.Threading.Tasks;
 
+    using FinanceWorld.Common;
     using FinanceWorld.Services.Data.Evaluation;
     using FinanceWorld.Web.ViewModels.Evaluation;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
@@ -15,6 +17,8 @@
         public EvaluationsController(IEvaluationService evaluationService)
             => this.evaluationService = evaluationService;
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpPost]
         public async Task<ActionResult<EvaluationViewModel>> Evaluate(EvaluationInputModel model)
         {
             if (model.Evaluation < 2 || model.Evaluation > 6)

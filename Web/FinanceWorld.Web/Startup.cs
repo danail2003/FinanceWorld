@@ -13,6 +13,7 @@
     using FinanceWorld.Services.Data.Comments;
     using FinanceWorld.Services.Data.Courses;
     using FinanceWorld.Services.Data.Dictionaries;
+    using FinanceWorld.Services.Data.Evaluation;
     using FinanceWorld.Services.Data.Home;
     using FinanceWorld.Services.Data.News;
     using FinanceWorld.Services.Data.Votes;
@@ -95,6 +96,7 @@
             services.AddTransient<IVotesService, VotesService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<ICoursesService, CoursesService>();
+            services.AddTransient<IEvaluationService, EvaluationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
