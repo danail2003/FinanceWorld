@@ -8,6 +8,7 @@
 
 <h1 class="text-center mt-3 mb-3">@this.ViewData["Title"]</h1>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <table class="table">
     <thead>
         <tr>
@@ -25,39 +26,58 @@
                 <th>@counter</th>
                 <td>@course.AddedByUser</td>
                 <td>@course.CourseName</td>
-                <td class="d-flex justify-content-between" id="@evaluationIndex">
+                <td class="d-flex justify-content-between evaluation">
                     @course.Grade
-                    <a class="btn btn-warning" onclick="addInput(@course.CourseId, '@course.AddedByUserId', @evaluationIndex)">Change</a>
+                    <a class="btn btn-warning change" data-courseid="@course.CourseId" data-addedbyuserid="@course.AddedByUserId">Change</a>
                 </td>
             </tr>
             counter++;
         }
     </tbody>
 </table>
+
 <form id="antiForgery" method="post"></form>
+
+<script type="text/template" id="evaluation-template">
+    <label for="evaluation_input">Evaluate</label>
+    <input class="evaluation_input" type="number" min="2" max="6" />
+    <a class="btn btn-warning save" data-courseid="[courseid]" data-addedbyuserid="[addedbyuserid]">Save</a>
+</script>
 
 @section Scripts { 
     <script>
-        function addInput(courseId, addedByUserId, evaluationIndex) {
-            $("#" + evaluationIndex).remove(".a").text(null).append('<label for="evaluation_input">Evaluate</label><input id="evaluation_input" type="number" min="2" max="6" /><a class="btn btn-warning" onclick="evaluates(\'' + courseId + '\', \'' + addedByUserId + '\')">Save</a>');
-        }
+        jQuery($ => {
+            let $template = $('#evaluation-template');
 
-        function evaluates(courseId, userId) {
-            const evaluation = $("#evaluation_input").val();
-            const antiForegeryToken = $('#antiForgery input[name=__RequestVerificationToken]').val();
-            const json = { courseId, userId, evaluation };
-
-            $.ajax({
-                url: "/api/Evaluations",
-                type: "POST",
-                data: JSON.stringify(json),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                headers: { 'X-CSRF-TOKEN': antiForegeryToken },
-                success: function (data) {
-                    $("evaluation").html(data.evaluation);
-                }
+            $('.btn.change').on('click', e => {
+                let $btn = $(e.target);
+                let template = $template.html().replace('[courseid]', $btn.data('courseid')).replace('[addedbyuserid]', $btn.data('addedbyuserid')).trim();
+                $btn.closest('.evaluation').html(template);
             });
-        }
+
+            $(document).on('click', '.btn.save', e => {
+                let $btn = $(e.target);
+
+                let courseId = $btn.data('courseid');
+                let addedByUserId = $btn.data('addedbyuserid');
+                let evaluation = $('.evaluation_input').val();
+                let antiForgeryToken = $('#antiForgery input[name=__RequestVerificationToken]').val();
+
+                let json = { courseId, addedByUserId, evaluation };
+
+                $.ajax({
+                    url: "/api/Evaluations",
+                    type: "POST",
+                    data: JSON.stringify(json),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    headers: { 'X-CSRF-TOKEN': antiForgeryToken },
+                    success: function (data) {
+
+                        $btn.closest('.evaluation').html(data.evaluation);
+                    }
+                });
+            });
+        });
     </script>
 }
