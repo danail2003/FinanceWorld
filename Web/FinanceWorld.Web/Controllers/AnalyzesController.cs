@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
 
     public class AnalyzesController : Controller
     {
@@ -163,6 +164,19 @@
             };
 
             return this.View(viewModel);
+        }
+
+        public IActionResult Download([FromQuery] string imageName)
+        {
+            string filePath = this.environment.WebRootPath + "\\images\\analyzes";
+
+            IFileProvider provider = new PhysicalFileProvider(filePath);
+            IFileInfo fileInfo = provider.GetFileInfo(imageName);
+
+            var readStream = fileInfo.CreateReadStream();
+            var mimeType = "application/octet-stream";
+
+            return this.File(readStream, mimeType, imageName);
         }
     }
 }

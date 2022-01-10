@@ -8,13 +8,19 @@
     using FinanceWorld.Data.Models;
     using FinanceWorld.Services.Mapping;
 
-    public class AnalysisViewModel : IMapFrom<Analyze>, IMapFrom<Comment>, IHaveCustomMappings
+    public class AnalysisViewModel : IMapFrom<Analyze>, IMapFrom<Comment>, IMapFrom<Image>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
         public string Title { get; set; }
 
         public string Description { get; set; }
+
+        public string ImageId { get; set; }
+
+        public string ImageExtension { get; set; }
+
+        public string ImageName => this.ImageId + "." + this.ImageExtension;
 
         public string Image { get; set; }
 
