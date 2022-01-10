@@ -73,7 +73,6 @@
                     dataType: "json",
                     headers: { 'X-CSRF-TOKEN': antiForgeryToken },
                     success: function (data) {
-
                         $btn.closest('.evaluation').html(data.evaluation);
                     }
                 });
